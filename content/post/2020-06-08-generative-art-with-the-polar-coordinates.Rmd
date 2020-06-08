@@ -1,0 +1,60 @@
+---
+title: Generative Art with the Polar Coordinates
+author: Janith Wanniarachchi
+date: '2020-06-08'
+slug: generative-art-with-the-polar-coordinates
+categories:
+  - Statistics
+tags:
+  - R
+comments: no
+cover: ''
+imgs: []
+justify: no
+lastmod: '2020-06-08T08:44:36+05:30'
+license: ''
+readingTime: yes
+single: no
+Summary: "Fun with Polar coordinates"
+---
+
+```{r}
+library(tidyverse)
+set.seed(42)
+theme_set(theme_void())
+
+n_bois <- 100
+a <- tibble(x=runif(n=n_bois,-100,100),
+            y=runif(n=n_bois,-100,100),
+            time=1,
+            tag=seq(1,n_bois))
+
+recess_time <- 1000
+
+radian <- function(degree){
+  (degree / 360) * 2 * pi  
+}
+
+for(i in 1:recess_time){
+  angle_val <- rbinom(1,i,runif(1,0,1))
+  speed_val <-rexp(1,i)
+  angles <- runif(n_bois,-angle_val,angle_val)
+  speed <- runif(n_bois,-speed_val,speed_val)
+  start_index <- length(a$x)-n_bois+1
+  end_index <- length(a$x)
+  b <- tibble(x = a$x[start_index:end_index] + speed * cos(radian(angles)),
+              y = a$y[start_index:end_index] + speed * sin(radian(angles)),
+              time = i,
+              tag=seq(1,n_bois))
+  a <- rbind(a,b)
+}
+
+ggplot(a,aes(x,y))+
+  geom_point(aes(color=time,group=tag),
+                 size=0.5,alpha=0.4,show.legend = FALSE) + 
+  coord_polar() + 
+  scale_color_gradient(low="#83a4d4",high="#b6fbff")
+
+```
+
+

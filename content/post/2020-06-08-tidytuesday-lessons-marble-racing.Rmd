@@ -1,0 +1,212 @@
+---
+title: 'TidyTuesday Lessons: Marble Racing'
+author: Janith Wanniarachchi
+date: '2020-06-08'
+slug: tidytuesday-lessons-marble-racing
+categories:
+  - Statistics
+tags:
+  - R
+  - TidyTuesday
+comments: no
+cover: ''
+imgs: []
+justify: no
+lastmod: '2020-06-08T08:47:59+05:30'
+license: ''
+readingTime: yes
+single: no
+Summary: "Failed attempts and learnt lessons from TidyTuesday on Marble Racing"
+---
+
+```{r}
+tuesdata <- tidytuesdayR::tt_load(2020, week = 23)
+marbles <- tuesdata$marbles
+library(tidyverse)
+library(ggbump)
+library(RColorBrewer)
+library(rjags)
+library(tidystringdist)
+theme_set(theme_minimal())
+
+marbles <- marbles %>% select(-notes,-host,-source)
+
+# Fix missing values ------------------------------------------------------
+
+
+# Players that have played under different teams --------------------------
+
+marbles %>% 
+  group_by(marble_name) %>% 
+  summarize(teams = n_distinct(team_name)) %>% 
+  filter(teams > 1)
+
+# No marbles switched teams
+
+
+# Track Length affects player performance ---------------------------------
+
+marbles %>% 
+  count(marble_name)
+
+# 32 players in totla
+
+marbles %>% 
+  filter(str_detect(marbles$race,"Q",negate=TRUE)) %>% 
+  mutate(track_length_m = factor(track_length_m)) %>% 
+  group_by(track_length_m,marble_name) %>% 
+  mutate(row_id = row_number()) %>% 
+  ungroup()  %>% 
+  ggplot(aes(x=track_length_m,y=time_s))+
+  geom_col(alpha=0.3) +
+  geom_point(size=0.4) + geom_line(aes(group=row_id),alpha=0.8) + 
+  facet_wrap(~ marble_name,nrow=8) +
+  theme_bw()
+
+# track length doesnt affect performance
+
+
+# Building the dream marbel racing team -----------------------------------
+marbles <- marbles %>% 
+  mutate(race_type = str_match(marbles$race,"S1([A-Z])\\d")[,2],
+         race_number = as.numeric(str_match(marbles$race,"S1[A-Z](\\d)")[,2]))
+
+total_points <- marbles %>% 
+  filter(race_type == "R") %>% 
+  group_by(marble_name) %>% 
+  summarize(total_points = sum(points,na.rm = T)) %>% 
+  ungroup() %>% 
+  arrange(desc(total_points)) %>% 
+  mutate(marble_rank = row_number())
+
+getPalette = colorRampPalette(brewer.pal(9, "Set1"))
+
+marbles <- marbles %>% 
+  left_join(total_points)
+  
+data <- marbles %>% 
+  filter(race_type == "R") %>% 
+  group_by(race_number) %>% 
+  arrange(time_s) %>% 
+  mutate(rank = row_number()) %>% 
+  ungroup() %>% 
+  select(rank,race_number,team_name,marble_name,marble_rank)
+
+m_plot<- data %>% 
+  ggplot(aes(x=race_number,y=rank,group=marble_name,color=team_name)) +
+  geom_bump(size = 0.5, alpha = 0.3) +
+  geom_point(size=0.4) + 
+  geom_bump(data=data %>% filter(marble_rank <= 5),alpha=1,size=1.5)+
+  geom_point(data=data %>% filter(marble_rank <= 5),size=1.9) + 
+  geom_bump(data=data %>% filter(marble_rank <= 10 & marble_rank > 5),
+            alpha=0.6,size=1.0) + 
+  geom_point(data=data %>% filter(marble_rank <= 5),size=1.4) +
+  scale_y_reverse() +
+  scale_color_manual(values = getPalette(length(unique(marbles$team_name))))+
+  theme(legend.position="bottom") +
+  guides(color=guide_legend(nrow=2)) + 
+  labs(x = "Race Number", y= "Rank in each race",color="Team Name",
+       title="Marbula One Player Performance",
+       subtitle = "Thicker lines mean higher final rank by points")
+
+m_plot
+ggsave(plot=m_plot,"tidy_tuesday_2020_06_02.png",width=297,height=210,units="mm")
+
+
+
+# Adding aditional site statistics ----------------------------------------
+
+site_data <- tibble(
+  site = unique(marbles$site),
+  turns = c(13,11,13,10,23,8,15,15),
+  splits = c(1,2,2,0,1,1,1,0),
+  site_avg_lap_time = c(33.58,36.55,26.94,31.29,41.12,24.11,33.95,30.31)
+)
+
+site_data
+marbles <- marbles %>% left_join(site_data)
+marbles <- marbles %>% 
+  mutate(time_per_turn = time_s / turns) %>% 
+  mutate(diff_avg_site_lap_time =  site_avg_lap_time - avg_time_lap)
+
+
+glimpse(marbles)
+
+# getPalette = colorRampPalette(brewer.pal(9, "Blues"))
+anot_data <- marbles %>% 
+  filter(race_type == "R") %>% 
+  filter(marble_rank <= 5 & race_number >= 7)
+
+m_plot_2 <- marbles %>% 
+  filter(race_type == "R") %>% 
+  ggplot(aes(x=race_number,y=time_per_turn,group=marble_name,color=marble_name)) +
+  #geom_point() + geom_line() 
+  geom_bump(size=0.1,alpha = 0.2) + 
+  geom_bump(data=marbles %>% 
+              filter(race_type == "R") %>% 
+              filter(marble_rank <= 5),alpha = 0.8,size=1) + 
+  annotate("label",
+           x=(anot_data$race_number),
+           y=(anot_data$time_per_turn+anot_data$marble_rank),
+           label=paste(anot_data$marble_rank,anot_data$marble_name))+
+  scale_y_reverse() + 
+  theme(legend.position="bottom") +
+  guides(color=guide_legend(nrow=4)) + 
+  labs(x = "Race Number",y="Time taken per turn in track",
+       title="Is time taken per turn in a track an indicator of being in the top five?",subtitle="Distance between labels shows the final points gap",
+       caption="The answer is no, taking more time does help in the end") 
+
+ggsave(plot=m_plot_2,"tidy_tuesday_2020_06_02_2.png",width=297,height=210,units="mm")
+
+# Can we simulate it? -----------------------------------------------------
+
+response <- "time_s"
+
+mimo <- marbles %>% filter(marble_name == "Mimo")
+comb <- tidy_comb_all(names(mimo %>% select_if(is.numeric)))
+pmap(comb, ~ cor.test(mimo[[.x]], mimo[[.y]])) %>% 
+map_df(broom::tidy) %>% cbind(comb, .) %>% filter(p.value < 0.05 & V1 == "time_s")
+
+res <- pmap(comb, ~ lm(mimo[[.x]] ~ mimo[[.y]]))
+get_rsquared <- compose(as_mapper(~ .x$r.squared), summary)
+map(res, get_rsquared) %>% set_names(paste(comb$V1,comb$V2,sep="~"))
+map(res, get_rsquared) %>% 
+  set_names(paste(comb$V1,comb$V2,sep="~")) %>% 
+  keep(~ .x > 0.5)
+# Bayesian Modelling ------------------------------------------------------
+
+
+model_string = "
+model{
+for(i in 1:length(Y)){
+Y[i] ~ dnorm(mu[i],10^(-2))
+mu[i] <- beta0 + beta1 * x1[i] + beta2 * x2[i] + beta3 * x3[i]
+}
+beta0 ~ dnorm(0,1)
+beta1 ~ dnorm(29.7,10^(-2))
+beta2 ~ dnorm(0,10^(-2))
+beta3 ~ dnorm(15.2,10^(-2))
+}
+"
+# just for mimo
+
+Y <- mimo$time_s
+X1 <- mimo$number_laps
+X2 <- mimo$diff_avg_site_lap_time
+X3 <- mimo$time_per_turn
+
+n_iter <- 100000
+burnin <- n_iter / 2
+model <- jags.model(file=textConnection(model_string),
+                    data = list(Y = Y,x1 = X1,x2=X2,x3=X3),
+                    n.chains = 10,
+                    inits = list(.RNG.name = "base::Wichmann-Hill",
+                    .RNG.seed = 42))
+samples <- coda.samples(model = model,
+                        variable.names = c("beta0","beta1","beta2","beta3"),
+                        n.iter=n_iter)
+plot(samples,trace=FALSE,density=TRUE)
+summary(window(samples, start = burnin))
+```
+
+
