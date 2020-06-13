@@ -11,8 +11,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 # Enable Disqus
 #disqusShortname = "XXX"
 
-# Google Analytics
-#googleAnalytics = "UA-123-45"
+Google Analytics
+googleAnalytics = "UA-169329216-1"
 
 [markup.highlight]
     codeFences = true

@@ -1,0 +1,174 @@
+---
+title: 'TidyTueday lessons : Volleyball Matches'
+author: Janith Wanniarachchi
+date: '2020-05-19'
+slug: tidytueday-lessons-volleyball-matches
+categories:
+  - Statistics
+tags:
+  - R
+  - TidyTuesday
+comments: no
+cover: ''
+imgs: []
+justify: no
+lastmod: '2020-06-13T21:02:58+05:30'
+license: ''
+readingTime: yes
+single: no
+---
+```{r}
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+```{r}
+vb_matches <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-19/vb_matches.csv', guess_max = 76000)
+
+library(tidyverse)
+library(RColorBrewer)
+theme_set(theme_minimal())
+```
+
+
+```{r}
+# select only international matches
+int_df <- vb_matches %>% 
+  filter(circuit == "FIVB")
+
+sum_na <- compose(sum,is.na)
+is_not_na <- negate(is.na)
+complete_rate_mapper <- as_mapper(~ 100 - (sum_na(.x)/length(.x) * 100 ))
+```
+
+
+```{r}
+#select only the columns that have a complete rate of over 95%
+int_df <- int_df[,names(keep(map(int_df,complete_rate_mapper),
+                             ~ .x > 95))]
+skimr::skim(int_df)
+```
+
+
+```{r}
+#merge player countries
+int_df <- int_df %>%
+  mutate(w_country = if_else(
+    w_p1_country == w_p2_country,w_p1_country,"Mixed"),
+    l_country = if_else(
+      l_p1_country == l_p2_country,l_p1_country,"Mixed")
+    ) %>%
+  select(-l_p1_country,-l_p2_country,-w_p1_country,-w_p2_country)
+```
+
+
+```{r}
+# recode gender variables
+int_df <- int_df %>% 
+  mutate(gender = fct_recode(gender,"Men" = "M","Women" = "W"))
+
+# limiting the problem to the top 10 tournaments
+top_ten_tournaments <- int_df %>% select(tournament) %>% count(tournament) %>% arrange(desc(n)) %>% top_n(1) %>% .$tournament
+int_df <- int_df %>% filter(tournament %in% top_ten_tournaments)
+```
+
+
+```{r}
+#for one country and one gender and for one tournament
+m_country <- "United States"
+m_gender <- "Men"
+m_w_df <- int_df %>% 
+  filter(gender == m_gender & 
+           w_country == m_country 
+           ) %>% 
+  count(w_player1,w_player2) %>% mutate(win_loss = "Win")
+m_l_df <- int_df %>% 
+  filter(gender == m_gender & 
+           l_country == m_country 
+           ) %>% 
+  count(l_player1,l_player2) %>% mutate(win_loss = "Loss")
+m_df <- bind_rows(m_w_df %>% 
+                    rename(player_1 = w_player1) %>%
+                    rename(player_2 = w_player2)
+                  ,m_l_df %>% 
+                    rename(player_1 = l_player1) %>%
+                    rename(player_2 = l_player2))
+m_df <- m_df %>% 
+  mutate(player_1 = gsub("([A-Z][a-z])*\\s([A-Z])[a-z]*","\\1 \\2.",m_df$player_1),
+         player_2 = gsub("([A-Z][a-z])*\\s([A-Z])[a-z]*","\\1 \\2.",m_df$player_2)) %>% 
+  group_by(player_1,player_2) %>% 
+  mutate(perc = n / sum(n)) %>% 
+  ungroup()
+
+ggplot(m_df %>% 
+         mutate(pairs = row.names(m_df),
+                win_loss = factor(win_loss,levels=c("Win","Loss"))) %>% 
+         gather(player,name,player_1,player_2),
+       aes(x=player,y=name,group=pairs)) +
+  geom_point(aes(color=win_loss,alpha=perc)) +
+  geom_line(aes(color=win_loss,alpha=perc)) + 
+  labs(x = "Player",y="Name",alpha="Ratio of Win/Loss",color="Win/Loss",title="Player Combinations in United States Men's Team in Gstaad Tournament for all years") +
+  scale_color_brewer(palette="Set1")
+```
+
+
+```{r}
+# different approach
+m_w_df <- int_df %>% 
+  filter(gender == m_gender & 
+           w_country == m_country 
+  ) %>% 
+  count(w_player1,w_player2,name="n_wins") %>% 
+  # group_by(w_player1,w_player2) %>% 
+  # mutate(ratio = n / sum(n)) %>% 
+  # mutate(ratio_wins = ratio) %>% select(-n,-ratio) %>% 
+  # ungroup() %>% 
+  rename(player_1 = w_player1) %>%
+  rename(player_2 = w_player2)
+
+m_l_df <- int_df %>% 
+  filter(gender == m_gender & 
+           l_country == m_country 
+  ) %>% 
+  count(l_player1,l_player2,name = "n_loss") %>% 
+  # group_by(l_player1,l_player2) %>% 
+  # mutate(ratio = n / sum(n)) %>% 
+  # mutate(ratio_loss = ratio) %>% select(-n,-ratio) %>% 
+  # ungroup() %>% 
+  rename(player_1 = l_player1) %>%
+  rename(player_2 = l_player2)
+
+m_df <- m_w_df %>% 
+  full_join(m_l_df) 
+m_df[is.na(m_df$n_wins),"n_wins"] <- 0
+m_df[is.na(m_df$n_loss),"n_loss"] <- 0
+m_df <- m_df %>% 
+  mutate(total = n_wins + n_loss,
+         ratio_wins = n_wins / total,
+         ratio_loss = n_loss / total,
+         ratio_diff = ratio_wins - ratio_loss) %>% 
+  mutate(good_bad = factor(case_when(
+    (ratio_diff > 0) ~ 0.8,
+    (ratio_diff < 0) ~ 0.2,
+    (ratio_diff == 0) ~ 0.5
+  ),levels=c(0.2,0.5,0.8),labels=c("Bad","Neutral","Good"))) %>% 
+  select(-ratio_wins,-ratio_loss,-total,-ratio_diff)
+  
+m_df <- m_df %>% 
+  mutate(player_1 = gsub("([A-Z][a-z])*\\s([A-Z])[a-z]*","\\1 \\2.",m_df$player_1),
+         player_2 = gsub("([A-Z][a-z])*\\s([A-Z])[a-z]*","\\1 \\2.",m_df$player_2))
+
+m_df %>% 
+  mutate(pairs = row.names(m_df)) %>% 
+  gather(player,name,player_1,player_2) %>% 
+ggplot(aes(x=player,y=name,group=pairs)) +
+  geom_point(size=0.9) +
+  geom_line(aes(color=good_bad,alpha=as.numeric(good_bad)),size=1.0) + 
+  labs(x = "Player",y="Name",
+       color="Pair Performance",
+       title="Player Combinations in United States Men's Team in Gstaad Tournament for all years",
+       alpha = "Pair Performance") +
+  scale_color_brewer(palette="Set1") +
+  scale_alpha_continuous(breaks=c(0.2,0.5,0.8))
+```
+
+
