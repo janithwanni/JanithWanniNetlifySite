@@ -35,8 +35,6 @@ marbles <- tuesdata$marbles
 library(tidyverse)
 library(ggbump)
 library(RColorBrewer)
-library(rjags)
-library(tidystringdist)
 theme_set(theme_minimal())
 ```
 

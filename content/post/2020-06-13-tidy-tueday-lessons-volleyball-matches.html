@@ -1,0 +1,619 @@
+---
+title: 'TidyTueday lessons : Volleyball Matches'
+author: Janith Wanniarachchi
+date: '2020-05-19'
+slug: tidytueday-lessons-volleyball-matches
+categories:
+  - Statistics
+tags:
+  - R
+  - TidyTuesday
+comments: no
+cover: ''
+imgs: []
+justify: no
+lastmod: '2020-06-13T21:02:58+05:30'
+license: ''
+readingTime: yes
+single: no
+---
+
+
+
+<pre class="r"><code>knitr::opts_chunk$set(warning = FALSE)</code></pre>
+<pre class="r"><code>vb_matches &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-19/vb_matches.csv&#39;, guess_max = 76000)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   circuit = col_character(),
+##   tournament = col_character(),
+##   country = col_character(),
+##   date = col_date(format = &quot;&quot;),
+##   gender = col_character(),
+##   w_player1 = col_character(),
+##   w_p1_birthdate = col_date(format = &quot;&quot;),
+##   w_p1_country = col_character(),
+##   w_player2 = col_character(),
+##   w_p2_birthdate = col_date(format = &quot;&quot;),
+##   w_p2_country = col_character(),
+##   w_rank = col_character(),
+##   l_player1 = col_character(),
+##   l_p1_birthdate = col_date(format = &quot;&quot;),
+##   l_p1_country = col_character(),
+##   l_player2 = col_character(),
+##   l_p2_birthdate = col_date(format = &quot;&quot;),
+##   l_p2_country = col_character(),
+##   l_rank = col_character(),
+##   score = col_character()
+##   # ... with 3 more columns
+## )</code></pre>
+<pre><code>## See spec(...) for full column specifications.</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.2.1     ✓ purrr   0.3.4
+## ✓ tibble  3.0.1     ✓ dplyr   1.0.0
+## ✓ tidyr   1.0.0     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.4.0</code></pre>
+<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(RColorBrewer)
+theme_set(theme_minimal())</code></pre>
+<pre class="r"><code># select only international matches
+int_df &lt;- vb_matches %&gt;% 
+  filter(circuit == &quot;FIVB&quot;)
+
+sum_na &lt;- compose(sum,is.na)
+is_not_na &lt;- negate(is.na)
+complete_rate_mapper &lt;- as_mapper(~ 100 - (sum_na(.x)/length(.x) * 100 ))</code></pre>
+<pre class="r"><code>#select only the columns that have a complete rate of over 95%
+int_df &lt;- int_df[,names(keep(map(int_df,complete_rate_mapper),
+                             ~ .x &gt; 95))]
+skimr::skim(int_df)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-4">Table 1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">int_df</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">51403</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">30</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">16</td>
+</tr>
+<tr class="odd">
+<td align="left">Date</td>
+<td align="left">5</td>
+</tr>
+<tr class="even">
+<td align="left">difftime</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">8</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">circuit</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">tournament</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="right">22</td>
+<td align="right">0</td>
+<td align="right">139</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">country</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">4</td>
+<td align="right">22</td>
+<td align="right">0</td>
+<td align="right">51</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">gender</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">w_player1</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">6</td>
+<td align="right">29</td>
+<td align="right">0</td>
+<td align="right">1902</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">w_p1_country</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">4</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">83</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">w_player2</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">5</td>
+<td align="right">30</td>
+<td align="right">0</td>
+<td align="right">1968</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">w_p2_country</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">4</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">83</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">w_rank</td>
+<td align="right">102</td>
+<td align="right">1.00</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">659</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">l_player1</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">5</td>
+<td align="right">29</td>
+<td align="right">0</td>
+<td align="right">3116</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">l_p1_country</td>
+<td align="right">3</td>
+<td align="right">1.00</td>
+<td align="right">4</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">107</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">l_player2</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">5</td>
+<td align="right">30</td>
+<td align="right">0</td>
+<td align="right">3164</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">l_p2_country</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">4</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">109</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">l_rank</td>
+<td align="right">1188</td>
+<td align="right">0.98</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">662</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">score</td>
+<td align="right">11</td>
+<td align="right">1.00</td>
+<td align="right">4</td>
+<td align="right">25</td>
+<td align="right">0</td>
+<td align="right">5518</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">bracket</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">6</td>
+<td align="right">21</td>
+<td align="right">0</td>
+<td align="right">34</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: Date</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="left">min</th>
+<th align="left">max</th>
+<th align="left">median</th>
+<th align="right">n_unique</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">date</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="left">2000-09-16</td>
+<td align="left">2019-08-28</td>
+<td align="left">2011-05-17</td>
+<td align="right">497</td>
+</tr>
+<tr class="even">
+<td align="left">w_p1_birthdate</td>
+<td align="right">190</td>
+<td align="right">1.00</td>
+<td align="left">1960-02-23</td>
+<td align="left">2004-07-15</td>
+<td align="left">1983-08-05</td>
+<td align="right">1676</td>
+</tr>
+<tr class="odd">
+<td align="left">w_p2_birthdate</td>
+<td align="right">171</td>
+<td align="right">1.00</td>
+<td align="left">1952-10-11</td>
+<td align="left">2004-06-08</td>
+<td align="left">1982-12-24</td>
+<td align="right">1727</td>
+</tr>
+<tr class="even">
+<td align="left">l_p1_birthdate</td>
+<td align="right">573</td>
+<td align="right">0.99</td>
+<td align="left">1960-02-23</td>
+<td align="left">2004-12-01</td>
+<td align="left">1984-02-28</td>
+<td align="right">2520</td>
+</tr>
+<tr class="odd">
+<td align="left">l_p2_birthdate</td>
+<td align="right">509</td>
+<td align="right">0.99</td>
+<td align="left">1952-10-11</td>
+<td align="left">2004-08-12</td>
+<td align="left">1983-09-13</td>
+<td align="right">2573</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: difftime</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="left">min</th>
+<th align="left">max</th>
+<th align="left">median</th>
+<th align="right">n_unique</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">duration</td>
+<td align="right">795</td>
+<td align="right">0.98</td>
+<td align="left">120 secs</td>
+<td align="left">8040 secs</td>
+<td align="left">2400 secs</td>
+<td align="right">100</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">year</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2010.74</td>
+<td align="right">5.65</td>
+<td align="right">2000.00</td>
+<td align="right">2006.00</td>
+<td align="right">2011.00</td>
+<td align="right">2016.00</td>
+<td align="right">2019.00</td>
+<td align="left">▃▆▆▆▇</td>
+</tr>
+<tr class="even">
+<td align="left">match_num</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">30.14</td>
+<td align="right">21.37</td>
+<td align="right">1.00</td>
+<td align="right">12.00</td>
+<td align="right">26.00</td>
+<td align="right">46.00</td>
+<td align="right">137.00</td>
+<td align="left">▇▅▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">w_p1_age</td>
+<td align="right">190</td>
+<td align="right">1.00</td>
+<td align="right">27.93</td>
+<td align="right">4.84</td>
+<td align="right">13.55</td>
+<td align="right">24.27</td>
+<td align="right">27.53</td>
+<td align="right">31.19</td>
+<td align="right">46.77</td>
+<td align="left">▁▇▇▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">w_p1_hgt</td>
+<td align="right">1747</td>
+<td align="right">0.97</td>
+<td align="right">73.64</td>
+<td align="right">3.63</td>
+<td align="right">63.00</td>
+<td align="right">71.00</td>
+<td align="right">73.00</td>
+<td align="right">76.00</td>
+<td align="right">85.00</td>
+<td align="left">▁▅▇▃▁</td>
+</tr>
+<tr class="odd">
+<td align="left">w_p2_age</td>
+<td align="right">171</td>
+<td align="right">1.00</td>
+<td align="right">28.17</td>
+<td align="right">4.63</td>
+<td align="right">14.51</td>
+<td align="right">24.74</td>
+<td align="right">27.99</td>
+<td align="right">31.20</td>
+<td align="right">50.64</td>
+<td align="left">▁▇▆▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">w_p2_hgt</td>
+<td align="right">1814</td>
+<td align="right">0.96</td>
+<td align="right">73.69</td>
+<td align="right">3.73</td>
+<td align="right">63.00</td>
+<td align="right">71.00</td>
+<td align="right">74.00</td>
+<td align="right">76.00</td>
+<td align="right">85.00</td>
+<td align="left">▁▅▇▃▁</td>
+</tr>
+<tr class="odd">
+<td align="left">l_p1_age</td>
+<td align="right">573</td>
+<td align="right">0.99</td>
+<td align="right">27.47</td>
+<td align="right">4.98</td>
+<td align="right">13.36</td>
+<td align="right">23.77</td>
+<td align="right">27.06</td>
+<td align="right">30.77</td>
+<td align="right">51.61</td>
+<td align="left">▁▇▅▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">l_p2_age</td>
+<td align="right">509</td>
+<td align="right">0.99</td>
+<td align="right">27.58</td>
+<td align="right">4.83</td>
+<td align="right">14.03</td>
+<td align="right">23.98</td>
+<td align="right">27.28</td>
+<td align="right">30.77</td>
+<td align="right">54.06</td>
+<td align="left">▂▇▃▁▁</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>#merge player countries
+int_df &lt;- int_df %&gt;%
+  mutate(w_country = if_else(
+    w_p1_country == w_p2_country,w_p1_country,&quot;Mixed&quot;),
+    l_country = if_else(
+      l_p1_country == l_p2_country,l_p1_country,&quot;Mixed&quot;)
+    ) %&gt;%
+  select(-l_p1_country,-l_p2_country,-w_p1_country,-w_p2_country)</code></pre>
+<pre class="r"><code># recode gender variables
+int_df &lt;- int_df %&gt;% 
+  mutate(gender = fct_recode(gender,&quot;Men&quot; = &quot;M&quot;,&quot;Women&quot; = &quot;W&quot;))
+
+# limiting the problem to the top 10 tournaments
+top_ten_tournaments &lt;- int_df %&gt;% select(tournament) %&gt;% count(tournament) %&gt;% arrange(desc(n)) %&gt;% top_n(1) %&gt;% .$tournament</code></pre>
+<pre><code>## Selecting by n</code></pre>
+<pre class="r"><code>int_df &lt;- int_df %&gt;% filter(tournament %in% top_ten_tournaments)</code></pre>
+<pre class="r"><code>#for one country and one gender and for one tournament
+m_country &lt;- &quot;United States&quot;
+m_gender &lt;- &quot;Men&quot;
+m_w_df &lt;- int_df %&gt;% 
+  filter(gender == m_gender &amp; 
+           w_country == m_country 
+           ) %&gt;% 
+  count(w_player1,w_player2) %&gt;% mutate(win_loss = &quot;Win&quot;)
+m_l_df &lt;- int_df %&gt;% 
+  filter(gender == m_gender &amp; 
+           l_country == m_country 
+           ) %&gt;% 
+  count(l_player1,l_player2) %&gt;% mutate(win_loss = &quot;Loss&quot;)
+m_df &lt;- bind_rows(m_w_df %&gt;% 
+                    rename(player_1 = w_player1) %&gt;%
+                    rename(player_2 = w_player2)
+                  ,m_l_df %&gt;% 
+                    rename(player_1 = l_player1) %&gt;%
+                    rename(player_2 = l_player2))
+m_df &lt;- m_df %&gt;% 
+  mutate(player_1 = gsub(&quot;([A-Z][a-z])*\\s([A-Z])[a-z]*&quot;,&quot;\\1 \\2.&quot;,m_df$player_1),
+         player_2 = gsub(&quot;([A-Z][a-z])*\\s([A-Z])[a-z]*&quot;,&quot;\\1 \\2.&quot;,m_df$player_2)) %&gt;% 
+  group_by(player_1,player_2) %&gt;% 
+  mutate(perc = n / sum(n)) %&gt;% 
+  ungroup()
+
+ggplot(m_df %&gt;% 
+         mutate(pairs = row.names(m_df),
+                win_loss = factor(win_loss,levels=c(&quot;Win&quot;,&quot;Loss&quot;))) %&gt;% 
+         gather(player,name,player_1,player_2),
+       aes(x=player,y=name,group=pairs)) +
+  geom_point(aes(color=win_loss,alpha=perc)) +
+  geom_line(aes(color=win_loss,alpha=perc)) + 
+  labs(x = &quot;Player&quot;,y=&quot;Name&quot;,alpha=&quot;Ratio of Win/Loss&quot;,color=&quot;Win/Loss&quot;,title=&quot;Player Combinations in United States Men&#39;s Team in Gstaad Tournament for all years&quot;) +
+  scale_color_brewer(palette=&quot;Set1&quot;)</code></pre>
+<p><img src="/post/2020-06-13-tidy-tueday-lessons-volleyball-matches_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code># different approach
+m_w_df &lt;- int_df %&gt;% 
+  filter(gender == m_gender &amp; 
+           w_country == m_country 
+  ) %&gt;% 
+  count(w_player1,w_player2,name=&quot;n_wins&quot;) %&gt;% 
+  # group_by(w_player1,w_player2) %&gt;% 
+  # mutate(ratio = n / sum(n)) %&gt;% 
+  # mutate(ratio_wins = ratio) %&gt;% select(-n,-ratio) %&gt;% 
+  # ungroup() %&gt;% 
+  rename(player_1 = w_player1) %&gt;%
+  rename(player_2 = w_player2)
+
+m_l_df &lt;- int_df %&gt;% 
+  filter(gender == m_gender &amp; 
+           l_country == m_country 
+  ) %&gt;% 
+  count(l_player1,l_player2,name = &quot;n_loss&quot;) %&gt;% 
+  # group_by(l_player1,l_player2) %&gt;% 
+  # mutate(ratio = n / sum(n)) %&gt;% 
+  # mutate(ratio_loss = ratio) %&gt;% select(-n,-ratio) %&gt;% 
+  # ungroup() %&gt;% 
+  rename(player_1 = l_player1) %&gt;%
+  rename(player_2 = l_player2)
+
+m_df &lt;- m_w_df %&gt;% 
+  full_join(m_l_df) </code></pre>
+<pre><code>## Joining, by = c(&quot;player_1&quot;, &quot;player_2&quot;)</code></pre>
+<pre class="r"><code>m_df[is.na(m_df$n_wins),&quot;n_wins&quot;] &lt;- 0
+m_df[is.na(m_df$n_loss),&quot;n_loss&quot;] &lt;- 0
+m_df &lt;- m_df %&gt;% 
+  mutate(total = n_wins + n_loss,
+         ratio_wins = n_wins / total,
+         ratio_loss = n_loss / total,
+         ratio_diff = ratio_wins - ratio_loss) %&gt;% 
+  mutate(good_bad = factor(case_when(
+    (ratio_diff &gt; 0) ~ 0.8,
+    (ratio_diff &lt; 0) ~ 0.2,
+    (ratio_diff == 0) ~ 0.5
+  ),levels=c(0.2,0.5,0.8),labels=c(&quot;Bad&quot;,&quot;Neutral&quot;,&quot;Good&quot;))) %&gt;% 
+  select(-ratio_wins,-ratio_loss,-total,-ratio_diff)
+  
+m_df &lt;- m_df %&gt;% 
+  mutate(player_1 = gsub(&quot;([A-Z][a-z])*\\s([A-Z])[a-z]*&quot;,&quot;\\1 \\2.&quot;,m_df$player_1),
+         player_2 = gsub(&quot;([A-Z][a-z])*\\s([A-Z])[a-z]*&quot;,&quot;\\1 \\2.&quot;,m_df$player_2))
+
+m_df %&gt;% 
+  mutate(pairs = row.names(m_df)) %&gt;% 
+  gather(player,name,player_1,player_2) %&gt;% 
+ggplot(aes(x=player,y=name,group=pairs)) +
+  geom_point(size=0.9) +
+  geom_line(aes(color=good_bad,alpha=as.numeric(good_bad)),size=1.0) + 
+  labs(x = &quot;Player&quot;,y=&quot;Name&quot;,
+       color=&quot;Pair Performance&quot;,
+       title=&quot;Player Combinations in United States Men&#39;s Team in Gstaad Tournament for all years&quot;,
+       alpha = &quot;Pair Performance&quot;) +
+  scale_color_brewer(palette=&quot;Set1&quot;) +
+  scale_alpha_continuous(breaks=c(0.2,0.5,0.8))</code></pre>
+<p><img src="/post/2020-06-13-tidy-tueday-lessons-volleyball-matches_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
