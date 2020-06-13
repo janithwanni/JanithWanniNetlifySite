@@ -14,7 +14,6 @@ lastmod: '2020-06-08T08:30:32+05:30'
 license: ''
 readingTime: yes
 single: no
-toc: yes
 Summary: "Love the demon within you"
 ---
 # Love thy demon
