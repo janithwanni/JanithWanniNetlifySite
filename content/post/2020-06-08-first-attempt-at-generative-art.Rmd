@@ -18,6 +18,10 @@ single: no
 Summary: "Generative Art made from the video series: Functional Programming for artists by Danielle Navarro"
 ---
 
+# My first Generative Art
+
+From the [functional programming in R for artists (and scientists) video series](https://www.youtube.com/playlist?list=PLRPB0ZzEYegPHHji3tBw2U4yp-DxMrUkB) by [Danielle Navarro](https://www.youtube.com/channel/UCfNGzUFfsy_3udMY8UyaqBA). More of her amazing work can be found at her [website](https://art.djnavarro.net/)
+
 ```{r}
 library(tidyverse)
 library(RColorBrewer)

@@ -22,3 +22,186 @@ Summary: Failed attempts and learnt lessons from TidyTuesday on Marble Racing
 
 
 <pre class="r"><code>knitr::opts_chunk$set(warning = FALSE)</code></pre>
+<div id="moneyball-in-marble-racing" class="section level1">
+<h1>Moneyball in Marble Racing</h1>
+<p>For this weeks TidyTuesday dataset, the R4DS community has given a dataset on Marble Racing statistics. Specifically one season from Marbula One. Initially I had no idea on the context behind this, and therefore I began exploring a bit by watching the Youtube videos and reading up on the Wiki.
+My usual procedure for these datasets is to gain an understanding of the context by placing myself in the midst of the context and asking questions along the way.</p>
+<p><strong>Removing columns from the original dataset</strong></p>
+<pre class="r"><code>marbles &lt;- marbles %&gt;% select(-notes,-host,-source)</code></pre>
+<div id="do-players-play-for-more-than-one-team" class="section level2">
+<h2>Do players play for more than one team?</h2>
+<pre class="r"><code># Players that have played under different teams --------------------------
+
+marbles %&gt;% 
+  group_by(marble_name) %&gt;% 
+  transmute(teams = n_distinct(team_name)) %&gt;% 
+  filter(teams &gt; 1)</code></pre>
+<pre><code>## # A tibble: 0 x 2
+## # Groups:   marble_name [0]
+## # … with 2 variables: marble_name &lt;chr&gt;, teams &lt;int&gt;</code></pre>
+<pre class="r"><code># No marbles switched teams</code></pre>
+<p>This was fairly a stupid question that I asked myself before reading the Wiki properly. Regardless, since there was only season it’s highly unlikely that team players will be switching between teams.</p>
+</div>
+<div id="does-track-length-affect-the-performance-of-a-marble" class="section level2">
+<h2>Does track length affect the performance of a marble</h2>
+<pre class="r"><code># Track Length affects player performance ---------------------------------
+# 32 players in total
+
+marbles %&gt;% 
+  filter(str_detect(marbles$race,&quot;Q&quot;,negate=TRUE)) %&gt;% 
+  mutate(track_length_m = factor(track_length_m)) %&gt;% 
+  group_by(track_length_m,marble_name) %&gt;% 
+  mutate(row_id = row_number()) %&gt;% 
+  ungroup()  %&gt;% 
+  ggplot(aes(x=track_length_m,y=time_s))+
+  geom_col(alpha=0.3) +
+  geom_point(size=0.4) + geom_line(aes(group=row_id),alpha=0.8) + 
+  facet_wrap(~ marble_name,nrow=8) +
+  theme_bw()</code></pre>
+<p><img src="/post/2020-06-08-tidytuesday-lessons-marble-racing_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code># track length doesnt affect performance</code></pre>
+<p>So from the above it was quite clear that the track length doesnt really affect the performance. This should have been obvious from the way each marble gets lifted back to her higher elevation, thereby restoring the gravitational energy within it.</p>
+</div>
+<div id="the-moneyball-idea" class="section level2">
+<h2>The Moneyball Idea</h2>
+<p>The idea behind the moneyball theory was to use undervalued statistics to win the game. (That is an overly simplified statement. More info can be found here [<a href="http://thesportjournal.org/article/an-examination-of-the-moneyball-theory-a-baseball-statistical-analysis/" class="uri">http://thesportjournal.org/article/an-examination-of-the-moneyball-theory-a-baseball-statistical-analysis/</a>])</p>
+<p>One thing that baffled me with regards to the statistic that was used in moneyball was the way they decided on the statistic. I have seen several tutorials online that talked of using linear regression, but the actual thinking behind coming up with that statistic was still unclear to me.</p>
+<p>In order to find a new statistic I decided to go further from the given data and collect some extra from the videos on the sites or tracks.</p>
+<pre class="r"><code># Adding aditional site statistics ----------------------------------------
+
+site_data &lt;- tibble(
+  site = unique(marbles$site),
+  turns = c(13,11,13,10,23,8,15,15),
+  splits = c(1,2,2,0,1,1,1,0),
+  site_avg_lap_time = c(33.58,36.55,26.94,31.29,41.12,24.11,33.95,30.31)
+)
+
+site_data</code></pre>
+<pre><code>## # A tibble: 8 x 4
+##   site            turns splits site_avg_lap_time
+##   &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;             &lt;dbl&gt;
+## 1 Savage Speedway    13      1              33.6
+## 2 O&#39;raceway          11      2              36.6
+## 3 Momotorway         13      2              26.9
+## 4 Hivedrive          10      0              31.3
+## 5 Greenstone         23      1              41.1
+## 6 Short Circuit       8      1              24.1
+## 7 Razzway            15      1              34.0
+## 8 Midnight Bay       15      0              30.3</code></pre>
+<pre class="r"><code>marbles &lt;- marbles %&gt;% left_join(site_data)</code></pre>
+<pre><code>## Joining, by = &quot;site&quot;</code></pre>
+<pre class="r"><code>marbles &lt;- marbles %&gt;% 
+  mutate(time_per_turn = time_s / turns) %&gt;% 
+  mutate(diff_avg_site_lap_time =  site_avg_lap_time - avg_time_lap)
+
+
+glimpse(marbles)</code></pre>
+<pre><code>## Rows: 256
+## Columns: 16
+## $ date                   &lt;chr&gt; &quot;15-Feb-20&quot;, &quot;15-Feb-20&quot;, &quot;15-Feb-20&quot;, &quot;15-Feb…
+## $ race                   &lt;chr&gt; &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;, &quot;S1Q1&quot;…
+## $ site                   &lt;chr&gt; &quot;Savage Speedway&quot;, &quot;Savage Speedway&quot;, &quot;Savage …
+## $ marble_name            &lt;chr&gt; &quot;Clementin&quot;, &quot;Starry&quot;, &quot;Momo&quot;, &quot;Yellow&quot;, &quot;Snow…
+## $ team_name              &lt;chr&gt; &quot;O&#39;rangers&quot;, &quot;Team Galactic&quot;, &quot;Team Momo&quot;, &quot;Me…
+## $ time_s                 &lt;dbl&gt; 28.11, 28.37, 28.40, 28.70, 28.71, 28.72, 28.9…
+## $ pole                   &lt;chr&gt; &quot;P1&quot;, &quot;P2&quot;, &quot;P3&quot;, &quot;P4&quot;, &quot;P5&quot;, &quot;P6&quot;, &quot;P7&quot;, &quot;P8&quot;…
+## $ points                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ track_length_m         &lt;dbl&gt; 12.81, 12.81, 12.81, 12.81, 12.81, 12.81, 12.8…
+## $ number_laps            &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+## $ avg_time_lap           &lt;dbl&gt; 28.11, 28.37, 28.40, 28.70, 28.71, 28.72, 28.9…
+## $ turns                  &lt;dbl&gt; 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13…
+## $ splits                 &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+## $ site_avg_lap_time      &lt;dbl&gt; 33.58, 33.58, 33.58, 33.58, 33.58, 33.58, 33.5…
+## $ time_per_turn          &lt;dbl&gt; 2.162308, 2.182308, 2.184615, 2.207692, 2.2084…
+## $ diff_avg_site_lap_time &lt;dbl&gt; 5.47, 5.21, 5.18, 4.88, 4.87, 4.86, 4.62, 4.47…</code></pre>
+<pre class="r"><code>marbles &lt;- marbles %&gt;% 
+  mutate(race_type = str_match(marbles$race,&quot;S1([A-Z])\\d&quot;)[,2],
+         race_number = as.numeric(str_match(marbles$race,&quot;S1[A-Z](\\d)&quot;)[,2]))
+
+total_points &lt;- marbles %&gt;% 
+  filter(race_type == &quot;R&quot;) %&gt;% 
+  group_by(marble_name) %&gt;% 
+  summarize(total_points = sum(points,na.rm = T)) %&gt;% 
+  ungroup() %&gt;% 
+  arrange(desc(total_points)) %&gt;% 
+  mutate(marble_rank = row_number())</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre class="r"><code>getPalette = colorRampPalette(brewer.pal(9, &quot;Set1&quot;))
+
+marbles &lt;- marbles %&gt;% 
+  left_join(total_points)</code></pre>
+<pre><code>## Joining, by = &quot;marble_name&quot;</code></pre>
+<pre class="r"><code>data &lt;- marbles %&gt;% 
+  filter(race_type == &quot;R&quot;) %&gt;% 
+  group_by(race_number) %&gt;% 
+  arrange(time_s) %&gt;% 
+  mutate(rank = row_number()) %&gt;% 
+  ungroup() %&gt;% 
+  select(rank,race_number,team_name,marble_name,marble_rank)
+
+m_plot&lt;- data %&gt;% 
+  ggplot(aes(x=race_number,y=rank,group=marble_name,color=marble_name)) +
+  geom_bump(size = 0.5, alpha = 0.3) +
+  geom_point(size=0.4) + 
+  geom_bump(data=data %&gt;% filter(marble_rank &lt;= 5),alpha=1,size=1.5)+
+  geom_point(data=data %&gt;% filter(marble_rank &lt;= 5),size=1.9) + 
+  geom_bump(data=data %&gt;% filter(marble_rank &lt;= 10 &amp; marble_rank &gt; 5),
+            alpha=0.6,size=1.0) + 
+  geom_point(data=data %&gt;% filter(marble_rank &lt;= 5),size=1.4) +
+  scale_y_reverse() +
+  scale_color_manual(values = getPalette(length(unique(marbles$marble_name))))+
+  theme(legend.position=&quot;bottom&quot;) +
+  guides(color=guide_legend(nrow=6)) + 
+  labs(x = &quot;Race Number&quot;, y= &quot;Rank in each race&quot;,color=&quot;Team Name&quot;,
+       title=&quot;Marbula One Player Performance&quot;,
+       subtitle = &quot;Thicker lines mean higher final rank by points&quot;)
+
+m_plot</code></pre>
+<p><img src="/post/2020-06-08-tidytuesday-lessons-marble-racing_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div id="a-simple-bump-plot-to-visualize-the-marble-ranks-with-the-new-statistic" class="section level3">
+<h3>A simple bump plot to visualize the marble ranks with the new statistic</h3>
+<pre class="r"><code># getPalette = colorRampPalette(brewer.pal(9, &quot;Blues&quot;))
+anot_data &lt;- marbles %&gt;% 
+  filter(race_type == &quot;R&quot;) %&gt;% 
+  filter(marble_rank &lt;= 5 &amp; race_number &gt;= 7)
+
+m_plot_2 &lt;- marbles %&gt;% 
+  filter(race_type == &quot;R&quot;) %&gt;% 
+  ggplot(aes(x=race_number,y=time_per_turn,group=marble_name,color=marble_name)) +
+  #geom_point() + geom_line() 
+  geom_bump(size=0.1,alpha = 0.2) + 
+  geom_bump(data=marbles %&gt;% 
+              filter(race_type == &quot;R&quot;) %&gt;% 
+              filter(marble_rank &lt;= 5),alpha = 0.8,size=1) + 
+  annotate(&quot;label&quot;,
+           x=(anot_data$race_number),
+           y=(anot_data$time_per_turn+anot_data$marble_rank),
+           label=paste(anot_data$marble_rank,anot_data$marble_name))+
+  scale_y_reverse() + 
+  theme(legend.position=&quot;bottom&quot;) +
+  guides(color=guide_legend(nrow=4)) + 
+  labs(x = &quot;Race Number&quot;,y=&quot;Time taken per turn in track&quot;,
+       title=&quot;Is time taken per turn in a track an indicator of being in the top five?&quot;,subtitle=&quot;Distance between labels shows the final points gap&quot;,
+       caption=&quot;The answer is no, taking more time does help in the end&quot;) 
+m_plot_2</code></pre>
+<p><img src="/post/2020-06-08-tidytuesday-lessons-marble-racing_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code># ggsave(plot=m_plot_2,&quot;tidy_tuesday_2020_06_02_2.png&quot;,width=297,height=210,units=&quot;mm&quot;)</code></pre>
+</div>
+</div>
+<div id="a-change-of-question" class="section level2">
+<h2>A change of question</h2>
+<p>Now suppose we feel like one of these statistics might be helpful to us. Now we need to formulate a way to decide whether a team selected by that statistic will win or not. For that I thought of modeling a simple bivariate distribution, preferrably that can model the probability that marble X and marble Y can win like this. $P_{X,Y}(X,Y) = {} $</p>
+<p>But the problem now was how do I define winning? Would simply saying first place be enough? Then the probabilities will be tilted towards some marbles. Or would it be better to be broad and say winning can mean being in the top 3 positions. So now with that in mind, we have a discrete bivariate distribution that we want to find the exact or approximate probabilities of.
+Now the problem has become, how do we find the probabilities when we have really limited amount of data. One thought that came to my mind was to simulate a race and then estimate the probabilities of winning by Monte Carlo simulations. Simply put, we would similating many races with different team combinations and from them we try to calculate the relative probability that a team with X and Y has earned enough points to be in the top 3 positions.</p>
+</div>
+<div id="a-computational-block-and-ending-notes" class="section level2">
+<h2>A Computational Block and ending notes</h2>
+<p>Here is where i hit the biggest problem. Let me summarize<br />
+There are 32 marbles.<br />
+A team can have 2 members.<br />
+How many team combinations are possible? <span class="math inline">\(^{32}C_{2} = \frac{32!}{2! * 30!} = 496\)</span></p>
+<p>And then came another problem, my first idea was to find <span class="math inline">\(^{496}C_{16}\)</span> combinations but there would be conflicts as team combinations may have the same player in different teams.</p>
+<p>From there on I thought of not going for the team combinations and instead thought of the player combinations in a race. Which ended up in an even worse dead end unfortunately as <span class="math inline">\(^{32}C_{16} = 601080390\)</span> which meant that I’d have to simulate 601,080,390(six hundred one million eighty thousand three hundred ninety) races. (By simulating my intial thought was to regress the time that a player would take on a race and then sort by the time and award points accordingly. Here also I was lost as to whether the method would be feasible for such a large number of simulations.)</p>
+<p>With that concludes my attempt at the tidy tuesday dataset, I learned a lot from it, but there were more questions unanswered than answered.</p>
+</div>
+</div>

@@ -49,6 +49,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 [[params.nav.custom]]
     title = "Home"
     url = "/"
+    
 [params.nav]
     showCategories = true       # /categories/
     showTags = true             # /tags/
@@ -58,7 +59,3 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 [[params.nav.custom]]
     title = "About"
     url = "/about"
-
-[[params.nav.custom]]
-    title = "Hugo"
-    url = "https://gohugo.io/"

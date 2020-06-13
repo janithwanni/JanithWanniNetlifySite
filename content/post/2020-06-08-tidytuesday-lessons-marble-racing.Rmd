@@ -141,7 +141,7 @@ data <- marbles %>%
   select(rank,race_number,team_name,marble_name,marble_rank)
 
 m_plot<- data %>% 
-  ggplot(aes(x=race_number,y=rank,group=marble_name,color=team_name)) +
+  ggplot(aes(x=race_number,y=rank,group=marble_name,color=marble_name)) +
   geom_bump(size = 0.5, alpha = 0.3) +
   geom_point(size=0.4) + 
   geom_bump(data=data %>% filter(marble_rank <= 5),alpha=1,size=1.5)+
@@ -150,9 +150,9 @@ m_plot<- data %>%
             alpha=0.6,size=1.0) + 
   geom_point(data=data %>% filter(marble_rank <= 5),size=1.4) +
   scale_y_reverse() +
-  scale_color_manual(values = getPalette(length(unique(marbles$team_name))))+
+  scale_color_manual(values = getPalette(length(unique(marbles$marble_name))))+
   theme(legend.position="bottom") +
-  guides(color=guide_legend(nrow=2)) + 
+  guides(color=guide_legend(nrow=6)) + 
   labs(x = "Race Number", y= "Rank in each race",color="Team Name",
        title="Marbula One Player Performance",
        subtitle = "Thicker lines mean higher final rank by points")
@@ -186,67 +186,26 @@ m_plot_2 <- marbles %>%
   labs(x = "Race Number",y="Time taken per turn in track",
        title="Is time taken per turn in a track an indicator of being in the top five?",subtitle="Distance between labels shows the final points gap",
        caption="The answer is no, taking more time does help in the end") 
-
+m_plot_2
 # ggsave(plot=m_plot_2,"tidy_tuesday_2020_06_02_2.png",width=297,height=210,units="mm")
 ```
 
 ## A change of question
 
-Now suppose we feel like one of these statistics might be helpful to us. Now we need to formulate a way to decide whether a team selected by that statistic will win or not. For that I thought of modeling a simple bivariate distribution, preferrably that can model the probability that marble X and marble Y can win like this. $P_{X,Y}(X,Y) = \{\mathrm{Probability\ that\ marble\ X\ and\ marble\ Y\ wins}\} $
+Now suppose we feel like one of these statistics might be helpful to us. Now we need to formulate a way to decide whether a team selected by that statistic will win or not. For that I thought of modeling a simple bivariate distribution, preferrably that can model the probability that marble X and marble Y can win like this. $P_{X,Y}(X,Y) = \{\mathrm{Probability\ that\ a\ team\ with\ marble\ X\ and\ marble\ Y\ wins}\} $
 
 But the problem now was how do I define winning? Would simply saying first place be enough? Then the probabilities will be tilted towards some marbles. Or would it be better to be broad and say winning can mean being in the top 3 positions. So now with that in mind, we have a discrete bivariate distribution that we want to find the exact or approximate probabilities of. 
+Now the problem has become, how do we find the probabilities when we have really limited amount of data. One thought that came to my mind was to simulate a race and then estimate the probabilities of winning by Monte Carlo simulations. Simply put, we would similating many races with different team combinations and from them we try to calculate the relative probability that a team with X and Y has earned enough points to be in the top 3 positions. 
 
-Now the problem has become, how do we find the probabilities when we have really limited amount of data. One thought that came to my mind was to simulate a race and then estimate the probabilities of winning by Monte Carlo simulations. Simply put, we would similating 8 races with different marbles randomly selected. We continue this for several seasons. From them we calculate the number of times the total points of marble X and marble Y have put them in the first 3 places? 
-```{r}
-# Can we simulate it? -----------------------------------------------------
+## A Computational Block and ending notes
 
-response <- "time_s"
+Here is where i hit the biggest problem. Let me summarize  
+There are 32 marbles.   
+A team can have 2 members.   
+How many team combinations are possible? $^{32}C_{2} = \frac{32!}{2! * 30!} = 496$
 
-mimo <- marbles %>% filter(marble_name == "Mimo")
-comb <- tidy_comb_all(names(mimo %>% select_if(is.numeric)))
-# pmap(comb, ~ cor.test(mimo[[.x]], mimo[[.y]])) %>% 
-# map_df(broom::tidy) %>% cbind(comb, .) %>% filter(p.value < 0.05 & V1 == "time_s")
+And then came another problem, my first idea was to find $^{496}C_{16}$ combinations but there would be conflicts as team combinations may have the same player in different teams. 
 
-res <- pmap(comb, ~ lm(mimo[[.x]] ~ mimo[[.y]]))
-get_rsquared <- compose(as_mapper(~ .x$r.squared), summary)
-# map(res, get_rsquared) %>% set_names(paste(comb$V1,comb$V2,sep="~"))
-# map(res, get_rsquared) %>% 
-#   set_names(paste(comb$V1,comb$V2,sep="~")) %>% 
-#   keep(~ .x > 0.5)
-# Bayesian Modelling ------------------------------------------------------
+From there on I thought of not going for the team combinations and instead thought of the player combinations in a race. Which ended up in an even worse dead end unfortunately as $^{32}C_{16} = 601080390$ which meant that I'd have to simulate 601,080,390(six hundred one million eighty thousand three hundred ninety) races. (By simulating my intial thought was to regress the time that a player would take on a race and then sort by the time and award points accordingly. Here also I was lost as to whether the method would be feasible for such a large number of simulations.)
 
-
-model_string = "
-model{
-for(i in 1:length(Y)){
-Y[i] ~ dnorm(mu[i],10^(-2))
-mu[i] <- beta0 + beta1 * x1[i] + beta2 * x2[i] + beta3 * x3[i]
-}
-beta0 ~ dnorm(0,1)
-beta1 ~ dnorm(29.7,10^(-2))
-beta2 ~ dnorm(0,10^(-2))
-beta3 ~ dnorm(15.2,10^(-2))
-}
-"
-# just for mimo
-
-Y <- mimo$time_s
-X1 <- mimo$number_laps
-X2 <- mimo$diff_avg_site_lap_time
-X3 <- mimo$time_per_turn
-
-n_iter <- 100000
-burnin <- n_iter / 2
-# model <- jags.model(file=textConnection(model_string),
-#                     data = list(Y = Y,x1 = X1,x2=X2,x3=X3),
-#                     n.chains = 10,
-#                     inits = list(.RNG.name = "base::Wichmann-Hill",
-#                     .RNG.seed = 42))
-# samples <- coda.samples(model = model,
-#                         variable.names = c("beta0","beta1","beta2","beta3"),
-#                         n.iter=n_iter)
-# plot(samples,trace=FALSE,density=TRUE)
-# summary(window(samples, start = burnin))
-```
-
-
+With that concludes my attempt at the tidy tuesday dataset, I learned a lot from it, but there were more questions unanswered than answered. 
