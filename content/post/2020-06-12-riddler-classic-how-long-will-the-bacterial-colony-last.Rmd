@@ -16,6 +16,7 @@ lastmod: '2020-06-14T02:44:24+05:30'
 license: ''
 readingTime: yes
 single: no
+Summary: Atttempt at solving Riddler problem with simulations
 ---
 
 **Excerpt from [FiveThirtyEight](https://fivethirtyeight.com/features/how-long-will-the-bacterial-colony-last/)**
