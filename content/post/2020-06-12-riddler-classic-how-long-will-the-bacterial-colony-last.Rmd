@@ -1,0 +1,88 @@
+---
+title: 'Riddler Classic : How long will the Bacterial Colony Last'
+author: Janith Wanniarachchi
+date: '2020-06-12'
+slug: riddler-classic-how-long-will-the-bacterial-colony-last
+categories:
+  - Statistics
+tags:
+  - R
+  - Riddler
+comments: no
+cover: ''
+imgs: []
+justify: no
+lastmod: '2020-06-14T02:44:24+05:30'
+license: ''
+readingTime: yes
+single: no
+---
+
+**Excerpt from [FiveThirtyEight](https://fivethirtyeight.com/features/how-long-will-the-bacterial-colony-last/)**
+
+# Riddler Classic
+
+**From Adam Wagner comes a curious case of colonies:**
+
+You are studying a new strain of bacteria, Riddlerium classicum (or R. classicum, as the researchers call it). Each R. classicum bacterium will do one of two things: split into two copies of itself or die. There is an 80 percent chance of the former and a 20 percent chance of the latter.
+
+If you start with a single R. classicum bacterium, what is the probability that it will lead to an everlasting colony (i.e., the colony will theoretically persist for an infinite amount of time)?
+
+Extra credit: Suppose that, instead of 80 percent, each bacterium divides with probability p. Now what’s the probability that a single bacterium will lead to an everlasting colony?
+
+## Question 1
+
+### Defining the problem
+
+Let's take the case of one bacteria. Looking at the states that a bacteria can achieve it is clear that we can define a Bernoulli random variable as $$Let\ X\ =\ \{The\ event\ that\ a\ bacteria\ will\ split\ into\ two\} \sim Bernoulli(0.8)$$. So first we sample from a Bernoulli variable. And if it comes true then we now have two bacteria. 
+
+Now let's consider the case of two bacteria. Now we have two trials. Guess a Bernoulli variable won't cut it now (pun intended). Let's define a new random variable as $$Let\ X\ =\ \{The\ number\ of\ bacteria\ that\ will\ split\ into\ two\ from\ n\ bacteria\}\\ X\ \sim Binomial(n,0.8)\\ where\ n\ is\ the\ number\ of\ bacateria\ at\ a\ point\ in\ time$$
+
+### Dummy Simulation
+
+```{r,echo=FALSE,warning=FALSE,results='hide',message=FALSE}
+knitr::opts_chunk$set(warning = FALSE)
+library(tidyverse)
+theme_set(theme_minimal())
+```
+
+So I thought of doing a simply simulation(Is this a Monte Carlo Simulation? I have no idea.) First I thought of simulating the bacteria growth for ```time_steps``` and then I repeat that again and again for ```evolutions``` times and from there I find the probability. 
+
+To find the probability I had to make an assumption, which was that the bacteria growths with upward trend will keep on going upward. Which is satisfied as the probability of all bacteria dieing is quite low (i.e. for the case of let's say 1000, then $X\ \sim Bin(1000,0.8)$ and $Pr(X = 0) = ^{1000}C_{0}(0.8)^{0}\times(0.2)^{1000} \approx 0$) 
+
+```{r}
+evolutions <- 1000
+time_steps <- 50
+n_bactis <- 1
+
+sim <- map_dfr(1:evolutions,function(x){
+n_bactis <- 1
+  lapply(1:time_steps, function(y){
+    if(n_bactis >= (5*10^8)){
+      X <- n_bactis
+      n_bactis <- 1*10^9
+    }else{
+      X <- rbinom(1,n_bactis,0.8)
+      n_bactis <<- X * 2
+    }
+    list(evol = x,step = y,not_dead = X,tot = n_bactis)
+  }) 
+})
+
+good_evols <- sim %>% filter(step == time_steps & tot > 0) %>% nrow()
+prob <- good_evols / evolutions
+
+sim %>% 
+  ggplot(aes(x=step,y=tot,group=evol))+
+  geom_point(size=0.2) + 
+  geom_line(alpha=0.4) +
+  labs(x = "Time Step", y = "Total Bacteria (capped)",
+       title="Bacteria Simulation",
+       subtitle = "The total is capped at 10^9 to ensure that the simulation doesnt go beyond the integer limit") +
+  annotate("label",x=(time_steps/2),y=10^9,label = paste("Probability of spreading is =",prob))
+
+```
+
+## Question 2
+
+To be filled

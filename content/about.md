@@ -15,6 +15,6 @@ I'm an undergraduate studying Statistics in the University of Sri Jayewardenepur
 * [Hackerrank](https://www.hackerrank.com/janithwanni)
 * [Medium](https://medium.com/@r.t.doram)
 
-And here's my [Resume](https://www.bit.ly/janithwannicvstat) 
+And here's my [Resume](http://www.bit.ly/janithwannicvstat) 
 
 Contact me at ```janithcwanni@gmail.com```
