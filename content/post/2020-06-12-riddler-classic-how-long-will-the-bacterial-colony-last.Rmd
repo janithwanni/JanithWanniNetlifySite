@@ -138,7 +138,8 @@ sim_2 <- sim_2 %>% mutate(prob = as.factor(prob),
 sim_2 %>% 
   ggplot(aes(x=step,y=tot,group=evol_prob,color=prob))+
   geom_point(size=0.2) + 
-  geom_line(alpha=0.4)
+  geom_line(alpha=0.4) + 
+  labs(x = "Time Step", y = "Total Bacteria (capped)", color = "p")
 ```
 
 The relationship between $p$ and the probability of a single bacteria creating a colony can be captured as follows. 

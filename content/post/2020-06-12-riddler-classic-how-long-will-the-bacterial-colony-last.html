@@ -117,7 +117,8 @@ sim_2 &lt;- sim_2 %&gt;% mutate(prob = as.factor(prob),
 sim_2 %&gt;% 
   ggplot(aes(x=step,y=tot,group=evol_prob,color=prob))+
   geom_point(size=0.2) + 
-  geom_line(alpha=0.4)</code></pre>
+  geom_line(alpha=0.4) + 
+  labs(x = &quot;Time Step&quot;, y = &quot;Total Bacteria (capped)&quot;, color = &quot;p&quot;)</code></pre>
 <p><img src="/post/2020-06-12-riddler-classic-how-long-will-the-bacterial-colony-last_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>The relationship between <span class="math inline">\(p\)</span> and the probability of a single bacteria creating a colony can be captured as follows.</p>
 <pre class="r"><code>good_evols &lt;- sim_2 %&gt;% filter(step == time_steps &amp; tot &gt; 0) %&gt;% count(prob)
