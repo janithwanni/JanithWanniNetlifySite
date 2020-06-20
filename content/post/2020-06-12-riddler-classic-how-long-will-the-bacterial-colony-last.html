@@ -33,29 +33,34 @@ Summary: Atttempt at solving Riddler problem with simulations
 <div id="defining-the-problem" class="section level3">
 <h3>Defining the problem</h3>
 <p>Let’s take the case of one bacteria. Looking at the states that a bacteria can achieve it is clear that we can define a Bernoulli random variable as <span class="math display">\[Let\ X\ =\ \{The\ event\ that\ a\ bacteria\ will\ split\ into\ two\} \sim Bernoulli(0.8)\]</span>. So first we sample from a Bernoulli variable. And if it comes true then we now have two bacteria.</p>
-<p>Now let’s consider the case of two bacteria. Now we have two trials. Guess a Bernoulli variable won’t cut it now (pun intended). Let’s define a new random variable as <span class="math display">\[Let\ X\ =\ \{The\ number\ of\ bacteria\ that\ will\ split\ into\ two\ from\ n\ bacteria\}\\ X\ \sim Binomial(n,0.8)\\ where\ n\ is\ the\ number\ of\ bacateria\ at\ a\ point\ in\ time\]</span></p>
+<p>Now let’s consider the case of two bacteria where we have two trials. Guess a Bernoulli variable won’t cut it now (pun intended). Let’s define a new random variable as <span class="math display">\[Let\ X\ =\ \{The\ number\ of\ bacteria\ that\ will\ split\ into\ two\ from\ n\ bacteria\}\\ X\ \sim Binomial(n,0.8)\\ where\ n\ is\ the\ number\ of\ bacateria\ at\ a\ point\ in\ time\]</span></p>
 </div>
 <div id="dummy-simulation" class="section level3">
 <h3>Dummy Simulation</h3>
 <p>So I thought of doing a simply simulation(Is this a Monte Carlo Simulation? I have no idea.) First I thought of simulating the bacteria growth for <code>time_steps</code> and then I repeat that again and again for <code>evolutions</code> times and from there I find the probability.</p>
-<p>To find the probability I had to make an assumption, which was that the bacteria growths with upward trend will keep on going upward. Which is satisfied as the probability of all bacteria dieing is quite low (i.e. for the case of let’s say 1000, then <span class="math inline">\(X\ \sim Bin(1000,0.8)\)</span> and <span class="math inline">\(Pr(X = 0) = ^{1000}C_{0}(0.8)^{0}\times(0.2)^{1000} \approx 0\)</span>)</p>
-<pre class="r"><code>evolutions &lt;- 1000
-time_steps &lt;- 50
+<p>To find the probability I had to make an assumption, which was that the bacteria growths with upward trend will keep on going upward, which is satisfied as the probability of all bacteria dieing is quite low (i.e. for the case of let’s say 1000, then <span class="math inline">\(X\ \sim Bin(1000,0.8)\)</span> and <span class="math inline">\(Pr(X = 0) = ^{1000}C_{0}(0.8)^{0}\times(0.2)^{1000} \approx 0\)</span>)</p>
+<pre class="r"><code>evolutions &lt;- 100
+time_steps &lt;- 100
 n_bactis &lt;- 1
-
-sim &lt;- map_dfr(1:evolutions,function(x){
-n_bactis &lt;- 1
-  lapply(1:time_steps, function(y){
-    if(n_bactis &gt;= (5*10^8)){
-      X &lt;- n_bactis
-      n_bactis &lt;- 1*10^9
-    }else{
-      X &lt;- rbinom(1,n_bactis,0.8)
-      n_bactis &lt;&lt;- X * 2
-    }
-    list(evol = x,step = y,not_dead = X,tot = n_bactis)
-  }) 
-})
+file_name_sim &lt;- paste(here::here(),&quot;/content/post/&quot;,&quot;riddler_2020_06_12_sim.csv&quot;,sep=&quot;&quot;)
+if(exists(file_name_sim)){
+  sim &lt;- read_csv(file_name_sim)
+}else{
+  sim &lt;- map_dfr(1:evolutions,function(x){
+  n_bactis &lt;- 1
+    lapply(1:time_steps, function(y){
+      if(n_bactis &gt;= (5*10^8)){
+        X &lt;- n_bactis
+        n_bactis &lt;- 1*10^9
+      }else{
+        X &lt;- rbinom(1,n_bactis,0.8)
+        n_bactis &lt;&lt;- X * 2
+      }
+      list(evol = x,step = y,not_dead = X,tot = n_bactis)
+    }) 
+  })
+  write_csv(sim,file_name_sim)
+}
 
 good_evols &lt;- sim %&gt;% filter(step == time_steps &amp; tot &gt; 0) %&gt;% nrow()
 prob &lt;- good_evols / evolutions
@@ -66,13 +71,105 @@ sim %&gt;%
   geom_line(alpha=0.4) +
   labs(x = &quot;Time Step&quot;, y = &quot;Total Bacteria (capped)&quot;,
        title=&quot;Bacteria Simulation&quot;,
-       subtitle = &quot;The total is capped at 10^9 to ensure that the simulation doesnt go beyond the integer limit&quot;) +
+       subtitle = &quot;what is the probability that a single bacteria will lead to an everlasting colony?&quot;,
+       caption = &quot;The total is capped at 10^9 to ensure that the simulation doesnt go beyond the integer limit&quot;) +
   annotate(&quot;label&quot;,x=(time_steps/2),y=10^9,label = paste(&quot;Probability of spreading is =&quot;,prob))</code></pre>
 <p><img src="/post/2020-06-12-riddler-classic-how-long-will-the-bacterial-colony-last_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>The answer to the question is that the probability is approximately 0.79 through simulations</p>
+<p>Now let’s try to mathematically derive it.</p>
 </div>
 </div>
 <div id="question-2" class="section level2">
 <h2>Question 2</h2>
-<p>To be filled</p>
+<p>So the second question seems like its just another layer of the earlier simulation to make it adaptable for more probabilities. But in reality what they require is a mathematical proof of the answer.</p>
+<div id="second-dummy-simulation" class="section level3">
+<h3>Second Dummy Simulation</h3>
+<pre class="r"><code>evolutions &lt;- 100
+time_steps &lt;- 100
+n_bactis &lt;- 1
+probs &lt;- seq(0,1,length.out=10)
+
+file_name_sim_2 &lt;- paste(here::here(),&quot;/content/post/&quot;,&quot;riddler_2020_06_12_sim_2.csv&quot;,sep=&quot;&quot;)
+
+if(exists(file_name_sim_2)){
+  sim_2 &lt;- read_csv(file_name_sim_2)
+}else{
+  sim_2 &lt;- map_dfr(probs,function(p){
+    map_dfr(1:evolutions,function(x){
+      n_bactis &lt;- 1
+      lapply(1:time_steps, function(y){
+        if(n_bactis &gt;= (5*10^8)){
+          X &lt;- n_bactis
+          n_bactis &lt;- 1*10^9
+        }else{
+          X &lt;- rbinom(1,n_bactis,p)
+          n_bactis &lt;&lt;- X * 2
+        }
+        list(prob = p,evol = x,step = y,not_dead = X,tot = n_bactis)
+      }) 
+    })
+  })
+  write_csv(sim_2,file_name_sim_2)
+}
+sim_2 &lt;- sim_2 %&gt;% mutate(prob = as.factor(prob),
+                      evol_prob = paste(evol,prob))
+
+sim_2 %&gt;% 
+  ggplot(aes(x=step,y=tot,group=evol_prob,color=prob))+
+  geom_point(size=0.2) + 
+  geom_line(alpha=0.4)</code></pre>
+<p><img src="/post/2020-06-12-riddler-classic-how-long-will-the-bacterial-colony-last_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>The relationship between <span class="math inline">\(p\)</span> and the probability of a single bacteria creating a colony can be captured as follows.</p>
+<pre class="r"><code>sim_2 %&gt;% filter(step == time_steps &amp; tot &gt; 0) %&gt;% count(prob)</code></pre>
+<pre><code>## # A tibble: 5 x 2
+##   prob                  n
+##   &lt;fct&gt;             &lt;int&gt;
+## 1 0.555555555555556    19
+## 2 0.666666666666667    48
+## 3 0.777777777777778    72
+## 4 0.888888888888889    89
+## 5 1                   100</code></pre>
+<pre class="r"><code>good_evols &lt;- sim_2 %&gt;% filter(step == time_steps &amp; tot &gt; 0) %&gt;% count(prob)
+# prob &lt;- good_evols / evolutions
+prob_relation &lt;- good_evols %&gt;% mutate(perc = n / evolutions,
+                      prob = round(as.numeric(levels(good_evols$prob))[good_evols$prob],2))
+prob_relation %&gt;% 
+  ggplot(aes(x = prob,y = perc)) +
+  geom_point() +
+  stat_smooth(method=&quot;lm&quot;)</code></pre>
+<p><img src="/post/2020-06-12-riddler-classic-how-long-will-the-bacterial-colony-last_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>prob_lm &lt;- lm(prob_relation,formula = perc ~ prob)
+summary(prob_lm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = perc ~ prob, data = prob_relation)
+## 
+## Residuals:
+##      1      2      3      4      5 
+## -0.060  0.027  0.064  0.031 -0.062 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)  -0.7835     0.1518  -5.160  0.01412 * 
+## prob          1.8455     0.1909   9.667  0.00235 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.06641 on 3 degrees of freedom
+## Multiple R-squared:  0.9689, Adjusted R-squared:  0.9585 
+## F-statistic: 93.44 on 1 and 3 DF,  p-value: 0.00235</code></pre>
+<p>So the answer I got from this hack is <span class="math inline">\(Probability\ of\ one\ Bacteria\ becoming\ an\ entire\ colony = 1.8455\times{p} -0.7835\)</span></p>
+<p>This is what I could mathematically derive as much as my tiny brain can allow,</p>
+<p>To begin with when <span class="math inline">\(n = 1\)</span> all bacteria must replicate,<br />
+when <span class="math inline">\(n = 2\)</span> still all bacteria must replicate, otherwise if only replicates then we are still at 2 bacteria.<br />
+when <span class="math inline">\(n = 4\)</span>, 3 or more should replicate,<br />
+when <span class="math inline">\(n = 6\)</span>, 4 or more should replicate,<br />
+when <span class="math inline">\(n = 10\)</span>, <span class="math inline">\((\frac{10}{2}) + 1\)</span> or more should replicate,
+when <span class="math inline">\(n = N\)</span>, <span class="math inline">\((\frac{N}{2}) + 1\)</span> or more should replicate</p>
+<p>Therefore the probability that with <span class="math inline">\(p\)</span> probability of replicating, a single bacteria can make an entire colony is given by</p>
+<p><span class="math display">\[ Pr(X_{1} = 1) + \sum_{i=1}^N\sum_{j=(\frac{i}{2}) + 1}^i Pr(X_{i} = j) \]</span></p>
+<p><span class="math display">\[ Pr(X_{1} = 1) + \sum_{i=1}^N\sum_{j=(\frac{i}{2}) + 1}^i {i \choose j}\times p^j \times (1-p)^{i-j}\]</span></p>
+<p>From here on I couldn’t find a simple expression for this so I let it be at this stage.</p>
+</div>
 </div>
 </div>

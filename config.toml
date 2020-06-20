@@ -22,7 +22,7 @@ googleAnalytics = "UA-169329216-1"
     unsafe = true  # enable raw HTML in Markdown
 
 [params]
-    style = "dark"  # default: auto. light: light theme, dark: dark theme, auto: based on system.
+    style = "auto"  # default: auto. light: light theme, dark: dark theme, auto: based on system.
     dateFormat = "Monday, January 2, 2006"  # if unset, default is "2006-01-02"
     logo = ""  # if you have a logo png
     slogan = "Labor Omnia Vincit"
@@ -38,8 +38,8 @@ googleAnalytics = "UA-169329216-1"
 
 [params.syntax]
     use = "hljs"  # builtin: "prismjs", "hljs". "none" means Chroma
-    theme = "xcode"
-    darkTheme = "dracula"  # apply this theme in dark mode
+    theme = "vs"
+    darkTheme = "vs2015"  # apply this theme in dark mode
 
 [params.share]
     enable = false
