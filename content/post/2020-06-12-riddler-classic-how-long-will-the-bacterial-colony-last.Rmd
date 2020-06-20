@@ -19,9 +19,9 @@ single: no
 Summary: Atttempt at solving Riddler problem with simulations
 ---
 
-**Excerpt from [FiveThirtyEight](https://fivethirtyeight.com/features/how-long-will-the-bacterial-colony-last/)**
-
 # Riddler Classic
+
+**Excerpt from [FiveThirtyEight](https://fivethirtyeight.com/features/how-long-will-the-bacterial-colony-last/)**
 
 **From Adam Wagner comes a curious case of colonies:**
 
@@ -54,8 +54,8 @@ So I thought of doing a simply simulation(Is this a Monte Carlo Simulation? I ha
 To find the probability I had to make an assumption, which was that the bacteria growths with upward trend will keep on going upward, which is satisfied as the probability of all bacteria dieing is quite low (i.e. for the case of let's say 1000, then $X\ \sim Bin(1000,0.8)$ and $Pr(X = 0) = ^{1000}C_{0}(0.8)^{0}\times(0.2)^{1000} \approx 0$) 
 
 ```{r}
-evolutions <- 100
-time_steps <- 100
+evolutions <- 60
+time_steps <- 60
 n_bactis <- 1
 file_name_sim <- paste(here::here(),"/content/post/","riddler_2020_06_12_sim.csv",sep="")
 if(exists(file_name_sim)){
@@ -92,7 +92,7 @@ sim %>%
 
 ```
 
-The answer to the question is that the probability is approximately 0.77 through simulations
+The answer to the question is that the probability is approximately `r prob` through simulations
 
 Now let's try to mathematically derive it. 
 
@@ -105,10 +105,10 @@ So the second question seems like its just another layer of the earlier simulati
 ### Second Dummy Simulation
 
 ```{r}
-evolutions <- 100
-time_steps <- 100
+evolutions <- 80
+time_steps <- 80
 n_bactis <- 1
-probs <- seq(0,1,length.out=10)
+probs <- seq(0,1,by=0.1)
 
 file_name_sim_2 <- paste(here::here(),"/content/post/","riddler_2020_06_12_sim_2.csv",sep="")
 
@@ -144,7 +144,6 @@ sim_2 %>%
 The relationship between $p$ and the probability of a single bacteria creating a colony can be captured as follows. 
 
 ```{r}
-sim_2 %>% filter(step == time_steps & tot > 0) %>% count(prob)
 good_evols <- sim_2 %>% filter(step == time_steps & tot > 0) %>% count(prob)
 # prob <- good_evols / evolutions
 prob_relation <- good_evols %>% mutate(perc = n / evolutions,
@@ -152,7 +151,8 @@ prob_relation <- good_evols %>% mutate(perc = n / evolutions,
 prob_relation %>% 
   ggplot(aes(x = prob,y = perc)) +
   geom_point() +
-  stat_smooth(method="lm")
+  stat_smooth(method="lm") +
+  labs(title = "Relationship between p and probability of a bacteria making a colony",x = "p", y = "Pr(bacteria making a colony)")
 ```
 
 ```{r}
@@ -160,7 +160,8 @@ prob_lm <- lm(prob_relation,formula = perc ~ prob)
 summary(prob_lm)
 ```
 
-So the answer I got from this hack is $Probability\ of\ one\ Bacteria\ becoming\ an\ entire\ colony = 1.8455\times{p} -0.7835$
+So the answer I got from this hack is   
+Probability\ of\ one\ Bacteria\ becoming\ an\ entire\ colony =`r prob_lm$coefficients["prob"]`*p`r prob_lm$coefficients["(Intercept)"]`
 
 This is what I could mathematically derive as much as my tiny brain can allow, 
 
