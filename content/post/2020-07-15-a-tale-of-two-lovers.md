@@ -1,7 +1,7 @@
 ---
 title: A tale of two lovers
 author: Janith Wanniarachchi
-date: '2020-11-28'
+date: '2020-07-15'
 slug: a-tale-of-two-lovers
 categories:
   - Poems
@@ -15,6 +15,7 @@ license: ''
 readingTime: yes
 single: no
 toc: yes
+Summary: A tale of two lovers entwined in a dance of their own minds
 ---
 
 # A tale of two lovers
