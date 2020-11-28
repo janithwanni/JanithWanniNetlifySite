@@ -19,6 +19,7 @@ single: no
 Summary: Atttempt at solving Riddler problem with simulations
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <div id="riddler-classic" class="section level1">
@@ -32,8 +33,8 @@ Summary: Atttempt at solving Riddler problem with simulations
 <h2>Question 1</h2>
 <div id="defining-the-problem" class="section level3">
 <h3>Defining the problem</h3>
-<p>Let’s take the case of one bacteria. Looking at the states that a bacteria can achieve it is clear that we can define a Bernoulli random variable as <span class="math display">\[Let\ X\ =\ \{The\ event\ that\ a\ bacteria\ will\ split\ into\ two\} \sim Bernoulli(0.8)\]</span>. So first we sample from a Bernoulli variable. And if it comes true then we now have two bacteria.</p>
-<p>Now let’s consider the case of two bacteria where we have two trials. Guess a Bernoulli variable won’t cut it now (pun intended). Let’s define a new random variable as <span class="math display">\[Let\ X\ =\ \{The\ number\ of\ bacteria\ that\ will\ split\ into\ two\ from\ n\ bacteria\}\\ X\ \sim Binomial(n,0.8)\\ where\ n\ is\ the\ number\ of\ bacateria\ at\ a\ point\ in\ time\]</span></p>
+<p>Let’s take the case of one bacteria. Looking at the states that a bacteria can achieve it is clear that we can define a Bernoulli random variable as <span class="math display">\[Let\ X\ =\ \{The\ event\ that\ a\ bacteria\ will\ split\ into\ two\} \sim Bernoulli(0.8)\]</span> So first we sample from a Bernoulli variable. And if it comes true then we now have two bacteria.</p>
+<p>Now let’s consider the case of two bacteria where we have two trials. Guess a Bernoulli variable won’t cut it now (pun intended). Let’s define a new random variable as <span class="math display">\[Let\ Y\ =\ \{The\ number\ of\ bacteria\ that\ will\ split\ into\ two\ from\ n\ bacteria\}\\ Y\ \sim Binomial(n,0.8)\\ where\ n\ is\ the\ number\ of\ bacateria\ at\ a\ point\ in\ time\]</span></p>
 </div>
 <div id="dummy-simulation" class="section level3">
 <h3>Dummy Simulation</h3>
@@ -155,7 +156,7 @@ summary(prob_lm)</code></pre>
 Probability of one Bacteria becoming an entire colony =1.9071429*p-0.8220238</p>
 <p>This is what I could mathematically derive as much as my tiny brain can allow,</p>
 <p>To begin with when <span class="math inline">\(n = 1\)</span> all bacteria must replicate,<br />
-when <span class="math inline">\(n = 2\)</span> still all bacteria must replicate, otherwise if only replicates then we are still at 2 bacteria.<br />
+when <span class="math inline">\(n = 2\)</span> still all bacteria must replicate, otherwise if only one replicates then we are still at 2 bacteria.<br />
 when <span class="math inline">\(n = 4\)</span>, 3 or more should replicate,<br />
 when <span class="math inline">\(n = 6\)</span>, 4 or more should replicate,<br />
 when <span class="math inline">\(n = 10\)</span>, <span class="math inline">\((\frac{10}{2}) + 1\)</span> or more should replicate,

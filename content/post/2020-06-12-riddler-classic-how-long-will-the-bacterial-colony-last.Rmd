@@ -35,9 +35,9 @@ Extra credit: Suppose that, instead of 80 percent, each bacterium divides with p
 
 ### Defining the problem
 
-Let's take the case of one bacteria. Looking at the states that a bacteria can achieve it is clear that we can define a Bernoulli random variable as $$Let\ X\ =\ \{The\ event\ that\ a\ bacteria\ will\ split\ into\ two\} \sim Bernoulli(0.8)$$. So first we sample from a Bernoulli variable. And if it comes true then we now have two bacteria. 
+Let's take the case of one bacteria. Looking at the states that a bacteria can achieve it is clear that we can define a Bernoulli random variable as $$Let\ X\ =\ \{The\ event\ that\ a\ bacteria\ will\ split\ into\ two\} \sim Bernoulli(0.8)$$ So first we sample from a Bernoulli variable. And if it comes true then we now have two bacteria. 
 
-Now let's consider the case of two bacteria where we have two trials. Guess a Bernoulli variable won't cut it now (pun intended). Let's define a new random variable as $$Let\ X\ =\ \{The\ number\ of\ bacteria\ that\ will\ split\ into\ two\ from\ n\ bacteria\}\\ X\ \sim Binomial(n,0.8)\\ where\ n\ is\ the\ number\ of\ bacateria\ at\ a\ point\ in\ time$$
+Now let's consider the case of two bacteria where we have two trials. Guess a Bernoulli variable won't cut it now (pun intended). Let's define a new random variable as $$Let\ Y\ =\ \{The\ number\ of\ bacteria\ that\ will\ split\ into\ two\ from\ n\ bacteria\}\\ Y\ \sim Binomial(n,0.8)\\ where\ n\ is\ the\ number\ of\ bacateria\ at\ a\ point\ in\ time$$
 
 ### Dummy Simulation
 
@@ -167,7 +167,7 @@ Probability\ of\ one\ Bacteria\ becoming\ an\ entire\ colony =`r prob_lm$coeffic
 This is what I could mathematically derive as much as my tiny brain can allow, 
 
 To begin with when $n = 1$ all bacteria must replicate,   
-when $n = 2$ still all bacteria must replicate, otherwise if only replicates then we are still at 2 bacteria.    
+when $n = 2$ still all bacteria must replicate, otherwise if only one replicates then we are still at 2 bacteria.    
 when $n = 4$, 3 or more should replicate,   
 when $n = 6$, 4 or more should replicate,   
 when $n = 10$, $(\frac{10}{2}) + 1$ or more should replicate,
