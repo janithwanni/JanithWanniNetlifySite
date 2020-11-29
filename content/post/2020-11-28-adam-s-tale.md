@@ -16,6 +16,7 @@ readingTime: yes
 single: no
 toc: yes
 Summary: A short story written Live on Twitch
+description: A short story written Live on Twitch
 ---
 
 # Welcome!   

@@ -17,6 +17,7 @@ license: ''
 readingTime: yes
 single: no
 Summary: One of my experiences in telling a story with data and the challenges associated with the journey
+draft: true
 ---
 
 ## Introduction
