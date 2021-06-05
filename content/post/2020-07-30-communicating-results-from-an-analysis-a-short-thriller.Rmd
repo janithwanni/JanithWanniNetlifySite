@@ -38,16 +38,10 @@ Now before beginning on the task, I had to take a look at what sort of data was 
 #### Googly Data
 To explain the sources of data, one must get to know the story behind how the data was collected. And here is where Google Analytics come into play. 
 
-*insert explanation about what Google analytics is*
-
 From the start of the campaign social media content has been posted on two platforms. Facebook and Instagram.
 Each social media content that was posted during the campaign had a link for potential candidates to sign up for the interview. The links had Google Analytics tracking attached with it (in the case of Instagram the links were all funnelled through the bio and in the case of Facebook the links with tracking codes were shortened and added as part of the post content). From that source a variety of data was collected. I didn’t receive access to the direct Google Analytics data because that would have been risky. Instead I received access to a Google Data Studio dashboard. 
 
-*insert explanation about what Google Data Studio is*
-
 Now from this dashboard I had to slowly collect data by setting the date and then downloading the CSV’s related to each of the three graphs that were present.
-
-*insert screencap of the Google Data Studio Dashboard*
 
 After downloading a few files I realised that combining all of these into dataframe is going to be a massive collection of `rbind` codes. Therefore I googled a bit about how R gives out contents of a directory and lo and behold it was a list. **quickly loads purrr library** 
 How convenient, I can simply put each of the three CSV’s that come under each date into a folder named with that date and then combine them all together by mapping through the list of files. The result was the following code.
@@ -73,20 +67,28 @@ So that was one dataset under my belt. I felt like a coding ninja using purrr, a
 
 #### Super Data
 
-Remember how I mentioned paid advertisements? well there was the next catch. The provost at the start of the project informed me that I will not be working alone in this project, and that there will be two people from EyeAngle working with me. Those two were simply my girlfriend and a really close friend of hers. Both of them were competent in R, Excel and were excellent content writers. But here I had the next problem that I never faced before. 
+Remember how I mentioned paid advertisements? well there was the next catch. The Provost at the start of the project informed me that I will not be working alone in this project, and that there will be two people from EyeAngle working with me. Those two were simply my girlfriend and a really close friend of hers. Both of them were competent in R, Excel and were excellent content writers. But here I had the next problem that I never faced before. 
 
 #### Pitfall #1: Collaborative Google Slides with R
 
-At the time being the only option was to use Rstudio cloud as the option but the issue that came up next was that the final report needed to be made in Google Slides for several reasons such as convienience, collaborative real time editing and suggesting etc. This I knew would become a tedious two step process, as I would have to run the R script locally and then create the graph and `ggsave` it and then paste it on to the Google Slide and adjust it accordingly. There was no other option for me but to stick with this method. 
+At the time being the only option was to use Rstudio cloud as an option for collaborative data analysis but the issue that came up next was that the final report needed to be made in Google Slides for several reasons such as convienience, collaborative real time editing and suggesting etc. This I knew would become a tedious two step process, as I would have to run the R script locally and then create the graph and `ggsave` it and then paste it on to the Google Slide and adjust it accordingly. There was no other option for me but to stick with this method. 
 
 Moving forward from that the next task that the provost set forward for me was to collect data about the Facebook ad campaigns. There I learned about another tool on collecting data called Supermetrics. 
 
-*insert explanation on what supermetrics is*
+Supermetrics is free for use as a trial for 14 days and since I was supposed to submit this within less than 14 days I was able to use the free version as the provost told me. As per his instructions I set up a Google Sheet and then started by adding the Supermetrics addon to Google Sheets. It took me and the rest of the team two days to completely understand how the queries run from Supermetrics and what were the resulting data coming from. This was where knowing a bit about SQL helped to underestand what Supermetrics was trying to bring and from where. Finally after a few trial and error and a bundle of extra sheets in the Sheets workbook we managed to get the data into one place. 
+### Cleaning and wrangling
 
-Supermetrics is free for use as a trial for 14 days and since I was supposed to submit this within less than 14 days I was able to use the free version as the provost told me. As per his instructions I set up a Google Sheet and then started by adding the Supermetrics addon to Google Sheets. It took me and the rest of the team two days to completely understand how the queries run from Supermetrics and what were the resulting data coming from. This was where knowing a bit about SQL helped to underestand what Supermetrics was trying to bring and from where. Finally after a few trial and error and a bundle of extra sheets in the Sheets workbook we managed to get the following data. 
+And so began the journey into the muddy waters of data wrangling. It was tedious at first  considering that we had to download Google sheets as csv files and then gather them all together into one place. Which brings us to the next pitfall that we faced in doing this project. 
 
-*Work in progress*
+#### Pitfall #2: Lack of streamlined data pipelines
 
+We didnt have a proper data pipeline to ensure that when we update the query in Supermetrics to refresh the data, the changes would be automatically reflected in our graphs. The intermediate step of having to download the data from Google Sheets locally as CSV files was the bottleneck of it all. It would have been much easier if we used the R package for handling Google Sheets and used it to auto update the graphs. 
+
+#### Pitfall #3: Data version control
+
+In addition to these we also had the issue of data version control. Because what happened halfway through the entire scene was that we realized that there were missing pieces in the data because of a misconfiguration in the Supermetrics query. This would lead to the classic nightmare of having multiple datasets with the suffix if -1,-2,-new etc. This was a perfect recipe for disaster and the antidote would have been  pretty obvious. Yes git would have been an option and that was where my stupidity came into place. I didn't set up a local git repo to track the changes in the csv files so that we can revert back whenever we wanted. If we had switched to using Google Sheets package to get the synced data then version controlling would be given through the version history in Google Sheets. Regardless this was the biggest misconception I had back then. I would assume git repos need to be in github and local repos without a remote weren't a thing. Butt after finishing the project only I realized how easy it would have been to manage the entire process if I had the common sense to just type git init and get on with the rest of the work. 
+
+The rest was it a blur of plots and late night calls to adjust different values according to the customer need and then the final presentation was done and everything was history.
 
 
 

@@ -17,6 +17,7 @@ license: ''
 readingTime: yes
 single: no
 Summary: One of my experiences in telling a story with data and the challenges associated with the journey
+draft: true
 ---
 
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
@@ -39,12 +40,9 @@ That was what I knew at first glance and I accepted the opportunity (this was in
 <div id="googly-data" class="section level4">
 <h4>Googly Data</h4>
 <p>To explain the sources of data, one must get to know the story behind how the data was collected. And here is where Google Analytics come into play.</p>
-<p><em>insert explanation about what Google analytics is</em></p>
 <p>From the start of the campaign social media content has been posted on two platforms. Facebook and Instagram.
 Each social media content that was posted during the campaign had a link for potential candidates to sign up for the interview. The links had Google Analytics tracking attached with it (in the case of Instagram the links were all funnelled through the bio and in the case of Facebook the links with tracking codes were shortened and added as part of the post content). From that source a variety of data was collected. I didn’t receive access to the direct Google Analytics data because that would have been risky. Instead I received access to a Google Data Studio dashboard.</p>
-<p><em>insert explanation about what Google Data Studio is</em></p>
 <p>Now from this dashboard I had to slowly collect data by setting the date and then downloading the CSV’s related to each of the three graphs that were present.</p>
-<p><em>insert screencap of the Google Data Studio Dashboard</em></p>
 <p>After downloading a few files I realised that combining all of these into dataframe is going to be a massive collection of <code>rbind</code> codes. Therefore I googled a bit about how R gives out contents of a directory and lo and behold it was a list. <strong>quickly loads purrr library</strong>
 How convenient, I can simply put each of the three CSV’s that come under each date into a folder named with that date and then combine them all together by mapping through the list of files. The result was the following code.</p>
 <pre class="r"><code>application_conversion_rate &lt;- map_dfr(dir_ls(&quot;raw_data/&quot;),
@@ -71,9 +69,8 @@ So that was one dataset under my belt. I felt like a coding ninja using purrr, a
 <h4>Pitfall #1: Collaborative Google Slides with R</h4>
 <p>At the time being the only option was to use Rstudio cloud as the option but the issue that came up next was that the final report needed to be made in Google Slides for several reasons such as convienience, collaborative real time editing and suggesting etc. This I knew would become a tedious two step process, as I would have to run the R script locally and then create the graph and <code>ggsave</code> it and then paste it on to the Google Slide and adjust it accordingly. There was no other option for me but to stick with this method.</p>
 <p>Moving forward from that the next task that the provost set forward for me was to collect data about the Facebook ad campaigns. There I learned about another tool on collecting data called Supermetrics.</p>
-<p><em>insert explanation on what supermetrics is</em></p>
 <p>Supermetrics is free for use as a trial for 14 days and since I was supposed to submit this within less than 14 days I was able to use the free version as the provost told me. As per his instructions I set up a Google Sheet and then started by adding the Supermetrics addon to Google Sheets. It took me and the rest of the team two days to completely understand how the queries run from Supermetrics and what were the resulting data coming from. This was where knowing a bit about SQL helped to underestand what Supermetrics was trying to bring and from where. Finally after a few trial and error and a bundle of extra sheets in the Sheets workbook we managed to get the following data.</p>
-<p><em>Work in progress</em></p>
+<p><em>W O R K I N P R O G R E S S</em></p>
 </div>
 </div>
 </div>
