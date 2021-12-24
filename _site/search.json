@@ -1,0 +1,20 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "About this blog",
+      "description": "Some additional details about the blog",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-12-24T16:14:31+05:30"
+    },
+    {
+      "path": "index.html",
+      "title": "Fun with statistics",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-12-24T16:14:32+05:30"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}

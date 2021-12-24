@@ -1,3 +1,5 @@
 ---
-site: blogdown:::blogdown_site
+title: "Fun with statistics"
+site: distill::distill_website
+listing: posts
 ---
