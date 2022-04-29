@@ -1,5 +1,4 @@
 ---
-title: "Fun with statistics"
+title: "Welcome"
 site: distill::distill_website
-listing: posts
 ---

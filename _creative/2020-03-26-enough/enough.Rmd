@@ -1,0 +1,67 @@
+---
+title: "Enough"
+description: |
+  A tribute to all those who care
+author:
+  - name: Janith Wanniarachchi
+date: 2020-06-08
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+Oh weary traveller  
+Take rest  
+Under my shade  
+I have seen many wander  
+Looking for rest  
+Their hearts’ bleeding  
+When asked why  
+They simply shrug  
+“I opened it out   
+To show what’s inside”  
+To which I asked  
+“Did they like it”   
+
+Darkened faces   
+Looked down at their feet  
+A simple no   
+Would suffice  
+But they never  
+Said that word  
+To anyone who asked  
+
+With a heavy sigh  
+They stitch and stitch  
+Their wounded hearts  
+Back to the way it was  
+Softly beating  
+With a dash of hope  
+
+“You are enough”  
+I whisper to them  
+“What matters  
+Is how much you give  
+And how well you give it  
+Not what they take  
+Nor what they say  
+Nor what they think”  
+They look up  
+Hope bringing back life  
+To hearts that were dead  
+“In the end  
+We shall leave behind  
+Memories  
+And acts of good will  
+The rest   
+Is up to them to decide“
+
+Their eyes close   
+Their heads lean back  
+A peaceful ending  
+Is all they deserve  
+A withered old tree i am  
+Giving shade  
+To the kind souls  
+That shall make this world  
+A better place to live in

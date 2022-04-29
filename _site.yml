@@ -1,5 +1,5 @@
 name: "fun-with-statistics"
-title: "Janith Wanniarachchi is having fun with statistics"
+title: "Fun with statistics"
 description: |
   A simple blog site containing my blog posts and talks on statistics and data science
 output_dir: "_site"
@@ -9,4 +9,12 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
-output: distill::dis till_article
+    - text: "Publications"
+      href: publications.html
+    - text: "Talks"
+      href: talks.html
+    - text: "Blog"
+      href: blog.html
+    - text: "Creative Corner"
+      href: creatives.html
+output: distill::distill_article

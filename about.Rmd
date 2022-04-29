@@ -1,9 +1,35 @@
 ---
-title: "About this blog"
-description: |
-  Some additional details about the blog
+title: "Janith Wanniarachchi"
+image: "profpic.jpg"
+links:
+  - label: LinkedIn
+    url: "https://www.linkedin.com/in/janith-wanniarachchi"
+  - label: Github
+    url: "https://www.github.com/janithwanni"
+  - label: Twitter
+    url: "https://www.twitter.com/janithcwanni"
+  - label: Email
+    url: "mailto:janithcwanni@gmail.com"
+output:
+  postcards::trestles
 ---
+ 
+## Bio
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+I’m Janith Wanniarachchi, a final year undergraduate in the BSc. Statistics (Hons.) Degree from the University of Sri Jayewardenepura, Sri Lanka. My journey into the R programming language began through an Introduction to R Programming class taught by Dr. Thiyanga S. Talagala. 
+
+## Education
+
+**Massachusetts Institute of Technology** | Cambridge, MA
+
+Ph.D. in Computer Science | September 2009 - May 2014
+
+**The University of California, Berkeley** | Berkeley, CA
+
+B.S. in Computer Science | September 2005 - May 2009
+
+## Experience
+
+**Google Brain** | Principal Investigator | January 2018 - Present
+
+**Netflix** | Research Scientist | June 2014 - December 2017

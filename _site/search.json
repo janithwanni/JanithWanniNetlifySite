@@ -2,19 +2,46 @@
   "articles": [
     {
       "path": "about.html",
-      "title": "About this blog",
-      "description": "Some additional details about the blog",
+      "title": "Janith Wanniarachchi",
+      "author": [],
+      "contents": "\n\n          \n          \n          Fun with statistics\n          \n          \n          Home\n          About\n          Publications\n          Talks\n          Blog\n          Creative Corner\n          ☰\n          \n          \n      \n        \n          \n            \n              \n            \n              Janith Wanniarachchi\n            \n            \n              \n                \n                    \n                      \n                        LinkedIn\n                      \n                    \n                  \n                                    \n                    \n                      \n                        Github\n                      \n                    \n                  \n                                    \n                    \n                      \n                        Twitter\n                      \n                    \n                  \n                                    \n                    \n                      \n                        Email\n                      \n                    \n                  \n                                  \n            \n          \n        \n        \n        \n          \n            \n            Bio\n            I’m Janith Wanniarachchi, a final year undergraduate in the BSc. Statistics (Hons.) Degree from the University of Sri Jayewardenepura, Sri Lanka. My journey into the R programming language began through an Introduction to R Programming class taught by Dr. Thiyanga S. Talagala.\n            \n            \n            Education\n            Massachusetts Institute of Technology | Cambridge, MA\n            Ph.D. in Computer Science | September 2009 - May 2014\n            The University of California, Berkeley | Berkeley, CA\n            B.S. in Computer Science | September 2005 - May 2009\n            \n            \n            Experience\n            Google Brain | Principal Investigator | January 2018 - Present\n            Netflix | Research Scientist | June 2014 - December 2017\n            \n          \n        \n      \n    \n\n    \n      \n        \n          \n            \n              \n            \n              Janith Wanniarachchi\n            \n            \n              \n                \n                                    \n                    \n                      LinkedIn\n                    \n                  \n                                    \n                    \n                      Github\n                    \n                  \n                                    \n                    \n                      Twitter\n                    \n                  \n                                    \n                    \n                      Email\n                    \n                  \n                                  \n              \n            \n            \n              \n              Bio\n              I’m Janith Wanniarachchi, a final year undergraduate in the BSc. Statistics (Hons.) Degree from the University of Sri Jayewardenepura, Sri Lanka. My journey into the R programming language began through an Introduction to R Programming class taught by Dr. Thiyanga S. Talagala.\n              \n              \n              Education\n              Massachusetts Institute of Technology | Cambridge, MA\n              Ph.D. in Computer Science | September 2009 - May 2014\n              The University of California, Berkeley | Berkeley, CA\n              B.S. in Computer Science | September 2005 - May 2009\n              \n              \n              Experience\n              Google Brain | Principal Investigator | January 2018 - Present\n              Netflix | Research Scientist | June 2014 - December 2017\n              \n            \n        \n      \n    \n\n    \n    \n    ",
+      "last_modified": "2022-04-29T14:44:11+05:30"
+    },
+    {
+      "path": "blog.html",
+      "title": "Blog Articles",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-12-24T16:14:31+05:30"
+      "last_modified": "2022-04-29T14:44:11+05:30"
+    },
+    {
+      "path": "creatives.html",
+      "title": "Creative Writing Work",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2022-04-29T14:44:12+05:30"
     },
     {
       "path": "index.html",
-      "title": "Fun with statistics",
+      "title": "Welcome",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-12-24T16:14:32+05:30"
+      "last_modified": "2022-04-29T14:44:12+05:30"
+    },
+    {
+      "path": "publications.html",
+      "title": "Publications",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2022-04-29T14:44:12+05:30"
+    },
+    {
+      "path": "talks.html",
+      "title": "Talks",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2022-04-29T14:44:13+05:30"
     }
   ],
-  "collections": ["posts/posts.json"]
+  "collections": ["post/post.json", "creative/creative.json"]
 }
