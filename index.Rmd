@@ -2,3 +2,8 @@
 title: "Welcome"
 site: distill::distill_website
 ---
+
+<img src="img/cover_maybe.jpg" style="position:relative;left:-50%;width:200%">
+
+> This site is still in the middle of moving from blogdown to distill
+
