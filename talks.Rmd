@@ -78,7 +78,7 @@ As an initiave of the Sports Analytics Unit of University of Sri Jayewardenepura
 
 ## Fundamentals of Data Visualization
 
-
+During my time as the President of the Statistics Society, I decided to initiate a data visualization competition called Pearl Viz. The inspiration for the name came from Iron Viz, the annual data visualization competition organized by Tableau and since Sri Lanka is known as the Pearl of the Indian Ocean. Data visualization is a skill that most statistics undergraduates obtain in their first year in the university. However, the tools that were used for data visualization in the classroom was limited by their performance and sharing capabilities. Therefore new visualization technologies should be introduced if the students were to take on the task of providing visualizations using modern Business Intelligence tools. To introduce students to these tools along with the Do's and Dont's of data visualization, I organized a short webinar on the Fundamentals of Data Visualization. As a live demo I took a wireframe sketch of a dashboard based on the career of the popular pop artist P!nk and turned it into a shareable interactive web based dashboard using Google Data Studio.
 
 <img src="img/talks/fundamentals_of_data_visualization_poster.jpg" style="width:70%;position:relative;left:15%">
 
@@ -89,7 +89,7 @@ As an initiave of the Sports Analytics Unit of University of Sri Jayewardenepura
 
 ## Data Visualization in Tableau
 
-
+As the next step of preparing students to modern BI tools, I decided to give a small tutorial on Tableau, specifically Tableau Public and Tableau Cloud, two free data visualization tools that undergraduates can use to learn and enhance their skills to be better prepared for the industry. In this instance a live demo was done using the starter demo dataset from Tableau on the amount of $\text{CO}_2$ emmisions while another live demo was done using an movie profit and review dataset.
 
 <img src="img/talks/tableau_workshop_poster.jpg" style="width:70%;position:relative;left:15%">
 
