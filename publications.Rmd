@@ -3,7 +3,46 @@ title: "Publications"
 output: distill::distill_article
 ---
 
+## Articles
 
+Publish or perish is an extreme outlook on the craft of writing. I work on my publications not to stay afloat but to enjoy the waves. Writing is an area that I'm really interested in and so is contributing new areas of improvements in the data science community. Here are some of my publications that I have written over the years.
 
+## scatteR: Generating instance space using scagnostics
 
+About to be presented at [useR! 2022](https://user2022.r-project.org/program/talks/#session-36-synthetic-data-and-text-analysis)
 
+## Intelligent System to Verify the Effectiveness of Proposed Teacher Transfers Incorporating Human Factors
+
+This was a project that I assisted with during my second year of the Bachelor's degree. The study explored the satisfaction of teachers who were transferred to new schools for various reasons through the use of machine learning techniques. I was able to put the machine learning knowledge I had acquired up to then into a real life scenario. The process of data cleaning, communicating with team members and explaining the machine learning concepts in layman terms were challenging components that I enjoyed immensely.
+
+[Paper](https://ieeexplore.ieee.org/document/9754089/)
+
+## Packages
+
+I firmly believe that software should also be considered as research considering the amount of work that is taken into building each software product. I worked mainly with Python and C++ and later transitioned to R and Julia as well yet from all these languages the R ecosystem gave me the easiest and straightforward method of bringing my ideas into a software package for the use of others.
+
+### DSJobtracker
+
+DSJobtracker is a data package containing the job requirements for Data science jobs all around the world. The project has been continuously running for two years upto now(2022) and has collected over 800 observations. The project was initially brought forward by Dr. Thiyanga Talagala and I recieved the opportunity to work on this project as part of the Hacktoberfest challenge in the year 2020. There I learned how to setup vignettes and packagedown websites along with many aspects of data cleaning. Afterwards I recieved the opportunity to work on this project once again as part of my work as a consultant in the Statistical Consultancy Service unit in the Department of Statistics, University of Sri Jayewardenepura. There my main obligation was to curate a new set of observations for the year 2021 by working with a group of consultants. The dataset was collected manually and cleaned through R in a reproducible manner to be published as a data package on CRAN with over 1000+ downloads in total.
+
+[Github](https://github.com/thiyangt/DSjobtracker)
+
+### scatteR
+
+scatteR is a novel data generating method that is based on scagnostics. This was developed during my undergraduate research to assist in my thesis. Scagnostics are a graphical exploratory tool that is capable of quantifying the features of scatterplot through nine measurements that are calculated using three geometrical graphs. scatteR acts as an inverse scagnostics method by iteratively arranging points on a unit 2 dimensional space. The points are placed to minimize the distance between the existing and expected scagnostic measurements through simulated annealing as an optimization method. 
+
+For more info about scatteR check out the [useR presentation slides](https://user2022.r-project.org/program/talks/#session-36-synthetic-data-and-text-analysis).
+
+[Github](https://github.com/janithwanni/scatteR)
+
+### nic
+
+Nature Inspired Color palettes came up as a project to work upon for the Hacktoberfest challenge for the year 2021. This project provided me with the opportunity to work on gathering data by collecting photos from my garden, quantisizing images to generate the most frequent colors, analyse color frequency based on color spaces, and finally generate color palletes that are colorblind friendly.
+
+[Github](https://github.com/thiyangt/nic)
+
+### tsdataleaks
+
+This project came up as part of the Hacktoberfest challenge in 2021. The main aim of my work was to optimize the performance of the calculations conducted in the package. tsdataleaks is concerned with capturing the data leaks between time series in mutlivariate time series. Through these project I was able to learn about RCpp and the internal operations of R that utilize the vectorized operations.
+
+[Github](https://github.com/thiyangt/tsdataleaks)
