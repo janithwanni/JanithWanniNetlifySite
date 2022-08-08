@@ -5,6 +5,26 @@ site: distill::distill_website
 
 <img src="img/profpic.jpg" style="border-radius:50%;width: 40%;position: relative;left: 25%;">
 
+<style>
+a{
+  color: var(--blue-jeans);
+  padding: 0.5em 0.75em;
+  border-color: var(--blue-jeans);
+  text-decoration: none;
+  cursor: pointer;
+  border-width: 1px 1px;
+  border-style: solid;
+  border-radius: 10px;
+}
+
+a:hover {
+  background-color: var(--blue-jeans);
+  color: white;
+  border-radius: 10px;
+  border-color: var(--blue-jeans);
+}
+</style>
+
 <div style="display:flex;flex-direction: row;justify-content: space-evenly;"><div><a href="https://www.twitter.com/janithcwanni">Twitter</a></div><div><a href="https://www.github.com/janithwanni">Github</a></div><div><a href="https://www.linkedin.com/in/janith-wanniarachchi">Linkedin</a></div><div><a href="mailto:janithcwanni@gmail.com">Email</a></div><div><a href="Janith_Wanniarachchi_Portfolio.pdf">Resume</a></div></div>
 
 <br/>
