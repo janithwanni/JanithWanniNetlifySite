@@ -1485,8 +1485,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <h1 id="the-background">The background</h1>
 <h2 id="introduction">Introduction</h2>
-<p><strong>TLDR:</strong> <a href="https://sarahasauve.wordpress.com"><em>Sarah Sauve</em></a>. collected the data for the city of St. John’s, to find out the companies and people that are contributing to the amount of plastic in the city. The data was collected during October 2020.*</p>
-<p>What we are going to do from this dataset today is to classify the companies and which area they can focus on to get into a company that is not harmful.</p>
+<p><strong>TLDR:</strong> <a href="https://sarahasauve.wordpress.com"><em>Sarah Sauve</em></a> collected the data for the city of St. John’s, to find out the companies and people that are contributing to the amount of plastic in the city. The data was collected during October 2020.*</p>
+<!-- What we are going to do from this dataset today is to classify the companies and which area they can focus on to get into a company that is not harmful. -->
 <h2 id="data-dictionary">Data Dictionary</h2>
 <p>The plastic is categorized by <a href="https://en.wikipedia.org/wiki/Recycling_codes">recycling codes</a>.</p>
 <table>
@@ -1576,7 +1576,269 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </tbody>
 </table>
 <h1 id="data-preparation">Data preparation</h1>
-<p>Ther are some NAs in the plastic counts columns. We can set those to zeros and recalculate the grand total with those.Also let’s focus on the year of 2019, since this study has finished on the October 2020. There’s also parent companies called Grand Total and Unbranded, and a country called empty as well. Finally there are some companies that are situated in more than one country. There are a lot of points with zero grand total I think</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>skimr</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/skimr/reference/skim.html'>skim</a></span><span class='op'>(</span><span class='va'>tuesdata</span><span class='op'>$</span><span class='va'>plastic</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table>
+<caption><span id="tab:unnamed-chunk-1">Table 1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">tuesdata$plastic</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">13380</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">country</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">parent_company</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">84</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10823</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">year</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2019.31</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">▇▁▁▁▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">empty</td>
+<td style="text-align: right;">3243</td>
+<td style="text-align: right;">0.76</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">22.59</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2208</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hdpe</td>
+<td style="text-align: right;">1646</td>
+<td style="text-align: right;">0.88</td>
+<td style="text-align: right;">3.05</td>
+<td style="text-align: right;">66.12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3728</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ldpe</td>
+<td style="text-align: right;">2077</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">10.32</td>
+<td style="text-align: right;">194.64</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11700</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">o</td>
+<td style="text-align: right;">267</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">49.61</td>
+<td style="text-align: right;">1601.99</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">120646</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pet</td>
+<td style="text-align: right;">214</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">20.94</td>
+<td style="text-align: right;">428.16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">36226</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pp</td>
+<td style="text-align: right;">1496</td>
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">8.22</td>
+<td style="text-align: right;">141.81</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6046</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ps</td>
+<td style="text-align: right;">1972</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">1.86</td>
+<td style="text-align: right;">39.74</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2101</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pvc</td>
+<td style="text-align: right;">4328</td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">7.89</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">622</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">grand_total</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">90.15</td>
+<td style="text-align: right;">1873.68</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">120646</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">num_events</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">33.37</td>
+<td style="text-align: right;">44.71</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">145</td>
+<td style="text-align: left;">▇▃▁▁▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">volunteers</td>
+<td style="text-align: right;">107</td>
+<td style="text-align: right;">0.99</td>
+<td style="text-align: right;">1117.65</td>
+<td style="text-align: right;">1812.40</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">400</td>
+<td style="text-align: right;">1416</td>
+<td style="text-align: right;">31318</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Several plastic counts columns contain NAs. Is this due to a mistake in entering data or was there actually no plastics of that category to be found? The most sound answer would be that there were no plastic counts to be found which is quite unlikely. We can recalculate the grand total with these imputed 0s.</p>
+<p>Also let’s focus on the year of 2019, since this study has finished on the October 2020.</p>
+<p>Interestingly, there are parent companies called Grand Total and Unbranded, and a country called EMPTY as well.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>plastics</span> <span class='op'>&lt;-</span> <span class='va'>tuesdata</span><span class='op'>$</span><span class='va'>plastics</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -1587,23 +1849,19 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='fl'>2019</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>country</span> <span class='op'>!=</span> <span class='st'>"EMPTY"</span> <span class='op'>&amp;</span> 
            <span class='op'>!</span><span class='op'>(</span><span class='va'>parent_company</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Grand Total"</span>,<span class='st'>"Unbranded"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;</span>
-           <span class='va'>grand_total</span> <span class='op'>!=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>parent_company</span>,<span class='va'>year</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='va'>empty</span><span class='op'>:</span><span class='va'>pvc</span>,<span class='va'>mean</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>parent_company</span>,<span class='va'>hdpe</span><span class='op'>:</span><span class='va'>pvc</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='op'>)</span>
+           <span class='va'>grand_total</span> <span class='op'>!=</span> <span class='fl'>0</span><span class='op'>)</span> 
+
+<span class='co'># %&gt;% </span>
+<span class='co'>#   group_by(parent_company,year) %&gt;% </span>
+<span class='co'>#   mutate(across(empty:pvc,mean)) %&gt;% </span>
+<span class='co'>#   ungroup() %&gt;% </span>
+<span class='co'>#   select(parent_company,hdpe:pvc) %&gt;% </span>
+<span class='co'>#   distinct()</span>
 </code></pre>
 </div>
 </div>
-<h1 id="pca-visualization">PCA visualization</h1>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/prcomp.html'>prcomp</a></span><span class='op'>(</span><span class='va'>plastics</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>hdpe</span><span class='op'>:</span><span class='va'>pvc</span><span class='op'>)</span>,scale. <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-<p><img src="2021-02-08-stuck-with-plastic_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
-</div>
+<p>What if instead of this approach we decided to model the plastic counts using a Bayesian approach in order to impute the missing values?</p>
+<p>For this article we will be using Stan as our Probabilistic Programming Backend.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
