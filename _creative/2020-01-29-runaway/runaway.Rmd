@@ -1,0 +1,32 @@
+---
+title: "Runaway"
+description: |
+  Running away memories
+author:
+  - name: Janith Wanniarachchi
+date: 2020-01-09
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+She entered the room  
+His heart leaped forward  
+To break free  
+From the cage  
+Built over forgotten tears  
+His brain went cold  
+Not with sorrow  
+But with anger  
+And his feet  
+Took him away  
+Away from the room  
+Away from the misery averted  
+Into the loneliness  
+Where memories burned   
+In an undying hearth  
+Memories of old times past  
+When her presence   
+Sparked his entire soul  
+And brought out  
+All that is good inside him

@@ -1,3 +1,35 @@
 ---
-site: blogdown:::blogdown_site
+title: "Welcome"
+site: distill::distill_website
 ---
+
+<img src="img/profpic.jpg" style="border-radius:50%;width: 40%;position: relative;left: 25%;">
+
+<style>
+.socials{
+  color: var(--blue-jeans);
+  padding: 0.5em 0.75em;
+  border-color: var(--blue-jeans);
+  text-decoration: none;
+  cursor: pointer;
+  border-width: 1px 1px;
+  border-style: solid;
+  border-radius: 10px;
+}
+
+.socials:hover {
+  background-color: var(--blue-jeans);
+  color: white;
+  border-radius: 10px;
+  border-color: var(--blue-jeans);
+}
+</style>
+
+<div style="display:flex;flex-direction: row;justify-content: space-evenly;"><div><a href="https://www.twitter.com/janithcwanni" class="socials">Twitter</a></div><div><a href="https://www.github.com/janithwanni" class="socials">Github</a></div><div><a href="https://www.linkedin.com/in/janith-wanniarachchi" class="socials">Linkedin</a></div><div><a href="mailto:janithcwanni@gmail.com" class="socials">Email</a></div><div><a href="Janith_Wanniarachchi_Portfolio.pdf" class="socials">Resume</a></div></div>
+
+<br/>
+
+I’m Janith Wanniarachchi, a final year undergraduate finishing my BSc. in Statistics (Hons.) degree from the University of Sri Jayewardenepura, a leading government University situated in Colombo and ranked as the 2bd in the country. Currently my Statistics GPA is at 3.8/4.0 and my overall GPA is at 3.81/4.0, with two subjects(Econometrics, Research) awaiting results. 
+
+My research interests are mainly in data visualization, time series forecasting, bayesian inference and interpretable machine learning. On this website you will find some of my work and interests in statistics and creative writing. 
+

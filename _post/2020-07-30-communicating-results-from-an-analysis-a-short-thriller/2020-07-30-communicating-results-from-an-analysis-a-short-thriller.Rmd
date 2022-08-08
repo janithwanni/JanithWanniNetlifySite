@@ -1,0 +1,91 @@
+---
+title: 'Communicating results from an analysis : A short thriller'
+author: Janith Wanniarachchi
+date: '2020-07-30'
+slug: communicating-results-from-an-analysis-a-short-thriller
+comments: no
+cover: ''
+imgs: []
+justify: no
+lastmod: '2020-10-09T06:43:34+05:30'
+license: ''
+readingTime: yes
+single: no
+description: One of my experiences in telling a story with data and the challenges associated with the journey
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+## Introduction
+Most of us here have their own horror stories of statistical consulting written in different forms with different villains. This is one of my stories.
+
+*The names and places have been replaced with generic names that I came up to safeguard myself and everyone else who worked on this project with me.*
+
+## The project
+I received the chance to work in this project through my girlfriend who was working in a production branch of a digital marketing agency (hereon referred to as EyeAngle). 
+The project was simple. 
+EyeAngle has been working with a client (hereon referred to as University of Liverpool) for a long time and the time had come for UoL to take in a new set of candidates into their environment. EyeAngle had worked on producing videos for social media content such as testimonials, teaser trailers and together with the parent company EyeAngle+ had run a campaign to recruit more candidates into UoL. Now the time has come to take the data that was collected in the process and analyse to present to the client of the success of the project. 
+That was what I knew at first glance and I accepted the opportunity (this was in a period where everyone was quarantining in the middle of a pandemic, and I needed a project that was exciting as this to keep myself sane) 
+
+Now before beginning on the task, I had to take a look at what sort of data was available for me. The supervisor of this project (hereon referred to as the Provost) informed me with the data that they have collected and what are the data that needs to be collected. 
+
+### The data
+
+#### Googly Data
+To explain the sources of data, one must get to know the story behind how the data was collected. And here is where Google Analytics come into play. 
+
+From the start of the campaign social media content has been posted on two platforms. Facebook and Instagram.
+Each social media content that was posted during the campaign had a link for potential candidates to sign up for the interview. The links had Google Analytics tracking attached with it (in the case of Instagram the links were all funnelled through the bio and in the case of Facebook the links with tracking codes were shortened and added as part of the post content). From that source a variety of data was collected. I didn’t receive access to the direct Google Analytics data because that would have been risky. Instead I received access to a Google Data Studio dashboard. 
+
+Now from this dashboard I had to slowly collect data by setting the date and then downloading the CSV’s related to each of the three graphs that were present.
+
+After downloading a few files I realised that combining all of these into dataframe is going to be a massive collection of `rbind` codes. Therefore I googled a bit about how R gives out contents of a directory and lo and behold it was a list. **quickly loads purrr library** 
+How convenient, I can simply put each of the three CSV’s that come under each date into a folder named with that date and then combine them all together by mapping through the list of files. The result was the following code.
+
+```{r,eval=FALSE}
+application_conversion_rate <- map_dfr(dir_ls("raw_data/"),
+                                       ~ read_csv(dir_info(.x)$path[1]) %>% 
+                                         mutate(date = gsub("raw_data/","",.x)))
+applications <- map_dfr(dir_ls("raw_data/"),
+                        ~ read_csv(dir_info(.x)$path[2]) %>% 
+                          mutate(date = gsub("raw_data/","",.x)))
+campaign_data <- map_dfr(dir_ls("raw_data/"),
+                         ~ read_csv(dir_info(.x)$path[3]) %>% 
+                           mutate(date = gsub("raw_data/","",.x)))
+
+write_csv(application_conversion_rate,"combined_data/application_conversion_rate.csv")
+write_csv(applications,"combined_data/applications.csv")
+write_csv(campaign_data,"combined_data/campaign_data.csv")
+```
+
+After inspecting the final combined dataset I gained an understanding of what sort of data I have with me right now. In summary, I know in a particular date how many users clicked on the signup link on a SM post and then how many of them signed up using that link, in addition I also knew where these users came from and whether they came from an advertisement or simply from a SM post. 
+So that was one dataset under my belt. I felt like a coding ninja using purrr, and as all good things go, my dopamine levels were about to make a massive hit after encountering the next source of data. 
+
+#### Super Data
+
+Remember how I mentioned paid advertisements? well there was the next catch. The Provost at the start of the project informed me that I will not be working alone in this project, and that there will be two people from EyeAngle working with me. Those two were simply my girlfriend and a really close friend of hers. Both of them were competent in R, Excel and were excellent content writers. But here I had the next problem that I never faced before. 
+
+#### Pitfall #1: Collaborative Google Slides with R
+
+At the time being the only option was to use Rstudio cloud as an option for collaborative data analysis but the issue that came up next was that the final report needed to be made in Google Slides for several reasons such as convienience, collaborative real time editing and suggesting etc. This I knew would become a tedious two step process, as I would have to run the R script locally and then create the graph and `ggsave` it and then paste it on to the Google Slide and adjust it accordingly. There was no other option for me but to stick with this method. 
+
+Moving forward from that the next task that the provost set forward for me was to collect data about the Facebook ad campaigns. There I learned about another tool on collecting data called Supermetrics. 
+
+Supermetrics is free for use as a trial for 14 days and since I was supposed to submit this within less than 14 days I was able to use the free version as the provost told me. As per his instructions I set up a Google Sheet and then started by adding the Supermetrics addon to Google Sheets. It took me and the rest of the team two days to completely understand how the queries run from Supermetrics and what were the resulting data coming from. This was where knowing a bit about SQL helped to underestand what Supermetrics was trying to bring and from where. Finally after a few trial and error and a bundle of extra sheets in the Sheets workbook we managed to get the data into one place. 
+### Cleaning and wrangling
+
+And so began the journey into the muddy waters of data wrangling. It was tedious at first  considering that we had to download Google sheets as csv files and then gather them all together into one place. Which brings us to the next pitfall that we faced in doing this project. 
+
+#### Pitfall #2: Lack of streamlined data pipelines
+
+We didnt have a proper data pipeline to ensure that when we update the query in Supermetrics to refresh the data, the changes would be automatically reflected in our graphs. The intermediate step of having to download the data from Google Sheets locally as CSV files was the bottleneck of it all. It would have been much easier if we used the R package for handling Google Sheets and used it to auto update the graphs. 
+
+#### Pitfall #3: Data version control
+
+In addition to these we also had the issue of data version control. Because what happened halfway through the entire scene was that we realized that there were missing pieces in the data because of a misconfiguration in the Supermetrics query. This would lead to the classic nightmare of having multiple datasets with the suffix if -1,-2,-new etc. This was a perfect recipe for disaster and the antidote would have been  pretty obvious. Yes git would have been an option and that was where my stupidity came into place. I didn't set up a local git repo to track the changes in the csv files so that we can revert back whenever we wanted. If we had switched to using Google Sheets package to get the synced data then version controlling would be given through the version history in Google Sheets. Regardless this was the biggest misconception I had back then. I would assume git repos need to be in github and local repos without a remote weren't a thing. Butt after finishing the project only I realized how easy it would have been to manage the entire process if I had the common sense to just type git init and get on with the rest of the work. 
+
+The rest was it a blur of plots and late night calls to adjust different values according to the customer need and then the final presentation was done and everything was history.
+
+
+

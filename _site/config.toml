@@ -1,0 +1,61 @@
+baseURL = "/"
+title = "Janith Wanniarachchi"
+theme = "hugo-notepadium"
+copyright = "©2019 Janith Wanniarachchi."
+
+languageCode = "en-US"
+hasCJKLanguage = true
+
+enableRobotsTXT = true
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+# Enable Disqus
+#disqusShortname = "XXX"
+
+# Google Analytics
+googleAnalytics = "UA-169329216-1"
+
+[markup.highlight]
+    codeFences = true
+    noClasses = false
+
+[markup.goldmark.renderer]
+    unsafe = true  # enable raw HTML in Markdown
+
+[params]
+    style = "auto"  # default: auto. light: light theme, dark: dark theme, auto: based on system.
+    dateFormat = "Monday, January 2, 2006"  # if unset, default is "2006-01-02"
+    logo = ""  # if you have a logo png
+    slogan = "Labor Omnia Vincit"
+    license = ""  # CC License
+    fullRss = false # Puts entire HTML post into rss 'description' tag. If unset, default is false.
+
+[params.comments]
+    enable = false  # En/Disable comments globally, default: false. You can always enable comments on per page.
+
+[params.math]
+    enable = true  # optional: true, false. Enable globally, default: false. You can always enable math on per page.
+    use = "mathjax"  # option: "katex", "mathjax". default: "katex"
+
+[params.syntax]
+    use = "hljs"  # builtin: "prismjs", "hljs". "none" means Chroma
+    theme = "vs"
+    darkTheme = "vs2015"  # apply this theme in dark mode
+
+[params.share]
+    enable = false
+    addThisId = ""
+    inlineToolId = ""
+
+[[params.nav.custom]]
+    title = "Home"
+    url = "/"
+    
+[params.nav]
+    showCategories = true       # /categories/
+    showTags = true             # /tags/
+
+# custom navigation items
+
+[[params.nav.custom]]
+    title = "About"
+    url = "/about"

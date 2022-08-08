@@ -1,0 +1,94 @@
+---
+title: "Fun with Letters"
+description: |
+  A collection of poems based on letters
+author:
+  - name: Janith Wanniarachchi
+date: 2020-02-12
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+## A
+
+An aspiring arsonist  
+Actively availing an ailment   
+Avoiding an atypical life  
+Angered by the aristocracy  
+And the altruistic   
+Avenging the alienated  
+To avert an apocalypse  
+Ascending to an astral area  
+Anonymity was not amiss  
+Yet the anomaly was apparent  
+His attempt was in accord  
+To get the accolade   
+Of the angels above him  
+All angles were approached  
+And in the end  
+An apparition was all there was  
+An abyss staring back at him  
+
+## D
+
+Darkness draped around him   
+While the demons   
+devoured him from the inside   
+Every drop of effort he gave   
+Only dragged him even deeper    
+Down to the depthless ditch   
+Of despair and doubt   
+
+Daring to look down   
+His dreaded fears became true   
+The dreams from golden days   
+Dehumanized and twisted   
+Destroying all that was dear to him   
+
+Deprived of all other options   
+He did the deadly dance   
+With his dreams and destiny   
+Only to fail dreadfully.   
+
+“Death is part of destiny.  
+Denial did only the deed,  
+Of dealing more damage.  
+Desiring death,  
+Made no difference.  
+Delaying death was dangerous,  
+Damaging more than strengthening”   
+
+## E
+
+Enter an ephemeral epiphany   
+Evanescent and ethereal   
+An evangelist for an eternal ecstasy   
+Encouraging for an equestrian escapade   
+Sweetened with evocative explanations  
+And so began the expedition   
+To explore areas that   
+extend through eclectic eras of history   
+Even as any other experience   
+Soon it ended slowly into a tiny echo   
+Of an eternal memory   
+entwined with equal parts of   
+Extraordinary and embarrassing   
+Giving an exemplary education    
+On all things exquisite   
+
+
+## F
+
+A Fickle frail fragile mind  
+A facade for a few  
+a facet of truth for the favored   
+Flooded with fear of falling  
+Into a fog of faint feelings  
+Fixations into the far  
+Bringing frustrations  
+Drawing fractals in a flow   
+Of formidable fortitude  
+Throwing the fidgeting mind  
+Out of focus  
+Finishing it in furious flames
