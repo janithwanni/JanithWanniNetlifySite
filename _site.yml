@@ -1,5 +1,6 @@
-name: "fun-with-statistics"
-title: "Fun with statistics"
+name: "janith-wanniarachchi"
+title: "Janith Wanniarachchi"
+theme: main.css
 description: |
   A simple blog site containing my blog posts and talks on statistics and data science
 output_dir: "_site"
