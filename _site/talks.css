@@ -31,6 +31,12 @@ html {
   --mono-font:       monospace;
   --body-font:       sans-serif;
   --navbar-font:     sans-serif;  /* websites + blogs only */
+  /* CSS HEX */
+  --gunmetal: #0f2e3dff;
+  --pink-lavender: #e7bbe3ff;
+  --opera-mauve: #c884a6ff;
+  --old-mauve: #6d2e46ff;
+  --blue-jeans: #5da9e9ff;
 }
 
 /*-- ARTICLE METADATA --*/
@@ -75,3 +81,26 @@ d-appendix {
 
 /*-- Additional custom styles --*/
 /* Add any additional CSS rules below                      */
+
+d-article > p a{
+  color: var(--blue-jeans);
+  padding: 0.5em 0.75em;
+  border-color: var(--blue-jeans);
+  text-decoration: none;
+  cursor: pointer;
+  border-width: 1px 1px;
+  border-style: solid;
+  border-radius: 10px;
+}
+
+d-article > p a:hover {
+  background-color: var(--blue-jeans);
+  color: white;
+  border-radius: 10px;
+  border-color: var(--blue-jeans);
+}
+.talks-img{
+  width: 40%;
+  padding: 0px 0.5em;
+  display: inline-block;
+}

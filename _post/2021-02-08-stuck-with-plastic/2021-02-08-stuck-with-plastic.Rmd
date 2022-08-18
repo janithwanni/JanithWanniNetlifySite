@@ -74,7 +74,7 @@ The plastic is categorized by [recycling codes](https://en.wikipedia.org/wiki/Re
 # Data preparation
 
 ```{r}
-skimr::skim(tuesdata$plastic)
+skimr::skim_without_charts(tuesdata$plastic)
 ```
 
 Several plastic counts columns contain NAs. Is this due to a mistake in entering data or was there actually no plastics of that category to be found? The most sound answer would be that there were no plastic counts to be found which is quite unlikely. We can recalculate the grand total with these imputed 0s.

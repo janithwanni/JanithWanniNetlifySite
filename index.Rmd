@@ -29,7 +29,7 @@ site: distill::distill_website
 
 <br/>
 
-I’m Janith Wanniarachchi, a final year undergraduate finishing my BSc. in Statistics (Hons.) degree from the University of Sri Jayewardenepura, a leading government University situated in Colombo and ranked as the 2bd in the country. Currently my Statistics GPA is at 3.8/4.0 and my overall GPA is at 3.81/4.0, with two subjects(Econometrics, Research) awaiting results. 
+I’m Janith Wanniarachchi, a final year undergraduate finishing my BSc. in Statistics (Hons.) degree from the University of Sri Jayewardenepura, a leading government University situated in Colombo and ranked as the 2bd in the country. Currently my Statistics GPA is at 3.8/4.0 and my overall GPA is at 3.81/4.0, while awaiting results for my research project. 
 
 My research interests are mainly in data visualization, time series forecasting, bayesian inference and interpretable machine learning. On this website you will find some of my work and interests in statistics and creative writing. 
 
