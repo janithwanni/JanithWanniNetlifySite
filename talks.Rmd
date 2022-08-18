@@ -3,6 +3,7 @@ title: "Talks"
 output:
   distill::distill_article:
     toc: true
+    theme: talks.css
 ---
 
 I love sharing my knowledge with others, be it through tutoring sessions for my colleagues or a talk for a crowd of enthusiasts. These are some of the places where I got the opportunity to share my knowledge publicly.
