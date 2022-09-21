@@ -92,14 +92,7 @@ plastics <- tuesdata$plastics %>%
   filter(year == 2019) %>% 
   filter(country != "EMPTY" & 
            !(parent_company %in% c("Grand Total","Unbranded")) &
-           grand_total != 0) 
-
-# %>% 
-#   group_by(parent_company,year) %>% 
-#   mutate(across(empty:pvc,mean)) %>% 
-#   ungroup() %>% 
-#   select(parent_company,hdpe:pvc) %>% 
-#   distinct()
+           grand_total != 0)
 ```
 
 

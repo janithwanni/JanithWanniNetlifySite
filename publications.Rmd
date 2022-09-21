@@ -9,7 +9,9 @@ Publish or perish is an extreme outlook on the craft of writing. I work on my pu
 
 ## scatteR: Generating instance space using scagnostics
 
-About to be presented at [useR! 2022](https://user2022.r-project.org/program/talks/#session-36-synthetic-data-and-text-analysis)
+Presented scatteR in the[Synthetic Data and Text Analysis session](https://www.youtube.com/watch?v=e2bE9o9DaNE&list=PL77T87Q0eoJhayMV5-dRZHiGPqJVM1WnB&index=2&t=2564s) in [useR! 2022](https://user2022.r-project.org/program/talks/#session-36-synthetic-data-and-text-analysis) as a diversity scholarship winner
+
+Published scatteR as a preprint article in arXiv [arXiv:2209.06682 (stat.CO)](https://doi.org/10.48550/arXiv.2209.06682_)
 
 ## Intelligent System to Verify the Effectiveness of Proposed Teacher Transfers Incorporating Human Factors
 
