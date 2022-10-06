@@ -1,0 +1,45 @@
+---
+title: "Is knowing half the battle?"
+description: |
+  A poem on whether knowing is half the battle
+author:
+  - name: Janith Wanniarachchi
+date: "2022-05-22"
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+I understand   
+The cracks and the thorns within   
+in this ivory tower   
+of my humble abode  
+
+I understand   
+The rot that festers within  
+seeping upwards in tendrils  
+from stone to the sky   
+
+I understand  
+The darkness that looms within  
+crowded with monsters   
+untold and unheard of  
+
+But why   
+does it still ache   
+to be powerless   
+with all the tools   
+near my fingertips   
+to banish asunder   
+the cracks   
+the thorns   
+the rot   
+the darkness   
+
+Perhaps   
+Knowing is not half the battle   
+For what man   
+would march in   
+over others who failed   
+to win a battle   
+that they know fully well.    
