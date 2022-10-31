@@ -26,7 +26,7 @@ site: distill::distill_website
 
 <br/>
 
-Hi there, I’m Janith Wanniarachchi, an R Shiny Developer at Appsilon and a First Class graduate in BSc. in Statistics (Hons.) degree from the University of Sri Jayewardenepura, Sri Lanka.
+Hi there, I’m Janith Wanniarachchi, an R Shiny Developer at [Appsilon](https://appsilon.com/) and I graduated in 2022 as a First Class graduate in BSc. in Statistics (Hons.) degree from the University of Sri Jayewardenepura, Sri Lanka.
 
 My research interests are mainly in data visualization, time series forecasting, bayesian inference and interpretable machine learning. My interest for interpretable machine learning began with my final year research project, titled "Transparency, auditability and explainability of interpretable machine learning methods". The research project wouldn't have been a success if not for the guidance and supervision of [Dr. Thiyanga Talagala](https://thiyanga.netlify.app/). From the very first datathon that she mentored me in, she has been an inspirational character in my university life, pushing me to think out of the box and find novel solutions to problems.
 
