@@ -10,7 +10,7 @@ I love sharing my knowledge with others, be it through tutoring sessions for my 
 
 ## Abuja useR Group September 2022 meetup
 
-<img src="img/talks/abuja-use-r-september-poster.png"/> <img src="img/talks/abuja-use-r-shiny_dashboard.png" />
+<img src="img/talks/abuja-use-r-september-poster.jpg"/> <img src="img/talks/abuja-use-r-shiny_dashboard.png" />
 
 Dr. Stephen Balogun was my coordinator for the useR! 2022 conference and after the conference, I received an invite to speak with the Abuja R user group on September 2022. The topic that I chose for the talk was based on a recent technical assessment I had performed where I had to learn the techniques and intricacies of creating an interactive map within a Shiny dashboard. Since knowledge is best retained when shared, I decided to do a session on implementing leaflet maps in Shiny dashboards.
 
@@ -61,7 +61,7 @@ This was my first talk in the Google Developer Group in Sri Lanka, where I was h
 
 The Octave Advanced Analytics Symposium, organized a research competition where undergraduates and postgraduates submitted the abstract of their thesis and the finalists recieved the opportunity to showcase their thesis to a panel of judges. I was able to secure the position of top 10 finalist in the competition based on the abstract of my thesis.
 
-<img src="img/talks/octave-thesis-ss.png">
+<img src="img/talks/octave-thesis-ss.jpg">
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">My student <a href="https://twitter.com/janithcwanni?ref_src=twsrc%5Etfw">@janithcwanni</a> is presenting our work on Transparency, Auditability and Explainability of Machine Learning Interpretability Methods. Congratulations on becoming a finalist in the OCTAVE research competition<br><br>Check out his work at: <a href="https://t.co/aNlFLNAjWI">https://t.co/aNlFLNAjWI</a> <a href="https://t.co/bJRDa3tm8H">pic.twitter.com/bJRDa3tm8H</a></p>&mdash; Thiyanga Talagala (@thiyangt) <a href="https://twitter.com/thiyangt/status/1525039843792789504?ref_src=twsrc%5Etfw">May 13, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 

@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,9 +74,9 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
 code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
@@ -784,6 +785,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1025,10 +1027,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
   }
 
   .figure .caption {
@@ -1860,9 +1858,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -1874,6 +1884,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1973,6 +2008,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -1995,7 +2032,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2347,7 +2384,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2424,39 +2461,19 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 }
 </style>
 <p><br/></p>
-<p>Hi there, I’m Janith Wanniarachchi, an R Shiny Developer at <a
-href="https://appsilon.com/">Appsilon</a> and I graduated in 2022 as a
-First Class graduate in BSc. in Statistics (Hons.) degree from the
-University of Sri Jayewardenepura, Sri Lanka.</p>
-<p>My research interests are mainly in data visualization, time series
-forecasting, bayesian inference and interpretable machine learning. My
-interest for interpretable machine learning began with my final year
-research project, titled “Transparency, auditability and explainability
-of interpretable machine learning methods”. The research project
-wouldn’t have been a success if not for the guidance and supervision of
-<a href="https://thiyanga.netlify.app/">Dr. Thiyanga Talagala</a>. From
-the very first datathon that she mentored me in, she has been an
-inspirational character in my university life, pushing me to think out
-of the box and find novel solutions to problems.</p>
+<p>Hi there, I’m Janith Wanniarachchi, an R Shiny Developer at <a href="https://appsilon.com/">Appsilon</a> and I graduated in 2022 as a First Class graduate in BSc. in Statistics (Hons.) degree from the University of Sri Jayewardenepura, Sri Lanka.</p>
+<p>My research interests are mainly in data visualization, time series forecasting, bayesian inference and interpretable machine learning. My interest for interpretable machine learning began with my final year research project, titled “Transparency, auditability and explainability of interpretable machine learning methods”. The research project wouldn’t have been a success if not for the guidance and supervision of <a href="https://thiyanga.netlify.app/">Dr. Thiyanga Talagala</a>. From the very first datathon that she mentored me in, she has been an inspirational character in my university life, pushing me to think out of the box and find novel solutions to problems.</p>
 <p style="grid-column-start: page-start;grid-column-end: page-end;">
-<div
-style="display:flex;justify-content:space-evenly;grid-column-start: middle-start;grid-column-end: middle-end;">
+<div style="display:flex;justify-content:space-evenly;grid-column-start: middle-start;grid-column-end: middle-end;">
 <img src="img/thiyanga_photo_1.jpg" style="height: fit-content;width: 33%;"/><img src="img/thiyanga_photo_2.jpg" style="height: fit-content;width: 30%;"/>
 </div>
 </p>
-<p>In addition, the lecturers of the department of statistics has been
-super helpful in nurturing my knowledge of statistics and providing me
-the opportunity to explore new avenues in applying statistics.</p>
+<p>In addition, the lecturers of the department of statistics has been super helpful in nurturing my knowledge of statistics and providing me the opportunity to explore new avenues in applying statistics.</p>
 <p style="grid-column-start: middle-start;grid-column-end: middle-end;">
 <img src = "img/dept_stat_lecs.JPG" style="width:100%;"/>
 </p>
-<p>On this website you will find some of my work and interests in
-statistics and creative writing. If you find anything out of place or
-worth mentioning to me, please contact me through my socials. If you
-want to learn more about my academic and professional background, check
-out my Resume below.</p>
-<div
-style="display:flex;flex-direction: row;justify-content: space-evenly;">
+<p>On this website you will find some of my work and interests in statistics and creative writing. If you find anything out of place or worth mentioning to me, please contact me through my socials. If you want to learn more about my academic and professional background, check out my Resume below.</p>
+<div style="display:flex;flex-direction: row;justify-content: space-evenly;">
 <div>
 <a href="https://www.twitter.com/janithcwanni" class="socials">Twitter</a>
 </div>
@@ -2474,23 +2491,15 @@ style="display:flex;flex-direction: row;justify-content: space-evenly;">
 </div>
 </div>
 <p><br/></p>
-<p>With that being said, here are some of my interests that I don’t get
-to talk about a lot.</p>
+<p>With that being said, here are some of my interests that I don’t get to talk about a lot.</p>
 <h1 id="my-current-obsessions">My current obsessions</h1>
 <h2 id="genshin-impact">Genshin Impact</h2>
 <p style="grid-column-start: middle-start;grid-column-end: middle-end;">
 <img src = "img/Genshin-poster.webp" style="width:100%;"/>
 </p>
-<p>Genshin Impact is a video game that I have been playing for almost an
-year now. The main things I love about the game are the stunning
-visuals, the art style and the music along with the gripping and
-creative story line. Since it’s mostly a single player game, I can play
-without any pressure of internet speed or skill level. My most favorite
-character of all is Eula, and these days I’m bulding up two other
-favorite characters, Candace and Shikanoin Heizou.</p>
+<p>Genshin Impact is a video game that I have been playing for almost an year now. The main things I love about the game are the stunning visuals, the art style and the music along with the gripping and creative story line. Since it’s mostly a single player game, I can play without any pressure of internet speed or skill level. My most favorite character of all is Eula, and these days I’m bulding up two other favorite characters, Candace and Shikanoin Heizou.</p>
 <p style="grid-column-start: page-start;grid-column-end: page-end;">
-<div
-style="display:flex;justify-content:space-evenly;grid-column-start: middle-start;grid-column-end: middle-end;">
+<div style="display:flex;justify-content:space-evenly;grid-column-start: middle-start;grid-column-end: middle-end;">
 <img src="img/Character_Eula_Card.webp" style="height: fit-content;width: 33%;"/><img src="img/Character_Candace_Card.webp" style="height: fit-content;width: 33%;"/><img src="img/Character_Shikanoin_Heizou_Card.webp" style="height: fit-content;width: 33%;"/>
 </div>
 </p>
@@ -2498,10 +2507,7 @@ style="display:flex;justify-content:space-evenly;grid-column-start: middle-start
 <p style="grid-column-start: middle-start;grid-column-end: middle-end;">
 <img src = "img/pen_notebook.jpg" style="width:100%;"/>
 </p>
-<p>My love for fountain pens began with my obsession with calligraphy
-and cursive writing. From the early days I have collected several
-starter level fountain pens, listed in chronoligcal order as
-follows.</p>
+<p>My love for fountain pens began with my obsession with calligraphy and cursive writing. From the early days I have collected several starter level fountain pens, listed in chronoligcal order as follows.</p>
 <ol type="1">
 <li>Hero Fountain Pen</li>
 <li>TWSBI Eco pen</li>
@@ -2509,17 +2515,13 @@ follows.</p>
 <li>Jinhao X750</li>
 <li>Jinhao X550</li>
 </ol>
-<p>Currently, I’m still using Noodler’s Bernanke Black as my primary ink
-and Daycraft dotted notebook as my paper medium. Here are some snaps of
-the various pens and notebooks that I have used upto now.</p>
+<p>Currently, I’m still using Noodler’s Bernanke Black as my primary ink and Daycraft dotted notebook as my paper medium. Here are some snaps of the various pens and notebooks that I have used upto now.</p>
 <p style="grid-column-start: page-start;grid-column-end: page-end;">
-<div
-style="display:flex;flex-flow:wrap;justify-content:space-evenly;grid-column-start: middle-start;grid-column-end: middle-end;">
+<div style="display:flex;flex-flow:wrap;justify-content:space-evenly;grid-column-start: middle-start;grid-column-end: middle-end;">
 <img src="img/pen_0.jpeg" style="height: fit-content;width: 50%;padding: 10px;"/><img src="img/pen_1.jpeg" style="height: fit-content;width: 50%;padding: 10px;"/><img src="img/pen_2.jpeg" style="height: fit-content;width: 50%;padding: 10px;"/><img src="img/pen_3.jpg" style="height: fit-content;width: 50%;padding: 10px;"/><img src="img/pen_4.jpg" style="height: fit-content;width: 50%;padding: 10px;"/><img src="img/pen_5.jpeg" style="height: fit-content;width: 50%;padding: 10px;"/>
 </div>
 </p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

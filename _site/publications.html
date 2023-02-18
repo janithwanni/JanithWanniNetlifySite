@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,9 +74,9 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
 code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
@@ -784,6 +785,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1025,10 +1027,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
   }
 
   .figure .caption {
@@ -1860,9 +1858,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -1874,6 +1884,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1973,6 +2008,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -1995,7 +2032,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2347,7 +2384,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2402,95 +2439,33 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-article">
 <h2 id="articles">Articles</h2>
-<p>Publish or perish is an extreme outlook on the craft of writing. I
-work on my publications not to stay afloat but to enjoy the waves.
-Writing is an area that I’m really interested in and so is contributing
-new areas of improvements in the data science community. Here are some
-of my publications that I have written over the years.</p>
-<h2 id="scatter-generating-instance-space-using-scagnostics">scatteR:
-Generating instance space using scagnostics</h2>
-<p>Presented scatteR in the<a
-href="https://www.youtube.com/watch?v=e2bE9o9DaNE&amp;list=PL77T87Q0eoJhayMV5-dRZHiGPqJVM1WnB&amp;index=2&amp;t=2564s">Synthetic
-Data and Text Analysis session</a> in <a
-href="https://user2022.r-project.org/program/talks/#session-36-synthetic-data-and-text-analysis">useR!
-2022</a> as a diversity scholarship winner</p>
-<p>Published scatteR as a preprint article in arXiv <a
-href="https://doi.org/10.48550/arXiv.2209.06682_">arXiv:2209.06682
-(stat.CO)</a></p>
-<h2
-id="intelligent-system-to-verify-the-effectiveness-of-proposed-teacher-transfers-incorporating-human-factors">Intelligent
-System to Verify the Effectiveness of Proposed Teacher Transfers
-Incorporating Human Factors</h2>
-<p>This was a project that I assisted with during my second year of the
-Bachelor’s degree. The study explored the satisfaction of teachers who
-were transferred to new schools for various reasons through the use of
-machine learning techniques. I was able to put the machine learning
-knowledge I had acquired up to then into a real life scenario. The
-process of data cleaning, communicating with team members and explaining
-the machine learning concepts in layman terms were challenging
-components that I enjoyed immensely.</p>
+<p>Publish or perish is an extreme outlook on the craft of writing. I work on my publications not to stay afloat but to enjoy the waves. Writing is an area that I’m really interested in and so is contributing new areas of improvements in the data science community. Here are some of my publications that I have written over the years.</p>
+<h2 id="scatter-generating-instance-space-using-scagnostics">scatteR: Generating instance space using scagnostics</h2>
+<p>Presented scatteR in the<a href="https://www.youtube.com/watch?v=e2bE9o9DaNE&amp;list=PL77T87Q0eoJhayMV5-dRZHiGPqJVM1WnB&amp;index=2&amp;t=2564s">Synthetic Data and Text Analysis session</a> in <a href="https://user2022.r-project.org/program/talks/#session-36-synthetic-data-and-text-analysis">useR! 2022</a> as a diversity scholarship winner</p>
+<p>Published scatteR as a preprint article in arXiv <a href="https://doi.org/10.48550/arXiv.2209.06682_">arXiv:2209.06682 (stat.CO)</a></p>
+<h2 id="intelligent-system-to-verify-the-effectiveness-of-proposed-teacher-transfers-incorporating-human-factors">Intelligent System to Verify the Effectiveness of Proposed Teacher Transfers Incorporating Human Factors</h2>
+<p>This was a project that I assisted with during my second year of the Bachelor’s degree. The study explored the satisfaction of teachers who were transferred to new schools for various reasons through the use of machine learning techniques. I was able to put the machine learning knowledge I had acquired up to then into a real life scenario. The process of data cleaning, communicating with team members and explaining the machine learning concepts in layman terms were challenging components that I enjoyed immensely.</p>
 <p><a href="https://ieeexplore.ieee.org/document/9754089/">Paper</a></p>
 <h2 id="packages">Packages</h2>
-<p>I firmly believe that software should also be considered as research
-considering the amount of work that is taken into building each software
-product. I worked mainly with Python and C++ and later transitioned to R
-and Julia as well yet from all these languages the R ecosystem gave me
-the easiest and straightforward method of bringing my ideas into a
-software package for the use of others.</p>
+<p>I firmly believe that software should also be considered as research considering the amount of work that is taken into building each software product. I worked mainly with Python and C++ and later transitioned to R and Julia as well yet from all these languages the R ecosystem gave me the easiest and straightforward method of bringing my ideas into a software package for the use of others.</p>
 <h3 id="dsjobtracker">DSJobtracker</h3>
-<p>DSJobtracker is a data package containing the job requirements for
-Data science jobs all around the world. The project has been
-continuously running for two years upto now(2022) and has collected over
-800 observations. The project was initially brought forward by <a
-href="https://thiyanga.netlify.app/">Dr. Thiyanga Talagala</a> and I
-recieved the opportunity to work on this project as part of the
-Hacktoberfest challenge in the year 2020. There I learned how to setup
-vignettes and packagedown websites along with many aspects of data
-cleaning. Afterwards I recieved the opportunity to work on this project
-once again as part of my work as a consultant in the Statistical
-Consultancy Service unit in the Department of Statistics, University of
-Sri Jayewardenepura. There my main obligation was to curate a new set of
-observations for the year 2021 by working with a group of consultants.
-The dataset was collected manually and cleaned through R in a
-reproducible manner to be published as a data package on CRAN with over
-1000+ downloads in total.</p>
-<p><a href="https://github.com/thiyangt/DSjobtracker">Github</a> <a
-href="https://cran.r-project.org/package=DSjobtracker">CRAN</a></p>
+<p>DSJobtracker is a data package containing the job requirements for Data science jobs all around the world. The project has been continuously running for two years upto now(2022) and has collected over 800 observations. The project was initially brought forward by <a href="https://thiyanga.netlify.app/">Dr. Thiyanga Talagala</a> and I recieved the opportunity to work on this project as part of the Hacktoberfest challenge in the year 2020. There I learned how to setup vignettes and packagedown websites along with many aspects of data cleaning. Afterwards I recieved the opportunity to work on this project once again as part of my work as a consultant in the Statistical Consultancy Service unit in the Department of Statistics, University of Sri Jayewardenepura. There my main obligation was to curate a new set of observations for the year 2021 by working with a group of consultants. The dataset was collected manually and cleaned through R in a reproducible manner to be published as a data package on CRAN with over 1000+ downloads in total.</p>
+<p><a href="https://github.com/thiyangt/DSjobtracker">Github</a>
+<a href="https://cran.r-project.org/package=DSjobtracker">CRAN</a></p>
 <h3 id="scatter">scatteR</h3>
-<p>scatteR is a novel data generating method that is based on
-scagnostics. This was developed during my undergraduate research to
-assist in my thesis. Scagnostics are a graphical exploratory tool that
-is capable of quantifying the features of scatterplot through nine
-measurements that are calculated using three geometrical graphs. scatteR
-acts as an inverse scagnostics method by iteratively arranging points on
-a unit 2 dimensional space. The points are placed to minimize the
-distance between the existing and expected scagnostic measurements
-through simulated annealing as an optimization method.</p>
-<p>For more info about scatteR check out the <a
-href="https://user2022.r-project.org/program/talks/#session-36-synthetic-data-and-text-analysis">useR
-presentation slides</a>.</p>
-<p><a href="https://github.com/janithwanni/scatteR">Github</a> <a
-href="https://cran.r-project.org/package=scatteR">CRAN</a></p>
+<p>scatteR is a novel data generating method that is based on scagnostics. This was developed during my undergraduate research to assist in my thesis. Scagnostics are a graphical exploratory tool that is capable of quantifying the features of scatterplot through nine measurements that are calculated using three geometrical graphs. scatteR acts as an inverse scagnostics method by iteratively arranging points on a unit 2 dimensional space. The points are placed to minimize the distance between the existing and expected scagnostic measurements through simulated annealing as an optimization method.</p>
+<p>For more info about scatteR check out the <a href="https://user2022.r-project.org/program/talks/#session-36-synthetic-data-and-text-analysis">useR presentation slides</a>.</p>
+<p><a href="https://github.com/janithwanni/scatteR">Github</a>
+<a href="https://cran.r-project.org/package=scatteR">CRAN</a></p>
 <h3 id="nic">nic</h3>
-<p>Nature Inspired Color palettes came up as a project to work upon for
-the Hacktoberfest challenge for the year 2021. This project provided me
-with the opportunity to work on gathering data by collecting photos from
-my garden, quantisizing images to generate the most frequent colors,
-analyse color frequency based on color spaces, and finally generate
-color palletes that are colorblind friendly.</p>
-<p><a href="https://github.com/thiyangt/nic">Github</a> <a
-href="https://cran.r-project.org/package=nic">CRAN</a></p>
+<p>Nature Inspired Color palettes came up as a project to work upon for the Hacktoberfest challenge for the year 2021. This project provided me with the opportunity to work on gathering data by collecting photos from my garden, quantisizing images to generate the most frequent colors, analyse color frequency based on color spaces, and finally generate color palletes that are colorblind friendly.</p>
+<p><a href="https://github.com/thiyangt/nic">Github</a>
+<a href="https://cran.r-project.org/package=nic">CRAN</a></p>
 <h3 id="tsdataleaks">tsdataleaks</h3>
-<p>This project came up as part of the Hacktoberfest challenge in 2021.
-The main aim of my work was to optimize the performance of the
-calculations conducted in the package. tsdataleaks is concerned with
-capturing the data leaks between time series in mutlivariate time
-series. Through these project I was able to learn about RCpp and the
-internal operations of R that utilize the vectorized operations.</p>
-<p><a href="https://github.com/thiyangt/tsdataleaks">Github</a> <a
-href="https://cran.r-project.org/package=tsdataleaks">CRAN</a></p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>This project came up as part of the Hacktoberfest challenge in 2021. The main aim of my work was to optimize the performance of the calculations conducted in the package. tsdataleaks is concerned with capturing the data leaks between time series in mutlivariate time series. Through these project I was able to learn about RCpp and the internal operations of R that utilize the vectorized operations.</p>
+<p><a href="https://github.com/thiyangt/tsdataleaks">Github</a>
+<a href="https://cran.r-project.org/package=tsdataleaks">CRAN</a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
