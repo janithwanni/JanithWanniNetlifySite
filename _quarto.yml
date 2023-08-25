@@ -1,0 +1,23 @@
+project:
+  type: website
+
+website:
+  title: "Janith Wanniarachchi"
+  navbar:
+    right:
+      - text: "Home"
+        href: index.qmd
+      - text: "Publications"
+        href: publications.qmd
+      - text: "Talks"
+        href: talks.qmd
+      - text: "Blog"
+        href: blog.html
+      - text: "Creative Corner"
+        href: creatives.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: main.css
+    toc: false

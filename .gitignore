@@ -172,3 +172,5 @@ vignettes/*.pdf
 docs/
 
 
+
+/.quarto/
