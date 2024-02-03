@@ -1,33 +1,27 @@
 ---
-title: "Janith Wanniarachchi"
-image: "profpic.jpg"
-links:
-  - label: LinkedIn
-    url: "https://www.linkedin.com/in/janith-wanniarachchi"
-  - label: Github
-    url: "https://www.github.com/janithwanni"
-  - label: Twitter
-    url: "https://www.twitter.com/janithcwanni"
-  - label: Email
-    url: "mailto:janithcwanni@gmail.com"
-output:
-  postcards::trestles
+title: "Hi there,"
+about:
+  template: jolla
+  image: "img/profpic.jpg"  
+  links:
+    - text: LinkedIn
+      icon: linkedin
+      href: https://www.linkedin.com/in/janith-wanniarachchi
+    - text: Github
+      icon: github
+      href: "https://www.github.com/janithwanni"
+    - text: Twitter
+      icon: twitter
+      href: "https://www.twitter.com/janithcwanni"
+    - text: Email
+      icon: email
+      href: "mailto:janithcwanni@gmail.com"
 ---
  
-## Bio
+## I'm Janith Wanniarachchi
 
-I’m Janith Wanniarachchi, a final year undergraduate in the BSc. Statistics (Hons.) Degree from the University of Sri Jayewardenepura, Sri Lanka. My journey into the R programming language began through an Introduction to R Programming class taught by Dr. Thiyanga S. Talagala. 
+A Econometrics and Business Statistics PhD candidate at Monash University, Australia. I'm also a BSc. Statistics (Hons.) graduate from the University of Sri Jayewardenepura, Sri Lanka. 
 
-## Education
-
-**University of Sri Jayewardenepura** | Colombo, Sri Lanka
-
-BSc. (Hons) in Statistics | September 2009 - May 2014
-
-**Royal College** | Colombo, Sri Lanka
-
-Grade 1 to G.C.E. Advanced Level Examination
-
-## Experience
+There's more to who I am, what I have done, how I ended up here. An updated history of my work and achievements can be found in [my Curriculum Vitae here](Janith_Wanniarachchi_Portfolio.pdf)
 
 

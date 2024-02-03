@@ -19,6 +19,8 @@ website:
         href: blog.html
       - text: "Creative Corner"
         href: creatives.qmd
+      - text: "About"
+        href: about.qmd
 
 format:
   html:
