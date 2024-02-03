@@ -1,5 +1,9 @@
 project:
   type: website
+  output-dir: _docs
+  render:
+    - "*.qmd"
+    - "!archive/"
 
 website:
   title: "Janith Wanniarachchi"
@@ -18,6 +22,6 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: litera
     css: main.css
     toc: false
