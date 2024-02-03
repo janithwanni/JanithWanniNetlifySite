@@ -58,3 +58,5 @@ _docs/
 _creative/*/*_files/
 _post/*/*_files/
 archive/
+_freeze/
+renv/

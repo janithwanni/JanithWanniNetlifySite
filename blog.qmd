@@ -1,7 +1,9 @@
 ---
 title: "Blog Articles"
-output: distill::distill_article
-listing: post
+listing: 
+  contents: blog
+  type: default
+  fields: [date, title, description, reading-time]
 ---
 
 
