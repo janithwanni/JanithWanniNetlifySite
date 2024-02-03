@@ -1,9 +1,6 @@
 project:
   type: website
   output-dir: _docs
-  render:
-    - "*.qmd"
-    - "!archive/"
 
 website:
   title: "Janith Wanniarachchi"
