@@ -1,7 +1,9 @@
 ---
 title: "Creative Writing Work"
-output: distill::distill_article
-listing: creative
+listing: 
+  contents: creative
+  type: default
+  fields: [date, title, description, reading-time]
 ---
 
 
