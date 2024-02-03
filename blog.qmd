@@ -1,0 +1,12 @@
+---
+title: "Blog Articles"
+listing: 
+  contents: blog
+  type: default
+  fields: [date, title, description, reading-time]
+---
+
+
+
+
+
