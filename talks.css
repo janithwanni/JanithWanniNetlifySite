@@ -82,7 +82,7 @@ d-appendix {
 /*-- Additional custom styles --*/
 /* Add any additional CSS rules below                      */
 
-d-article > p a{
+.talk-links p a{
   color: var(--blue-jeans);
   padding: 0.5em 0.75em;
   border-color: var(--blue-jeans);
@@ -93,12 +93,13 @@ d-article > p a{
   border-radius: 10px;
 }
 
-d-article > p a:hover {
+.talk-links p a:hover {
   background-color: var(--blue-jeans);
   color: white;
   border-radius: 10px;
   border-color: var(--blue-jeans);
 }
+
 .talks-img{
   width: 40%;
   padding: 0px 0.5em;

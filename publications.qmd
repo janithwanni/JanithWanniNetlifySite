@@ -8,7 +8,7 @@ Writing is an area that I'm really interested in and so is contributing new area
 
 ### scatteR: Generating instance space using scagnostics
 
-Presented scatteR in the[Synthetic Data and Text Analysis session](https://www.youtube.com/watch?v=e2bE9o9DaNE&list=PL77T87Q0eoJhayMV5-dRZHiGPqJVM1WnB&index=2&t=2564s) in [useR! 2022](https://user2022.r-project.org/program/talks/#session-36-synthetic-data-and-text-analysis) as a diversity scholarship winner
+Presented scatteR in the [Synthetic Data and Text Analysis session](https://www.youtube.com/watch?v=e2bE9o9DaNE&list=PL77T87Q0eoJhayMV5-dRZHiGPqJVM1WnB&index=2&t=2564s) in [useR! 2022](https://user2022.r-project.org/program/talks/#session-36-synthetic-data-and-text-analysis) as a diversity scholarship winner
 
 Published scatteR as a preprint article in [arXiv:2209.06682 (stat.CO)](https://doi.org/10.48550/arXiv.2209.06682_)
 

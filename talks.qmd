@@ -1,25 +1,28 @@
 ---
 title: "Talks"
-output:
-  distill::distill_article:
-    toc: true
-    theme: talks.css
+format:
+  html:
+    css: talks.css
 ---
 
 I love sharing my knowledge with others, be it through tutoring sessions for my colleagues or a talk for a crowd of enthusiasts. These are some of the places where I got the opportunity to share my knowledge publicly.
 
 ## Abuja useR Group September 2022 meetup
 
-<img src="img/talks/abuja-use-r-september-poster.jpg"/> <img src="img/talks/abuja-use-r-shiny_dashboard.png" />
+<img src="img/talks/abuja-use-r-september-poster.jpg" class = "talks-img"/> <img src="img/talks/abuja-use-r-shiny_dashboard.png" class = "talks-img"/>
 
 Dr. Stephen Balogun was my coordinator for the useR! 2022 conference and after the conference, I received an invite to speak with the Abuja R user group on September 2022. The topic that I chose for the talk was based on a recent technical assessment I had performed where I had to learn the techniques and intricacies of creating an interactive map within a Shiny dashboard. Since knowledge is best retained when shared, I decided to do a session on implementing leaflet maps in Shiny dashboards.
+
+<div class = "talk-links">
 
 [Slides](https://abuja-use-r-september-2022-leaflet.netlify.app/#/) 
 [Shiny application](https://janithwanni.shinyapps.io/abuja-bird-watcher/)
 
+</div>
+
 ## RLadiesColombo April 2021 meetup
 
-<img src="img/talks/RLadies_poster.jpg">
+<img src="img/talks/RLadies_poster.jpg" class = "talks-img">
 
 The RLadies initiative interested me from the beginning when I was introduced to it on the very first lecture with [Dr. Thiyanga Talagala](https://thiyanga.netlify.app/). Even though I was scared to engage with the community as my initial thought was that I would not be welcome there, I joined my first RLadies meetup with the Plot a lot with ggplot2 workshop done by Priyanga and Thiyanga Talagala. After a few months, I myself received the opportunity to present my knowledge on Data Wrangling in R at the April Meetup of RLadies Colombo. 
 
@@ -27,7 +30,11 @@ The idea that I wanted to follow in this session was to stray away from the stan
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/RLadiesColombo?ref_src=twsrc%5Etfw">@RLadiesColombo</a> just finished another fantastic meetup session. Thank you <a href="https://twitter.com/janithcwanni?ref_src=twsrc%5Etfw">@janithcwanni</a> for that awesome session on Data wrangling with R 👏👏👏🎉. <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://twitter.com/hashtag/DataWrangling?src=hash&amp;ref_src=twsrc%5Etfw">#DataWrangling</a> <a href="https://twitter.com/hashtag/DataScience?src=hash&amp;ref_src=twsrc%5Etfw">#DataScience</a> <a href="https://twitter.com/hashtag/rladies?src=hash&amp;ref_src=twsrc%5Etfw">#rladies</a> Janith&#39;s slides here: <a href="https://t.co/kuaCX3ca95">https://t.co/kuaCX3ca95</a> <a href="https://t.co/X2p0yhc4VG">pic.twitter.com/X2p0yhc4VG</a></p>&mdash; R-Ladies Colombo (@RLadiesColombo) <a href="https://twitter.com/RLadiesColombo/status/1385213026333122562?ref_src=twsrc%5Etfw">April 22, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
+<div class = "talk-links">
+
 [Slides](https://www.rladies-colombo-april-2021.netlify.app)
+
+</div>
 
 ## Tensorflow All Around 2019
 
@@ -35,56 +42,86 @@ Tensorflow All Around was an event organized by the Tensorflow User Group of Sri
 
 <img src="img/talks/tf-all-around-1.jpg" class="talks-img"> <img src="img/talks/tf-all-around-2.jpg" class="talks-img"> <img src="img/talks/tf-all-around-3.jpg" class="talks-img"> <img src="img/talks/tf-all-around-4.jpg" class="talks-img">
 
+<div class = "talk-links">
+
 [Github](https://github.com/janithwanni/tf-all-around-2019)
 [Slides](https://docs.google.com/presentation/d/1qObKc5AxoqTHx6lbgusqUdAaXmRzyxnf8R3lDxHzplQ/edit?usp=sharing)
+
+</div>
 
 ## Google Developer Group ML Bootcamp 2019
 
 This was my first talk in the Google Developer Group in Sri Lanka, where I was helping out a two day bootcamp by providing two sessions. One session was in helping the audience understand loss functions and the other session was on RNNs for sequential data. The audience consisted of many professionals in the Software industry and they were quite enthusiastic on using the concepts that were taught during the sessions. Both sessions were conducted using Python and Tensorflow.
 
-<img src="img/talks/GDG_ML_Bootcamp_1.jpg">
+<img src="img/talks/GDG_ML_Bootcamp_1.jpg" class = "talks-img">
 
-<img src="img/talks/GDG_ML_Bootcamp_2.jpg">
+<img src="img/talks/GDG_ML_Bootcamp_2.jpg" class = "talks-img">
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Machine Learning Bootcamp is happening on the 23rd and 24th February organized by <a href="https://twitter.com/GDGLK?ref_src=twsrc%5Etfw">@GDGLK</a> and <a href="https://twitter.com/SLASSCOM?ref_src=twsrc%5Etfw">@SLASSCOM</a> Technology Forum at <a href="https://twitter.com/wso2?ref_src=twsrc%5Etfw">@wso2</a> Trace Expert City office, Sri Lanka. Register from the link below <a href="https://t.co/RyB0wjNeFN">https://t.co/RyB0wjNeFN</a><a href="https://twitter.com/hashtag/MachineLearning?src=hash&amp;ref_src=twsrc%5Etfw">#MachineLearning</a> <a href="https://twitter.com/hashtag/cloudstudyjams19?src=hash&amp;ref_src=twsrc%5Etfw">#cloudstudyjams19</a> <a href="https://twitter.com/hashtag/GoogleCloud?src=hash&amp;ref_src=twsrc%5Etfw">#GoogleCloud</a> <a href="https://twitter.com/hashtag/lka?src=hash&amp;ref_src=twsrc%5Etfw">#lka</a> <a href="https://t.co/JKd6iTrJXM">pic.twitter.com/JKd6iTrJXM</a></p>&mdash; Shafraz Rahim 🇱🇰 (@shafjag) <a href="https://twitter.com/shafjag/status/1096979558501310464?ref_src=twsrc%5Etfw">February 17, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
+<div class = "talk-links">
+
 [Github](https://github.com/rhperera/ml-bootcamp-2019)
 
+</div>
+
 **Day 1 Resources**
+
+<div class = "talk-links">
+
 [Day 1 Regularization](https://docs.google.com/presentation/d/12GasOFWxFgj-LDSKfAX0QV3HmyU3-uW9k1Q60otpcoQ/edit?usp=sharing)
 [Day 1 Loss functions](https://docs.google.com/presentation/d/1yRD8ItYIp4YeKjWIiMydMfB1FrLCotTQ4jYW_IOyEAI/edit?usp=sharing)
 
+</div>
+
 **Day 2 Resources**
+
+<div class = "talk-links">
+
 [Day 2 RNN](https://docs.google.com/presentation/d/1P9W2NsCOwzMCbl00tlq2oXkl0YGy-3HK0Y-oECMJ8t8/edit?usp=sharing)
+
+</div>
 
 ## Octave Thesis Presentation
 
 The Octave Advanced Analytics Symposium, organized a research competition where undergraduates and postgraduates submitted the abstract of their thesis and the finalists recieved the opportunity to showcase their thesis to a panel of judges. I was able to secure the position of top 10 finalist in the competition based on the abstract of my thesis.
 
-<img src="img/talks/octave-thesis-ss.jpg">
+<img src="img/talks/octave-thesis-ss.jpg" class = "talks-img">
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">My student <a href="https://twitter.com/janithcwanni?ref_src=twsrc%5Etfw">@janithcwanni</a> is presenting our work on Transparency, Auditability and Explainability of Machine Learning Interpretability Methods. Congratulations on becoming a finalist in the OCTAVE research competition<br><br>Check out his work at: <a href="https://t.co/aNlFLNAjWI">https://t.co/aNlFLNAjWI</a> <a href="https://t.co/bJRDa3tm8H">pic.twitter.com/bJRDa3tm8H</a></p>&mdash; Thiyanga Talagala (@thiyangt) <a href="https://twitter.com/thiyangt/status/1525039843792789504?ref_src=twsrc%5Etfw">May 13, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+<div class = "talk-links">
+
 [Slides](https://www.janiths-octave-thesis-presentation.netlify.app)
 [Recording](https://drive.google.com/file/d/1pdUgGgjd9fzLDWxpKgz2TQpd1guF69dU/view?usp=sharing)
+
+</div>
 
 ## RETRO Paper reading presentation
 
 During my time working as a contractor consultant for labml.ai, I was priviledged to record and upload a paper reading session on the paper on the RETRO model,a large language model developed by Deepmind. The core conceptof the paper was summarized and contained within a short video for researchers to watch and gain a highlevel idea of the inner workings of the RETRO model.
 
+<div class = "talk-links">
+
 [Paper](https://papers.labml.ai/paper/324a7d2e589111ec905035ac8856fc87)
 [Recording](https://www.youtube.com/watch?v=9XFka0kY4_k)
+
+</div>
 
 ## EDEX presentation on Sports Analytics on Netball
 
 As an initiave of the Sports Analytics Unit of University of Sri Jayewardenepura, a data entry application was to be built for the Sri Lankan Netball team. In this project I built the data entry application using R Shiny and a Microsoft Azure SQL database. The architecture and the thought process behind the app development was shared in EDEX, an annual higher studies exhibition organized by the Royal College Union. 
 
-<img src="img/talks/edex_presentation_pic.jpg">
+<img src="img/talks/edex_presentation_pic.jpg" class = "talks-img">
 
 <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2FEdexExpo%2Fvideos%2F380566463887126%2F&show_text=false&width=267&t=0" width="267" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
 
+<div class = "talk-links">
+
 [Facebook Video](https://www.facebook.com/EdexExpo/videos/380566463887126/)
 [Slide](https://docs.google.com/presentation/d/12pENsQKbmH35r1uGS7QY_ZX3cHps43bCmcQN6U7Ka9c/edit?usp=sharing)
+
+</div>
 
 ## Fundamentals of Data Visualization
 
@@ -92,10 +129,14 @@ During my time as the President of the Statistics Society, I decided to initiate
 
 <img src="img/talks/fundamentals_of_data_visualization_poster.jpg" style="width:70%;position:relative;left:15%">
 
-<img src="img/talks/fundamentals_of_data_visualization_ss.png">
+<img src="img/talks/fundamentals_of_data_visualization_ss.png" class = "talks-img">
+
+<div class = "talk-links">
 
 [Slides](https://docs.google.com/presentation/d/19v6ngh-fiVCoybVemLfqg01a4bsVgnrIwiVq7gWEYxs/edit?usp=sharing)
 [Recording](https://drive.google.com/file/d/12F4PWhfx4YhlFRHKNUekjyegtscpFdtg/view?usp=sharing)
+
+</div>
 
 ## Data Visualization in Tableau
 
@@ -103,5 +144,9 @@ As the next step of preparing students to modern BI tools, I decided to give a s
 
 <img src="img/talks/tableau_workshop_poster.jpg" style="width:70%;position:relative;left:15%">
 
+<div class = "talk-links">
+
 [Slides](https://docs.google.com/presentation/d/1J8w4TxAVanPy7j0NuhyZaYCfq8GnGnPq3O7clczRrso/edit?usp=sharing)
 [Recording](https://drive.google.com/file/d/1J6O4U39zx7q32TTpXpxNvCSxXN3ULoyQ/view?usp=drivesdk)
+
+</div>
