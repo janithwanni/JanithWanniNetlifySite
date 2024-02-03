@@ -1,27 +1,28 @@
 ---
 title: "Publications"
-output: distill::distill_article
 ---
 
 ## Articles
 
-Publish or perish is an extreme outlook on the craft of writing. I work on my publications not to stay afloat but to enjoy the waves. Writing is an area that I'm really interested in and so is contributing new areas of improvements in the data science community. Here are some of my publications that I have written over the years.
+Writing is an area that I'm really interested in and so is contributing new areas of improvements in the data science community. Here are some of my publications that I have written over the years. 
 
-## scatteR: Generating instance space using scagnostics
+### scatteR: Generating instance space using scagnostics
 
 Presented scatteR in the[Synthetic Data and Text Analysis session](https://www.youtube.com/watch?v=e2bE9o9DaNE&list=PL77T87Q0eoJhayMV5-dRZHiGPqJVM1WnB&index=2&t=2564s) in [useR! 2022](https://user2022.r-project.org/program/talks/#session-36-synthetic-data-and-text-analysis) as a diversity scholarship winner
 
-Published scatteR as a preprint article in arXiv [arXiv:2209.06682 (stat.CO)](https://doi.org/10.48550/arXiv.2209.06682_)
+Published scatteR as a preprint article in [arXiv:2209.06682 (stat.CO)](https://doi.org/10.48550/arXiv.2209.06682_)
 
-## Intelligent System to Verify the Effectiveness of Proposed Teacher Transfers Incorporating Human Factors
+### Intelligent System to Verify the Effectiveness of Proposed Teacher Transfers Incorporating Human Factors
 
 This was a project that I assisted with during my second year of the Bachelor's degree. The study explored the satisfaction of teachers who were transferred to new schools for various reasons through the use of machine learning techniques. I was able to put the machine learning knowledge I had acquired up to then into a real life scenario. The process of data cleaning, communicating with team members and explaining the machine learning concepts in layman terms were challenging components that I enjoyed immensely.
 
 [Paper](https://ieeexplore.ieee.org/document/9754089/)
 
+**Want more of my writing work? Head on over to the Creative Corner to find poems and everything creative that I have written!**
+
 ## Packages
 
-I firmly believe that software should also be considered as research considering the amount of work that is taken into building each software product. I worked mainly with Python and C++ and later transitioned to R and Julia as well yet from all these languages the R ecosystem gave me the easiest and straightforward method of bringing my ideas into a software package for the use of others.
+I do believe that software should also be considered as research considering the amount of work that is taken into building each software product. I worked mainly with Python and C++ and later transitioned to R and Julia as well yet from all these languages the R ecosystem gave me the easiest and straightforward method of bringing my ideas into a software package for the use of others.
 
 ### DSJobtracker
 
