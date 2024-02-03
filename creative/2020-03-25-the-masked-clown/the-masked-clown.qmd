@@ -1,10 +1,10 @@
 ---
-layout: post
 title: "The masked clown"
-date: 2020-03-25 12:37:46 +0530
-Summary: "The mask with a smile"
-categories:
-  - Poems
+description: |
+  The mask with a smile
+author:
+  - name: Janith Wanniarachchi
+date: 2020-03-25
 ---
 
 I’m a clown  

@@ -1,10 +1,10 @@
 ---
-layout: post
 title: "My dear fragile heart"
-date: 2020-02-23 12:37:46 +0530
-Summary: "a sweet lament"
-categories:
-  - Poems
+description: |
+  A sweet lament
+author:
+  - name: Janith Wanniarachchi
+date: 2020-02-23
 ---
 
 oh my dear fragile heart  

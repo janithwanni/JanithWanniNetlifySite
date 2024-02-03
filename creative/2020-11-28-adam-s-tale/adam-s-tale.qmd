@@ -1,62 +1,11 @@
 ---
-title: Adam's Tale
-author: Janith Wanniarachchi
-date: '2020-11-28'
-slug: adam-s-tale
-categories:
-  - Stories
-tags: []
-comments: no
-cover: ''
-imgs: []
-justify: no
-lastmod: '2020-11-28T21:59:01+05:30'
-license: ''
-readingTime: yes
-single: no
-toc: yes
-Summary: A short story written Live on Twitch
-description: A short story written Live on Twitch
+title: "Adam's Tale"
+description: |
+  A short story written Live on Twitch
+author:
+  - name: Janith Wanniarachchi
+date: 2020-06-08
 ---
-
-# Welcome!   
-
-This is a short story written Live on [Twitch](https://www.twitch.tv/janithwanni) Every Sunday at 06:30pm.   
-
-Characters: 
-
-Adam:   
-	* A person with vengeance in mind   
-	* Standing for the right thing   
-	* Someone who would do his best to prove that he’s right.   
-	* He would do whatever it takes to set his will on other people.   
-	* thinks he knows whats best for other people.   
-	* medium well built, black hair combed to the side, deep amber eyes, sharp jawline, well shaved and well dressed and well mannered. Default clothing would be, grey leggings, black jacket (when its cold) dark green shirt. 
-The thief clan (Malicious Boys)   
-	* There are three thieves in the clan   
-	* Jacob, Larry, Bert. 
-	* Jacob is the leader, sensible, moral compass is set in a way that he thinks the entire world against him and that he has to do whatever it takes to stand by himself. He cares the world about his clan   
-	* Larry is just a side kick who just adores Jacob.   
-	* Bert who has a really bad desire for bloodlust. Bert is the person who killed Adam’s parents.   
-
-City (Anorak)   
-	* Its in the middle of a valley. The border is roughly circular. There are only two gates. One is from the south another from the north. To the west and the east are two mountains. The mountains are taken up by the rich and wealthy (Panjures). They have built massive castles and their entire estates upon them. And towards the middle , The poor peasants take up their space in the deepest point of the valley. The peasants make their livelihood by farming, and other businesses. Their products are sent towards the mountainside for the Panjures to use. There’s a clear visible divide between the rich and the poor. And the rich ignite fires of doubt between the poor people to make sure that they are safe. There is main river that divides the city into two halves (Left wing and right wing). Internally there is a feud between the left wing and the right wing.   
-	* Legislation and the law enforcement. There is a common place to make laws and discuss policies called the Atrium, where skilled lawyers and debaters from the left and right wings take part in pushing forward their ideas. It is headed by the Governor who decides on the final decision. The Governor is a status thats been handed down generation to generation and they have been impartial since the start. Law enforcement happens in two ways, the left and right wings have their own secret services, the governor has a secret service (the spiders), and a military (the nighthawks)  and a local guard (the bulldogs). The local guard is divided within where the left and right wings influence the arrests made by the local guard and whether they are sent to the Atrium to be judged.    
-	* _TODO: RELIGION_   
-	* The division among peasants. Left and right wing supporting clans and then the the middle wing clans (they are there for the peasants).     
-	* _TODO: How many clans are there? What are their specialities? weapons or cultural or based on religion? What do they do? How do they affect the lives of the peasants? How about left wing supporting clans steal from right wing panjures and the right wing supporting clans steal from left wing panjures. And the middle wings steal from both panjures and thieves alike._    
-
-Plot Structure:   
-
-Adam is training to be a warrior monk. He had lost his parents and his brother in a raid that happened on his village. The raid happened on his birthday by a group of thieves who simply destroyed the village and stole everything, but they didn’t use force. They simply assassinated the chief of the village and took down all the guards, and basically asked everyone to bring in everything they had, and Adam’s parents resisted. And one of the thieves simply struck both of them infront of Adam, despite the protests and warnings of the other members of the thief clan. Soon after they have realized what they have done, they fled the scene with the gold. 
-
-Adam trains his way to become a master and then hunts down the MB, and then finds Bert drinking with all the gold that he stole, and Adam straight up just finishes him in a subtle manner. After that Adam, encounters the rest of the MBs, and they simple overpower him. And then they have a talk together.   
-
-Apparently, Jacob and Larry also have suffered the same tragedy that Adam has suffered where they also lived in a village a bit far away from the city. Their villages were raided at the same time and Jacob and Larry got together while running away from the raids (Mind you the clans that raided their villages were a bit more towards aggressive and gory side), and they ventured out into the city and their story is a thing for another time. But they began the MB while being socially respected and more recognized as gentleman with great status. Bert was later taken up as an apprentice after they found him left for death by another clan. 
-
-The city is ridden with thieving clans and there is a war going on between the guardians of the city and in between the thieving clans as well. 
-
-While Adam is in their custody and after Adam gets to hear their stories, Adam is still kept in their hideout while Jacob and Larry venture out to gather as much as people as possible. And then one night a thief clan decides to attack their hideout. And at that moment Adam is freed to fight alongside them, and there is the place where Adam crosses paths as he’s saved by Jacob and he manages to save Larry as well. 
 
 ## Prologue 
 (FINAL BATTLE BETWEEN MB & OPPOSING THIEF CLAN)   
@@ -130,15 +79,4 @@ Adam stared back at Zalko’s eyes, trying his best to keep his shock away from 
 “As you wish master, I shall gladly accept your words of wisdom.” Adam said once again bowing slightly. **“Adam, heed my words, and I need you to do more than just accept them. Do not try to douse a burning house by embracing it with your whole self. In the end the house will always perish, but if you firmly hold on to your embrace on the burning house, you shall also join the ashes of the burnt house.”** Zalko whispered softly to Adam, and for a moment Adam could see a slight hint of worry in his brow. Adam nodded deeply and said “I understand master, my teachings from this temple will help me a lot in dousing the flames of the burning house” Adam whispered in a reassuring tone. Zalko’s brow furrowed even more at his reply and in a flash of a second all traces of worry vanished from his face, replaced by a simple empty expression. With a soft nod he walked towards the farthest end of the shrine to pick up a long object from the wall. 
 “You are still far away from understanding the true nature of your own self. I believe the lesson that you have to learn, will be completed through the help of this weapon.” Zalko brought forward to him a wooden staff that was as tall as he was. Adam could not hide the shock anymore as he let his mouth gape open at the sight of the wooden staff presented to him. “This is Pasindir, it’s a wooden staff with heavy metal weights on either ends. As you can see there are three rings on each end, and each ring has heavier metal towards the end.” Zalko let the staff roll off his hands and Adam caught it a moment before it hit the ground.  As he straightened up, Adam was able to hide the shock that was in his mind. His jaw was clenched in anger, and his fists gripped the staff tightly as if he was trying to break it into two, just to show Zalko that a mere toothpick can not help him in his mission. He had wasted months on training in the hopes of getting the coveted short swords, and now he had been presented with a simple staff and a lesson to learn out of the temple. He bowed once again deeply, deep enough to show his gratitude in a sarcastic way. “Thank you master, I shall cherish this gift with a lot of gratitude.” Every word that came out of his mouth dripped with sarcastic anger. “Remember my words Adam, warrior monk of Liung Kai, do not burn yourself trying to douse burning houses.” Zalko said softly as he began the preparations for the ceremony.   
 
-## Chapter 2   
-
-
-
-
-
-
-
-
-
-
-
+_To be continued_

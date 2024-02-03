@@ -1,22 +1,11 @@
 ---
-title: Love thy demon
-author: Janith Wanniarachchi
-date: '2020-06-08'
-slug: love-thy-demon
-categories:
-  - Poems
-tags: []
-comments: no
-cover: ''
-imgs: []
-justify: no
-lastmod: '2020-06-08T08:30:32+05:30'
-license: ''
-readingTime: yes
-single: no
-Summary: "Love the demon within you"
+title: "Love thy demon"
+description: |
+  Love the demon within you
+author:
+  - name: Janith Wanniarachchi
+date: 2020-06-08
 ---
-# Love thy demon
 
 A darkened cave   
 Is all I see   
@@ -185,3 +174,5 @@ Was no longer needed
 To ask yourself   
 For a moment   
 To love yourself   
+
+

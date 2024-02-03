@@ -1,12 +1,11 @@
 ---
-layout: post
 title: "Poison"
-date: 2020-03-08 12:37:46 +0530
-Summary: "Control only what you can"
-categories:
-  - Poems
+description: |
+  Control only what you can
+author:
+  - name: Janith Wanniarachchi
+date: 2020-03-08
 ---
-# Poison
 
 “Mine! All mine!”  
 Screams and roars  

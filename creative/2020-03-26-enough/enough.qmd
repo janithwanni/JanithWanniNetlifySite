@@ -1,13 +1,12 @@
 ---
-layout: post
 title: "Enough"
-date: 2020-03-26 12:37:46 +0530
-Summary: "A tribute to all those who care"
-categories:
-  - Poems
+description: |
+  A tribute to all those who care
+author:
+  - name: Janith Wanniarachchi
+date: 2020-06-08
 ---
 
-# Enough
 Oh weary traveller  
 Take rest  
 Under my shade  

@@ -1,7 +1,0 @@
----
-title: "A"
-author: "Janith wanniarachchi"
-date: "2021-12-23"
----
-
-AAA
