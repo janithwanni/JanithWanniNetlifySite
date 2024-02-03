@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Janith Wanniarachchi">
+<meta name="dcterms.date" content="2020-07-30">
+<meta name="description" content="One of my experiences in telling a story with data and the challenges associated with the journey">
+
+<title>Janith Wanniarachchi - Communicating results from an analysis : A short thriller</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../main.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Janith Wanniarachchi</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../talks.html" rel="" target="">
+ <span class="menu-text">Talks</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html" rel="" target="">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../creatives.html" rel="" target="">
+ <span class="menu-text">Creative Corner</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Communicating results from an analysis : A short thriller</h1>
+</div>
+
+<div>
+  <div class="description">
+    One of my experiences in telling a story with data and the challenges associated with the journey
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Janith Wanniarachchi </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 30, 2020</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Most of us here have their own horror stories of statistical consulting written in different forms with different villains. This is one of my stories.</p>
+<p><em>The names and places have been replaced with generic names that I came up to safeguard myself and everyone else who worked on this project with me.</em></p>
+</section>
+<section id="the-project" class="level2">
+<h2 class="anchored" data-anchor-id="the-project">The project</h2>
+<p>I received the chance to work in this project through my girlfriend who was working in a production branch of a digital marketing agency (hereon referred to as EyeAngle). The project was simple. EyeAngle has been working with a client (hereon referred to as University of Liverpool) for a long time and the time had come for UoL to take in a new set of candidates into their environment. EyeAngle had worked on producing videos for social media content such as testimonials, teaser trailers and together with the parent company EyeAngle+ had run a campaign to recruit more candidates into UoL. Now the time has come to take the data that was collected in the process and analyse to present to the client of the success of the project. That was what I knew at first glance and I accepted the opportunity (this was in a period where everyone was quarantining in the middle of a pandemic, and I needed a project that was exciting as this to keep myself sane)</p>
+<p>Now before beginning on the task, I had to take a look at what sort of data was available for me. The supervisor of this project (hereon referred to as the Provost) informed me with the data that they have collected and what are the data that needs to be collected.</p>
+<section id="the-data" class="level3">
+<h3 class="anchored" data-anchor-id="the-data">The data</h3>
+<section id="googly-data" class="level4">
+<h4 class="anchored" data-anchor-id="googly-data">Googly Data</h4>
+<p>To explain the sources of data, one must get to know the story behind how the data was collected. And here is where Google Analytics come into play.</p>
+<p>From the start of the campaign social media content has been posted on two platforms. Facebook and Instagram. Each social media content that was posted during the campaign had a link for potential candidates to sign up for the interview. The links had Google Analytics tracking attached with it (in the case of Instagram the links were all funnelled through the bio and in the case of Facebook the links with tracking codes were shortened and added as part of the post content). From that source a variety of data was collected. I didn’t receive access to the direct Google Analytics data because that would have been risky. Instead I received access to a Google Data Studio dashboard.</p>
+<p>Now from this dashboard I had to slowly collect data by setting the date and then downloading the CSV’s related to each of the three graphs that were present.</p>
+<p>After downloading a few files I realised that combining all of these into dataframe is going to be a massive collection of <code>rbind</code> codes. Therefore I googled a bit about how R gives out contents of a directory and lo and behold it was a list. <strong>quickly loads purrr library</strong> How convenient, I can simply put each of the three CSV’s that come under each date into a folder named with that date and then combine them all together by mapping through the list of files. The result was the following code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>application_conversion_rate <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">dir_ls</span>(<span class="st">"raw_data/"</span>),</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                                       <span class="sc">~</span> <span class="fu">read_csv</span>(<span class="fu">dir_info</span>(.x)<span class="sc">$</span>path[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">gsub</span>(<span class="st">"raw_data/"</span>,<span class="st">""</span>,.x)))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>applications <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">dir_ls</span>(<span class="st">"raw_data/"</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                        <span class="sc">~</span> <span class="fu">read_csv</span>(<span class="fu">dir_info</span>(.x)<span class="sc">$</span>path[<span class="dv">2</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">gsub</span>(<span class="st">"raw_data/"</span>,<span class="st">""</span>,.x)))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>campaign_data <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">dir_ls</span>(<span class="st">"raw_data/"</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                         <span class="sc">~</span> <span class="fu">read_csv</span>(<span class="fu">dir_info</span>(.x)<span class="sc">$</span>path[<span class="dv">3</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">gsub</span>(<span class="st">"raw_data/"</span>,<span class="st">""</span>,.x)))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(application_conversion_rate,<span class="st">"combined_data/application_conversion_rate.csv"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(applications,<span class="st">"combined_data/applications.csv"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(campaign_data,<span class="st">"combined_data/campaign_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After inspecting the final combined dataset I gained an understanding of what sort of data I have with me right now. In summary, I know in a particular date how many users clicked on the signup link on a SM post and then how many of them signed up using that link, in addition I also knew where these users came from and whether they came from an advertisement or simply from a SM post. So that was one dataset under my belt. I felt like a coding ninja using purrr, and as all good things go, my dopamine levels were about to make a massive hit after encountering the next source of data.</p>
+</section>
+<section id="super-data" class="level4">
+<h4 class="anchored" data-anchor-id="super-data">Super Data</h4>
+<p>Remember how I mentioned paid advertisements? well there was the next catch. The Provost at the start of the project informed me that I will not be working alone in this project, and that there will be two people from EyeAngle working with me. Those two were simply my girlfriend and a really close friend of hers. Both of them were competent in R, Excel and were excellent content writers. But here I had the next problem that I never faced before.</p>
+</section>
+<section id="pitfall-1-collaborative-google-slides-with-r" class="level4">
+<h4 class="anchored" data-anchor-id="pitfall-1-collaborative-google-slides-with-r">Pitfall #1: Collaborative Google Slides with R</h4>
+<p>At the time being the only option was to use Rstudio cloud as an option for collaborative data analysis but the issue that came up next was that the final report needed to be made in Google Slides for several reasons such as convienience, collaborative real time editing and suggesting etc. This I knew would become a tedious two step process, as I would have to run the R script locally and then create the graph and <code>ggsave</code> it and then paste it on to the Google Slide and adjust it accordingly. There was no other option for me but to stick with this method.</p>
+<p>Moving forward from that the next task that the provost set forward for me was to collect data about the Facebook ad campaigns. There I learned about another tool on collecting data called Supermetrics.</p>
+<p>Supermetrics is free for use as a trial for 14 days and since I was supposed to submit this within less than 14 days I was able to use the free version as the provost told me. As per his instructions I set up a Google Sheet and then started by adding the Supermetrics addon to Google Sheets. It took me and the rest of the team two days to completely understand how the queries run from Supermetrics and what were the resulting data coming from. This was where knowing a bit about SQL helped to underestand what Supermetrics was trying to bring and from where. Finally after a few trial and error and a bundle of extra sheets in the Sheets workbook we managed to get the data into one place. ### Cleaning and wrangling</p>
+<p>And so began the journey into the muddy waters of data wrangling. It was tedious at first considering that we had to download Google sheets as csv files and then gather them all together into one place. Which brings us to the next pitfall that we faced in doing this project.</p>
+</section>
+<section id="pitfall-2-lack-of-streamlined-data-pipelines" class="level4">
+<h4 class="anchored" data-anchor-id="pitfall-2-lack-of-streamlined-data-pipelines">Pitfall #2: Lack of streamlined data pipelines</h4>
+<p>We didnt have a proper data pipeline to ensure that when we update the query in Supermetrics to refresh the data, the changes would be automatically reflected in our graphs. The intermediate step of having to download the data from Google Sheets locally as CSV files was the bottleneck of it all. It would have been much easier if we used the R package for handling Google Sheets and used it to auto update the graphs.</p>
+</section>
+<section id="pitfall-3-data-version-control" class="level4">
+<h4 class="anchored" data-anchor-id="pitfall-3-data-version-control">Pitfall #3: Data version control</h4>
+<p>In addition to these we also had the issue of data version control. Because what happened halfway through the entire scene was that we realized that there were missing pieces in the data because of a misconfiguration in the Supermetrics query. This would lead to the classic nightmare of having multiple datasets with the suffix if -1,-2,-new etc. This was a perfect recipe for disaster and the antidote would have been pretty obvious. Yes git would have been an option and that was where my stupidity came into place. I didn’t set up a local git repo to track the changes in the csv files so that we can revert back whenever we wanted. If we had switched to using Google Sheets package to get the synced data then version controlling would be given through the version history in Google Sheets. Regardless this was the biggest misconception I had back then. I would assume git repos need to be in github and local repos without a remote weren’t a thing. Butt after finishing the project only I realized how easy it would have been to manage the entire process if I had the common sense to just type git init and get on with the rest of the work.</p>
+<p>The rest was it a blur of plots and late night calls to adjust different values according to the customer need and then the final presentation was done and everything was history.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
