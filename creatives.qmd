@@ -4,7 +4,7 @@ listing:
   contents: creative
   type: default
   fields: [date, title, description, reading-time]
-  sort: "date"
+  sort: "date desc"
 ---
 
 
