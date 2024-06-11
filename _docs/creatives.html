@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -47,7 +47,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,6 +62,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -94,6 +101,33 @@ ul.task-list li input[type="checkbox"] {
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="main.css">
 </head>
 
@@ -101,9 +135,9 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Janith Wanniarachchi</span>
     </a>
@@ -115,33 +149,33 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./publications.html" rel="" target="">
- <span class="menu-text">Publications</span></a>
+    <a class="nav-link" href="./publications.html"> 
+<span class="menu-text">Publications</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./talks.html" rel="" target="">
- <span class="menu-text">Talks</span></a>
+    <a class="nav-link" href="./talks.html"> 
+<span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html" rel="" target="">
- <span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="./blog.html"> 
+<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./creatives.html" rel="" target="" aria-current="page">
- <span class="menu-text">Creative Corner</span></a>
+    <a class="nav-link active" href="./creatives.html" aria-current="page"> 
+<span class="menu-text">Creative Corner</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -168,7 +202,9 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
+
 
 
 
@@ -176,22 +212,20 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1633352400000" data-listing-file-modified-sort="1706970591753" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1633352400000" data-listing-file-modified-sort="1717591140647" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2715">
 <div class="body">
-<a href="./creative/2021-10-05-week-of-writing/week-of-writing.html">
 <h3 class="no-anchor listing-title">
-7 days of writing
+<a href="./creative/2021-10-05-week-of-writing/week-of-writing.html" class="no-external">7 days of writing</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2021-10-05-week-of-writing/week-of-writing.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>An attempt at writing short stories based on a random prompt within 30 minutes everyday for 7 days</p>
+<a href="./creative/2021-10-05-week-of-writing/week-of-writing.html" class="no-external">An attempt at writing short stories based on a random prompt within 30 minutes everyday for 7 days </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2021-10-05-week-of-writing/week-of-writing.html">
+<a href="./creative/2021-10-05-week-of-writing/week-of-writing.html" class="no-external">
 <div class="listing-date">
 Oct 5, 2021
 </div>
@@ -201,22 +235,20 @@ Oct 5, 2021
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1594735200000" data-listing-file-modified-sort="1706970591752" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1594735200000" data-listing-file-modified-sort="1717591140647" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="815">
 <div class="body">
-<a href="./creative/2020-07-15-a-tale-of-two-lovers/a-tale-of-two-lovers.html">
 <h3 class="no-anchor listing-title">
-A tale of two lovers
+<a href="./creative/2020-07-15-a-tale-of-two-lovers/a-tale-of-two-lovers.html" class="no-external">A tale of two lovers</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2020-07-15-a-tale-of-two-lovers/a-tale-of-two-lovers.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>A tale of two lovers entwined in a dance of their own minds</p>
+<a href="./creative/2020-07-15-a-tale-of-two-lovers/a-tale-of-two-lovers.html" class="no-external">A tale of two lovers entwined in a dance of their own minds </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2020-07-15-a-tale-of-two-lovers/a-tale-of-two-lovers.html">
+<a href="./creative/2020-07-15-a-tale-of-two-lovers/a-tale-of-two-lovers.html" class="no-external">
 <div class="listing-date">
 Jul 15, 2020
 </div>
@@ -226,47 +258,43 @@ Jul 15, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1591538400000" data-listing-file-modified-sort="1706970591752" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13">
+<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1591538400000" data-listing-file-modified-sort="1718084794936" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3390">
 <div class="body">
-<a href="./creative/2020-11-28-adam-s-tale/adam-s-tale.html">
 <h3 class="no-anchor listing-title">
-Adam’s Tale
+<a href="./creative/2020-11-28-adam-s-tale/adam-s-tale.html" class="no-external">Adam’s Tale</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2020-11-28-adam-s-tale/adam-s-tale.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>A short story written Live on Twitch</p>
+<a href="./creative/2020-11-28-adam-s-tale/adam-s-tale.html" class="no-external">A short story written Live on Twitch </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2020-11-28-adam-s-tale/adam-s-tale.html">
+<a href="./creative/2020-11-28-adam-s-tale/adam-s-tale.html" class="no-external">
 <div class="listing-date">
 Jun 8, 2020
 </div>
 <div class="listing-reading-time">
-13 min
+17 min
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1583499600000" data-listing-file-modified-sort="1706970591750" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1583499600000" data-listing-file-modified-sort="1717591140646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="92">
 <div class="body">
-<a href="./creative/2020-03-07-balance/balance.html">
 <h3 class="no-anchor listing-title">
-Balance
+<a href="./creative/2020-03-07-balance/balance.html" class="no-external">Balance</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2020-03-07-balance/balance.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>Balance in effort</p>
+<a href="./creative/2020-03-07-balance/balance.html" class="no-external">Balance in effort </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2020-03-07-balance/balance.html">
+<a href="./creative/2020-03-07-balance/balance.html" class="no-external">
 <div class="listing-date">
 Mar 7, 2020
 </div>
@@ -276,22 +304,20 @@ Mar 7, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1586440800000" data-listing-file-modified-sort="1706970591751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1586440800000" data-listing-file-modified-sort="1717591140646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="148">
 <div class="body">
-<a href="./creative/2020-04-10-dreams/dreams.html">
 <h3 class="no-anchor listing-title">
-Dreams
+<a href="./creative/2020-04-10-dreams/dreams.html" class="no-external">Dreams</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2020-04-10-dreams/dreams.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>An escape</p>
+<a href="./creative/2020-04-10-dreams/dreams.html" class="no-external">An escape </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2020-04-10-dreams/dreams.html">
+<a href="./creative/2020-04-10-dreams/dreams.html" class="no-external">
 <div class="listing-date">
 Apr 10, 2020
 </div>
@@ -301,22 +327,20 @@ Apr 10, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1591538400000" data-listing-file-modified-sort="1706970591751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1591538400000" data-listing-file-modified-sort="1717591140646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="243">
 <div class="body">
-<a href="./creative/2020-03-26-enough/enough.html">
 <h3 class="no-anchor listing-title">
-Enough
+<a href="./creative/2020-03-26-enough/enough.html" class="no-external">Enough</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2020-03-26-enough/enough.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>A tribute to all those who care</p>
+<a href="./creative/2020-03-26-enough/enough.html" class="no-external">A tribute to all those who care </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2020-03-26-enough/enough.html">
+<a href="./creative/2020-03-26-enough/enough.html" class="no-external">
 <div class="listing-date">
 Jun 8, 2020
 </div>
@@ -326,22 +350,20 @@ Jun 8, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1581426000000" data-listing-file-modified-sort="1706970591750" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
+<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1581426000000" data-listing-file-modified-sort="1717591140645" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="406">
 <div class="body">
-<a href="./creative/2020-02-12-word-play/word-play.html">
 <h3 class="no-anchor listing-title">
-Fun with Letters
+<a href="./creative/2020-02-12-word-play/word-play.html" class="no-external">Fun with Letters</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2020-02-12-word-play/word-play.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>A collection of poems based on letters</p>
+<a href="./creative/2020-02-12-word-play/word-play.html" class="no-external">A collection of poems based on letters </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2020-02-12-word-play/word-play.html">
+<a href="./creative/2020-02-12-word-play/word-play.html" class="no-external">
 <div class="listing-date">
 Feb 12, 2020
 </div>
@@ -351,22 +373,20 @@ Feb 12, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-listing-date-sort="1591452000000" data-listing-file-modified-sort="1706970591752" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="quarto-post image-right" data-index="7" data-listing-date-sort="1591452000000" data-listing-file-modified-sort="1717591140647" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="251">
 <div class="body">
-<a href="./creative/2020-06-13-get-back/get-back.html">
 <h3 class="no-anchor listing-title">
-Get Back
+<a href="./creative/2020-06-13-get-back/get-back.html" class="no-external">Get Back</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2020-06-13-get-back/get-back.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>Love the demon within you</p>
+<a href="./creative/2020-06-13-get-back/get-back.html" class="no-external">Love the demon within you </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2020-06-13-get-back/get-back.html">
+<a href="./creative/2020-06-13-get-back/get-back.html" class="no-external">
 <div class="listing-date">
 Jun 7, 2020
 </div>
@@ -376,22 +396,20 @@ Jun 7, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-listing-date-sort="1583413200000" data-listing-file-modified-sort="1706970591750" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="8" data-listing-date-sort="1583413200000" data-listing-file-modified-sort="1717591140645" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="157">
 <div class="body">
-<a href="./creative/2020-03-06-guiding-lights/guiding-lights.html">
 <h3 class="no-anchor listing-title">
-Guiding lights
+<a href="./creative/2020-03-06-guiding-lights/guiding-lights.html" class="no-external">Guiding lights</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2020-03-06-guiding-lights/guiding-lights.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>A poem on the giving light to others</p>
+<a href="./creative/2020-03-06-guiding-lights/guiding-lights.html" class="no-external">A poem on the giving light to others </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2020-03-06-guiding-lights/guiding-lights.html">
+<a href="./creative/2020-03-06-guiding-lights/guiding-lights.html" class="no-external">
 <div class="listing-date">
 Mar 6, 2020
 </div>
@@ -401,22 +419,20 @@ Mar 6, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-listing-date-sort="1653141600000" data-listing-file-modified-sort="1706970591753" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="9" data-listing-date-sort="1653141600000" data-listing-file-modified-sort="1717591140647" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="153">
 <div class="body">
-<a href="./creative/2022-05-22-is-knowing-half-the-battle/is-knowing-half-the-battle.html">
 <h3 class="no-anchor listing-title">
-Is knowing half the battle?
+<a href="./creative/2022-05-22-is-knowing-half-the-battle/is-knowing-half-the-battle.html" class="no-external">Is knowing half the battle?</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2022-05-22-is-knowing-half-the-battle/is-knowing-half-the-battle.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>A poem on whether knowing is half the battle</p>
+<a href="./creative/2022-05-22-is-knowing-half-the-battle/is-knowing-half-the-battle.html" class="no-external">A poem on whether knowing is half the battle </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2022-05-22-is-knowing-half-the-battle/is-knowing-half-the-battle.html">
+<a href="./creative/2022-05-22-is-knowing-half-the-battle/is-knowing-half-the-battle.html" class="no-external">
 <div class="listing-date">
 May 22, 2022
 </div>
@@ -426,22 +442,43 @@ May 22, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="10" data-listing-date-sort="1591538400000" data-listing-file-modified-sort="1706970591752" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="10" data-listing-date-sort="1712844000000" data-listing-file-modified-sort="1718098934959" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="613">
 <div class="body">
-<a href="./creative/2020-06-08-love-thy-demon/love-thy-demon.html">
 <h3 class="no-anchor listing-title">
-Love thy demon
+<a href="./creative/2024-04-12-letters-to-my-muse/letters-to-my-muse.html" class="no-external">Letters to my muse</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2024-04-12-letters-to-my-muse/letters-to-my-muse.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>Love the demon within you</p>
+<a href="./creative/2024-04-12-letters-to-my-muse/letters-to-my-muse.html" class="no-external">Short letters written to a fictional muse who’s no longer in my life </a>
+</div>
+</div>
+<div class="metadata">
+<a href="./creative/2024-04-12-letters-to-my-muse/letters-to-my-muse.html" class="no-external">
+<div class="listing-date">
+Apr 12, 2024
+</div>
+<div class="listing-reading-time">
+4 min
 </div>
 </a>
 </div>
+</div>
+<div class="quarto-post image-right" data-index="11" data-listing-date-sort="1591538400000" data-listing-file-modified-sort="1717591140646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="870">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./creative/2020-06-08-love-thy-demon/love-thy-demon.html" class="no-external">Love thy demon</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./creative/2020-06-08-love-thy-demon/love-thy-demon.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="./creative/2020-06-08-love-thy-demon/love-thy-demon.html" class="no-external">Love the demon within you </a>
+</div>
+</div>
 <div class="metadata">
-<a href="./creative/2020-06-08-love-thy-demon/love-thy-demon.html">
+<a href="./creative/2020-06-08-love-thy-demon/love-thy-demon.html" class="no-external">
 <div class="listing-date">
 Jun 8, 2020
 </div>
@@ -451,22 +488,20 @@ Jun 8, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="11" data-listing-date-sort="1582376400000" data-listing-file-modified-sort="1706970591750" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="12" data-listing-date-sort="1582376400000" data-listing-file-modified-sort="1717591140645" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="63">
 <div class="body">
-<a href="./creative/2020-02-23-my-dear-heart/my-dear-heart.html">
 <h3 class="no-anchor listing-title">
-My dear fragile heart
+<a href="./creative/2020-02-23-my-dear-heart/my-dear-heart.html" class="no-external">My dear fragile heart</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2020-02-23-my-dear-heart/my-dear-heart.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>A sweet lament</p>
+<a href="./creative/2020-02-23-my-dear-heart/my-dear-heart.html" class="no-external">A sweet lament </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2020-02-23-my-dear-heart/my-dear-heart.html">
+<a href="./creative/2020-02-23-my-dear-heart/my-dear-heart.html" class="no-external">
 <div class="listing-date">
 Feb 23, 2020
 </div>
@@ -476,22 +511,20 @@ Feb 23, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="12" data-listing-date-sort="1583586000000" data-listing-file-modified-sort="1706970591750" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="13" data-listing-date-sort="1583586000000" data-listing-file-modified-sort="1717591140646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="73">
 <div class="body">
-<a href="./creative/2020-03-08-poison/poison.html">
 <h3 class="no-anchor listing-title">
-Poison
+<a href="./creative/2020-03-08-poison/poison.html" class="no-external">Poison</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2020-03-08-poison/poison.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>Control only what you can</p>
+<a href="./creative/2020-03-08-poison/poison.html" class="no-external">Control only what you can </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2020-03-08-poison/poison.html">
+<a href="./creative/2020-03-08-poison/poison.html" class="no-external">
 <div class="listing-date">
 Mar 8, 2020
 </div>
@@ -501,22 +534,20 @@ Mar 8, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="13" data-listing-date-sort="1578488400000" data-listing-file-modified-sort="1706970591749" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="14" data-listing-date-sort="1578488400000" data-listing-file-modified-sort="1717591140645" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="95">
 <div class="body">
-<a href="./creative/2020-01-29-runaway/runaway.html">
 <h3 class="no-anchor listing-title">
-Runaway
+<a href="./creative/2020-01-29-runaway/runaway.html" class="no-external">Runaway</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2020-01-29-runaway/runaway.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>Running away memories</p>
+<a href="./creative/2020-01-29-runaway/runaway.html" class="no-external">Running away memories </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2020-01-29-runaway/runaway.html">
+<a href="./creative/2020-01-29-runaway/runaway.html" class="no-external">
 <div class="listing-date">
 Jan 9, 2020
 </div>
@@ -526,22 +557,20 @@ Jan 9, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="14" data-listing-date-sort="1586354400000" data-listing-file-modified-sort="1706970591751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="15" data-listing-date-sort="1586354400000" data-listing-file-modified-sort="1717591140646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="122">
 <div class="body">
-<a href="./creative/2020-04-09-solitude/solitude.html">
 <h3 class="no-anchor listing-title">
-Solitude
+<a href="./creative/2020-04-09-solitude/solitude.html" class="no-external">Solitude</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2020-04-09-solitude/solitude.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>A place of peace</p>
+<a href="./creative/2020-04-09-solitude/solitude.html" class="no-external">A place of peace </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2020-04-09-solitude/solitude.html">
+<a href="./creative/2020-04-09-solitude/solitude.html" class="no-external">
 <div class="listing-date">
 Apr 9, 2020
 </div>
@@ -551,22 +580,43 @@ Apr 9, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="15" data-listing-date-sort="1585054800000" data-listing-file-modified-sort="1706970591751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="quarto-post image-right" data-index="16" data-listing-date-sort="1636030800000" data-listing-file-modified-sort="1718099033529" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="878">
 <div class="body">
-<a href="./creative/2020-03-25-the-masked-clown/the-masked-clown.html">
 <h3 class="no-anchor listing-title">
-The masked clown
+<a href="./creative/2021-11-05-the-compass/the-unforgiven.html" class="no-external">The compass</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2021-11-05-the-compass/the-unforgiven.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>The mask with a smile</p>
+<a href="./creative/2021-11-05-the-compass/the-unforgiven.html" class="no-external">A short story I wrote in hopes of practicing voice acting a story </a>
+</div>
+</div>
+<div class="metadata">
+<a href="./creative/2021-11-05-the-compass/the-unforgiven.html" class="no-external">
+<div class="listing-date">
+Nov 5, 2021
+</div>
+<div class="listing-reading-time">
+5 min
 </div>
 </a>
 </div>
+</div>
+<div class="quarto-post image-right" data-index="17" data-listing-date-sort="1585054800000" data-listing-file-modified-sort="1717591140646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="299">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./creative/2020-03-25-the-masked-clown/the-masked-clown.html" class="no-external">The masked clown</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./creative/2020-03-25-the-masked-clown/the-masked-clown.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="./creative/2020-03-25-the-masked-clown/the-masked-clown.html" class="no-external">The mask with a smile </a>
+</div>
+</div>
 <div class="metadata">
-<a href="./creative/2020-03-25-the-masked-clown/the-masked-clown.html">
+<a href="./creative/2020-03-25-the-masked-clown/the-masked-clown.html" class="no-external">
 <div class="listing-date">
 Mar 25, 2020
 </div>
@@ -576,27 +626,48 @@ Mar 25, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="16" data-listing-date-sort="1707742800000" data-listing-file-modified-sort="1707783769668" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="18" data-listing-date-sort="1707742800000" data-listing-file-modified-sort="1717591140647" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="132">
 <div class="body">
-<a href="./creative/2024-02-13-the-waitress/the-waitress.html">
 <h3 class="no-anchor listing-title">
-The waitress
+<a href="./creative/2024-02-13-the-waitress/the-waitress.html" class="no-external">The waitress</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./creative/2024-02-13-the-waitress/the-waitress.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<p>A poem written while in a coffee shop watching the waitress serve tables</p>
+<a href="./creative/2024-02-13-the-waitress/the-waitress.html" class="no-external">A poem written while in a coffee shop watching the waitress serve tables </a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./creative/2024-02-13-the-waitress/the-waitress.html">
+<a href="./creative/2024-02-13-the-waitress/the-waitress.html" class="no-external">
 <div class="listing-date">
 Feb 13, 2024
 </div>
 <div class="listing-reading-time">
 1 min
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="19" data-listing-date-sort="1620741600000" data-listing-file-modified-sort="1718084883623" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="593">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./creative/2021-05-12-fairy-tales/fairy-tales.html" class="no-external">Those who weave the prettiest dreams</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./creative/2021-05-12-fairy-tales/fairy-tales.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="./creative/2021-05-12-fairy-tales/fairy-tales.html" class="no-external">A short story dedicated those who weave the prettiest dreams </a>
+</div>
+</div>
+<div class="metadata">
+<a href="./creative/2021-05-12-fairy-tales/fairy-tales.html" class="no-external">
+<div class="listing-date">
+May 12, 2021
+</div>
+<div class="listing-reading-time">
+3 min
 </div>
 </a>
 </div>
@@ -685,10 +756,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -698,8 +768,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -712,6 +791,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -755,6 +953,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -780,6 +979,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -840,6 +1065,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

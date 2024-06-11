@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Janith Wanniarachchi">
-<meta name="dcterms.date" content="2020-05-29">
-<meta name="description" content="“Fun with Polar coordinates”">
+<meta name="dcterms.date" content="2021-11-05">
+<meta name="description" content="A short story I wrote in hopes of practicing voice acting a story">
 
-<title>Janith Wanniarachchi - Generative Art with the Polar Coordinates</title>
+<title>Janith Wanniarachchi - The compass</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -104,35 +70,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../../main.css">
 </head>
@@ -195,12 +132,12 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Generative Art with the Polar Coordinates</h1>
+<h1 class="title">The compass</h1>
 </div>
 
 <div>
   <div class="description">
-    <p>“Fun with Polar coordinates”</p>
+    <p>A short story I wrote in hopes of practicing voice acting a story</p>
   </div>
 </div>
 
@@ -217,7 +154,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 29, 2020</p>
+      <p class="date">November 5, 2021</p>
     </div>
   </div>
   
@@ -229,81 +166,30 @@ window.Quarto = {
 </header>
 
 
-<section id="explanation" class="level1">
-<h1>Explanation</h1>
-<p>This was a fun little experiment I wanted to do where I wanted to let a couple of children run around randomly in their lunch break maybe and plot their movements on a polar coordinates.</p>
-<p>So the number of bois are set by <code>n_bois</code> and the number of seconds(or time points) they have their lunch break is set by <code>recess_time</code>. First I set the initial points of the bois as follows. These were simply set to be cartesian coordinates so that I can simply convert them to polar and see how it goes. <span class="math display">\[
-X_{i} = Unif(-100,100)\\  
-Y_{i} = Unif(-100,100)
-\]</span> And then for each <span class="math inline">\(t^{th}\)</span> time point I calculated the following values</p>
-<p><span class="math display">\[
-angle_{t} = Unif(0,180)\\
-speed_{t} = Unif(10,1000)\\
-t = 1,2,...,recess_time\\
-angles_{i} = Unif(-angle_{t},angle_{t})\\
-speed_{i} = Unif(-speed_{t},speed_{t})\\
-i = 1,2,...,n\_bois
-\]</span></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.2     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_void</span>())</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>n_bois <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x=</span><span class="fu">runif</span>(<span class="at">n=</span>n_bois,<span class="sc">-</span><span class="dv">100</span>,<span class="dv">100</span>),</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">y=</span><span class="fu">runif</span>(<span class="at">n=</span>n_bois,<span class="sc">-</span><span class="dv">100</span>,<span class="dv">100</span>),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">time=</span><span class="dv">1</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">tag=</span><span class="fu">seq</span>(<span class="dv">1</span>,n_bois))</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>recess_time <span class="ot">&lt;-</span> <span class="dv">360</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>radian <span class="ot">&lt;-</span> <span class="cf">function</span>(degree){</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  (degree <span class="sc">/</span> <span class="dv">360</span>) <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> pi  </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>recess_time){</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  angle_val <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">180</span>)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  speed_val <span class="ot">&lt;-</span><span class="fu">runif</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">1000</span>)</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  angles <span class="ot">&lt;-</span> <span class="fu">runif</span>(n_bois,<span class="sc">-</span>angle_val,angle_val)</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  speed <span class="ot">&lt;-</span> <span class="fu">runif</span>(n_bois,<span class="sc">-</span>speed_val,speed_val)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  start_index <span class="ot">&lt;-</span> <span class="fu">length</span>(a<span class="sc">$</span>x)<span class="sc">-</span>n_bois<span class="sc">+</span><span class="dv">1</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  end_index <span class="ot">&lt;-</span> <span class="fu">length</span>(a<span class="sc">$</span>x)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> a<span class="sc">$</span>x[start_index<span class="sc">:</span>end_index] <span class="sc">+</span> speed <span class="sc">*</span> <span class="fu">cos</span>(<span class="fu">radian</span>(angles)),</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">y =</span> a<span class="sc">$</span>y[start_index<span class="sc">:</span>end_index] <span class="sc">+</span> speed <span class="sc">*</span> <span class="fu">sin</span>(<span class="fu">radian</span>(angles)),</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">time =</span> i,</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>              <span class="at">tag=</span><span class="fu">seq</span>(<span class="dv">1</span>,n_bois))</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="fu">rbind</span>(a,b)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(a,<span class="fu">aes</span>(x,y))<span class="sc">+</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>time,<span class="at">group=</span>tag),</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>                 <span class="at">size=</span><span class="fl">0.5</span>,<span class="at">alpha=</span><span class="fl">0.8</span>,<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color=</span>time,<span class="at">group=</span>tag),<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>() <span class="sc">+</span> </span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low=</span><span class="st">"#83a4d4"</span>,<span class="at">high=</span><span class="st">"#b6fbff"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="2020-06-08-generative-art-with-the-polar-coordinates_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<p>It was a chilly night in the bustling city of Vasco. The shops and windows that were wide open in the morning were now shut and dark. The street lamps brought an eerie blue light on to the muddy roads. Snow was falling faintly with a slight breeze adding in to the cold gloominess of the entire city.</p>
+<p>Amidst all of this, a man was walking among these streets tonight. His stride is purposeful yet his glances showed hesitation and fear. But the only thing to fear at a time like these were marauders and animals and neither of them were reported in this area for a long time now.</p>
+<p>He hugged the black coat even closer towards him as a chilly breeze swept past him. The snow was spreading the mud all around the road leaving his boots gathering more brown than black. His gloved hands went inside his coat pocket to fish out a pocket watch made out of silver. With a simple flick he opened the lid of the pocket watch to peer inside. The frost has crept into the glass on the inside and with a delicate gloved finger he brushed the frost away to look at the time. 15 minutes past 8 in the night. He ran a finger delicately over the edge of the pocket watch watching how the clock began to imitate his fidgeting glances.</p>
+<p>“This is going to be a long night” (He whispers to himself with a sigh.)</p>
+<p>This was a time where many went to their beds after working all day long and for some it was the time they were awake after spending their entire morning in bed.</p>
+<p>Yet now was the time that he had to be the most vigilant. His pace slowed down to a halt and his fidgeting glances only increased in frequency.</p>
+<p>“One, Two, Three, Dang it, did I count that lamp again?” (He angrily says this)</p>
+<p>He began counting the number of street lamps from the start of the lane he was in. Only a couple of houses were nearby and all of them were pitch black with no light inside.</p>
+<p>A sign up ahead of him read “Crossroads lane”.</p>
+<p>The location seemed correct and the time was right as discussed.</p>
+<p>“Where the hell is that bastard?” (he said under his breath).</p>
+<p>As if on cue, a cold breeze swept through the road he was in. He readjusted his hat and brought his coat closer to himself. The cold breeze grew in intensity until the snow was falling thick to where he was standing. The air around him thickened and his vision was clouded by a fog that wrapped around him. Out of the foggy white smoke, a pale figure came forward.</p>
+<p>The figure was dressed in silky ephemeral robes of white, with a dimly glowing ring of blue fixed around his forehead. His eyes were not visible as his face was covered in a mask.</p>
+<p>It was a peculiar mask. A mask with no facial expressions, a mask without a mouth or nose. It was the mask worn by the Unforgiven. The symbolic duel ended scythe was tied to his back, as the ice cold steel glinted in the moonlight.</p>
+<p>The Unforgiven came forward and stood a feet away from the man in the cloak. With a nod the man brought forward a small wooden dice. The Unforgiven smiled from the corner of his lips (and whispered) “Is that all you can bring as ransom for your daughter”</p>
+<p>“You wouldn’t have thought lightly of what I’m parting with, if you knew what this can be used for.” (The man replied in anger)</p>
+<p>“Pathetic. You actually thought you are more educated than an Unforgiven. I know what this dice is capable of, and I know when and where it was made. What this dice can do, I can easily do by myself. I have no use for a mere fortune telling dice. We are the Unforgiven, we were not forgiven for knowing everything needed and unneeded. I don’t think this will be an enough ransom, Mr.&nbsp;Randy” (Disappointed tone)</p>
+<p>“Please, don’t do that, please, I want my Lizzie back. Oh please don’t do anything to her, I beg you.” (in a crying tone)</p>
+<p>“Do not worry, your daughter is in the right hands, no harm shall befall her. If you want to rescue her from our efforts and help, then by all means bring forth a ransom that is worthy of the amount that I told you earlier, Mr.&nbsp;Randy. I shall give you one more chance at redemption, but if you fail next time, I will make sure that my Isilgar shall leave an unforgettable kiss to your neck.” (chuckles lightly)</p>
+<p>The Unforgiven brought his double ended scythe, Isilgar to the Randy’s neck in a sweeping motion and lets it rest there. Randy gazed into the empty mask of the Unforgiven and nods, feeling the cold blade graze his neck.</p>
+<p>“Good day to you Mr.&nbsp;Randy, I shall carry the message of your incompetence to your daughter.”(grim tone)</p>
+<p>In one swift click the Isilgar was back in its sheath, and the Unforgiven took a few steps back. Randy stared in horror as the mist started to cloud his vision and the Unforgiven was no more.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
