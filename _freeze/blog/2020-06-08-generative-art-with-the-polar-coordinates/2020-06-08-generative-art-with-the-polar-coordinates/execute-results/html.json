@@ -1,0 +1,17 @@
+{
+  "hash": "36e1e4cbda818eff86eb7fca9c620b0b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Generative Art with the Polar Coordinates\nauthor: Janith Wanniarachchi\ndate: '2020-05-29'\ndescription: |\n  \"Fun with Polar coordinates\"\nexecute:\n  freeze: true\n---\n\n# Explanation\n\nThis was a fun little experiment I wanted to do where I wanted to let a couple of children run around randomly in their lunch break maybe and plot their movements on a polar coordinates. \n\nSo the number of bois are set by ```n_bois``` and the number of seconds(or time points) they have their lunch break is set by ```recess_time```. First I set the initial points of the bois as follows. These were simply set to be cartesian coordinates so that I can simply convert them to polar and see how it goes. \n$$\nX_{i} = Unif(-100,100)\\\\  \nY_{i} = Unif(-100,100)\n$$\nAnd then for each $t^{th}$ time point I calculated the following values\n\n$$\nangle_{t} = Unif(0,180)\\\\\nspeed_{t} = Unif(10,1000)\\\\\nt = 1,2,...,recess_time\\\\\nangles_{i} = Unif(-angle_{t},angle_{t})\\\\\nspeed_{i} = Unif(-speed_{t},speed_{t})\\\\\ni = 1,2,...,n\\_bois\n$$\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.2     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.2     ✔ tibble    3.2.1\n✔ lubridate 1.9.2     ✔ tidyr     1.3.0\n✔ purrr     1.0.1     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors\n```\n\n\n:::\n\n```{.r .cell-code}\nset.seed(42)\ntheme_set(theme_void())\n\nn_bois <- 100\na <- tibble(x=runif(n=n_bois,-100,100),\n            y=runif(n=n_bois,-100,100),\n            time=1,\n            tag=seq(1,n_bois))\n\nrecess_time <- 360\n\nradian <- function(degree){\n  (degree / 360) * 2 * pi  \n}\n\nfor(i in 1:recess_time){\n  angle_val <- runif(1,0,180)\n  speed_val <-runif(1,10,1000)\n  angles <- runif(n_bois,-angle_val,angle_val)\n  speed <- runif(n_bois,-speed_val,speed_val)\n  start_index <- length(a$x)-n_bois+1\n  end_index <- length(a$x)\n  b <- tibble(x = a$x[start_index:end_index] + speed * cos(radian(angles)),\n              y = a$y[start_index:end_index] + speed * sin(radian(angles)),\n              time = i,\n              tag=seq(1,n_bois))\n  a <- rbind(a,b)\n}\n\nggplot(a,aes(x,y))+\n  geom_point(aes(color=time,group=tag),\n                 size=0.5,alpha=0.8,show.legend = FALSE) +\n  geom_line(aes(color=time,group=tag),show.legend = FALSE) +\n  coord_polar() + \n  scale_color_gradient(low=\"#83a4d4\",high=\"#b6fbff\")\n```\n\n::: {.cell-output-display}\n![](2020-06-08-generative-art-with-the-polar-coordinates_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n:::\n",
+    "supporting": [
+      "2020-06-08-generative-art-with-the-polar-coordinates_files/figure-html"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
