@@ -1,0 +1,17 @@
+---
+title: "Understanding quarto manuscripts"
+---
+
+# Quarto manuscripts
+
+Recently I had to use quarto manuscripts to write a research paper and I will be sharing my understanding on the topic and the way I structure my research paper for collaboration with multiple authors.
+
+Code needs to be separated from text in separate notebooks (ideally). You can still have them in one file but it would be nicer to have them in separate files of different experiments. 
+
+Ideally you should write your research experiments in qmd files from the get go
+
+Don't panic when there's a boat load of ipynb files being generated even though you are a hardcore R fan. Apparently Quarto manuscripts stick to ipython notebooks to showcase what's happening underneath after all. I'm sensing a pattern where python is slowly taking over the center stage.
+
+The rest is similar to how you would write a Quarto article so it's all good to go from there.
+
+Also you can link to your github repo as well. IDK what Binder is, need to learn that.
