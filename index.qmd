@@ -2,14 +2,25 @@
 title: "Welcome"
 ---
 
-Hi there, I’m Janith Wanniarachchi, An Econometrics and Business Statistics PhD candidate at Monash University, Australia, an R Shiny Developer at [Appsilon](https://appsilon.com/) and a BSc. in Statistics (Hons.) graduate from the University of Sri Jayewardenepura, Sri Lanka. 
+Hi there, I’m Janith Wanniarachchi, A Econometrics and Business Statistics PhD candidate at Monash University, Australia, an R Shiny Developer at [Appsilon](https://appsilon.com/) and a BSc. in Statistics (Hons.) graduate from the University of Sri Jayewardenepura, Sri Lanka. 
 
 There's more to who I am, what I have done, how I ended up here. An updated history of my work and achievements can be found in [my Curriculum Vitae here](Janith_Wanniarachchi_Portfolio.pdf)
 
-My research interests are mainly in data visualization, explainable AI and climate sciences. In this website you will find some of my work and interests in statistics and creative writing. If you find anything out of place or worth mentioning to me, please contact me through my socials. If you want to learn more about my academic and professional background, check out my Resume below. 
+My research interests are mainly in data visualization, explainable AI and climate sciences. In this website you will find some of my work and interests in statistics and creative writing. If you find anything out of place or worth mentioning to me, please contact me through my socials. If you want to learn more about my academic and professional background, check out my Resume. 
 
 _With that being said, here are some of my interests that I don't get to talk about a lot._
 
+
+```{=html}
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+```
+
+```{r}
+#| echo: false
+aos::use_aos()
+```
+
+:::{data-aos="fade-up" data-aos-duration="2000" data-aos-anchor-placement="center-bottom"}
 ## Games
 
 ### Sports
@@ -36,11 +47,15 @@ I did not have any idea on how to properly play when I started playing volleybal
 
 Another one of my random interests that blew up unexpectedly was archery. I had practiced shooting 30m targets using 36lb bow with sights for almost 6 months after which I played for the Sri Lankan Archery Nationals. After a while it became harder for me to consistently practice archery and I fell away from it as a sport.
 
+:::
+
+
+:::{data-aos="fade-up" data-aos-duration="2000" data-aos-anchor-placement="center-bottom"}
 ### Video games 
 
 #### Genshin Impact
 
-<p style="grid-column-start: middle-start;grid-column-end: middle-end;"><img src = "img/Genshin-poster.webp" style="width:100%;"/></p>
+<!-- <p style="grid-column-start: middle-start;grid-column-end: middle-end;"><img src = "img/Genshin-poster.webp" style="width:100%;"/></p> -->
 
 Genshin Impact is a video game that I have been playing for almost an year now. The main things I love about the game are the stunning visuals, the art style and the music along with the gripping and creative story line. Since it's mostly a single player game, I can play without any pressure of internet speed or skill level.
 
@@ -54,7 +69,11 @@ Apart from these I'm also a fan of the following video games,
 * Celeste
 * Assassins creed franchise upto Syndicate
 * The entire Pokemon franchise
+:::
 
+
+
+:::{data-aos="fade-up" data-aos-duration="2000" data-aos-anchor-placement="center-bottom"}
 ## Fountain pens and Notebooks
 
 <p style="grid-column-start: middle-start;grid-column-end: middle-end;"><img src = "img/pen_notebook.jpg" style="width:100%;"/></p>
@@ -68,3 +87,4 @@ My love for fountain pens began with my obsession with calligraphy and cursive w
 5. Jinhao X550
 
 Currently, I'm still using Noodler's Bernanke Black as my primary ink and Daycraft dotted notebook as my paper medium. Here are some snaps of the various pens and notebooks that I have used upto now.
+:::
