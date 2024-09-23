@@ -3,6 +3,7 @@ title: Stuck with plastic
 author: Janith Wanniarachchi
 date: '2021-02-08'
 description: Tidy Tuesday analysis of Plastic pollution
+draft: true
 execute:
   freeze: true
 ---

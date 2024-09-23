@@ -1,5 +1,6 @@
 ---
 title: "Understanding quarto manuscripts"
+draft: true
 ---
 
 # Quarto manuscripts
