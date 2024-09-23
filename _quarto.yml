@@ -21,6 +21,8 @@ website:
 
 format:
   html:
-    theme: litera
-    css: main.css
+    theme:
+      - litera
+      - main.scss
     toc: false
+
