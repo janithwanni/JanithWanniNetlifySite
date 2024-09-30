@@ -18,6 +18,7 @@ website:
         href: creatives.qmd
       - text: "About"
         href: about.qmd
+  google-analytics: "G-8F5XVPT9G2"
 
 format:
   html:
@@ -25,4 +26,3 @@ format:
       - litera
       - main.scss
     toc: false
-
