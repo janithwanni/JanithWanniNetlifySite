@@ -18,7 +18,13 @@ website:
         href: creatives.qmd
       - text: "About"
         href: about.qmd
-  google-analytics: "G-8F5XVPT9G2"
+  google-analytics:
+    tracking-id: "G-8F5XVPT9G2"
+    anonymize-ip: true
+  cookie-consent:
+    type: express
+    style: headline
+    palette: dark
 
 format:
   html:
