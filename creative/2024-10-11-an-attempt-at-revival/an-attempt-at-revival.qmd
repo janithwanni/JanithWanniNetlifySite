@@ -5,7 +5,6 @@ description: |
 author:
   - name: Janith Wanniarachchi
 date: "2024-10-10"
-draft: true
 ---
 
 # An attempt at revival
