@@ -9,3 +9,7 @@ There's more to who I am, what I have done, how I ended up here. An updated hist
 My research interests are mainly in data visualization, explainable AI and climate sciences. In this website you will find some of my work and interests in statistics and creative writing. If you find anything out of place or worth mentioning to me, please contact me through my socials. If you want to learn more about my academic and professional background, check out my Resume. 
 
 There's more to come in this section! Stay tuned!
+
+```{=html}
+<h5> Until the site revamp is done you can always check out the creative corner where I update frequently! Or check out my Github to see what I have been up to recently </h5>
+```

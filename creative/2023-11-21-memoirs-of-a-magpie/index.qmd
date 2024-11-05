@@ -1,0 +1,16 @@
+---
+title: "Memoirs of a magpie"
+description: |
+  A short book containing my thoughts that never finished 
+author:
+  - name: Janith Wanniarachchi
+date: "2024-11-05"
+---
+
+[https://memoirs-of-a-magpie.netlify.app/](https://memoirs-of-a-magpie.netlify.app/)
+
+This was an attempt at putting my thoughts into a book. I have tried writing books a lot but never managed to finish the obok past chapter one. This book is a living document that I will try to update as time goes by but until then enjoy whatever has been left behind in it.
+
+```{=html}
+<iframe src="https://memoirs-of-a-magpie.netlify.app/" title="Memoirs of a magpie" style="width:100%" height = "500"/>
+```
