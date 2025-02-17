@@ -1,0 +1,48 @@
+meta:
+  name: brand.yml
+  links:
+    home: https://janithwanni.netlify.app/
+color:
+  palette:
+    # purple section
+    grape: "#6827B3"
+    mauve: "#C8A2F2"
+    indigo: "#978BCC"
+    violet: "#6556A6"
+    # green section
+    dartmouth_green: "#196952"
+    jungle_green: "#0CA67A"
+    mint: "#24C99B"
+# ===== Defining palette colors =======
+  foreground: black
+  background: white
+  primary: grape
+  secondary: mauve
+  tertiary: violet
+  success: dartmouth_green
+  info: teal
+  warning: orange
+  danger: burgundy
+  light: white
+  dark: "#404041"
+
+typography:
+  fonts:
+    - family: Cormorant Upright
+      source: google
+    - family: Manrope
+      source: google
+    - family: Courier Prime
+      source: google
+# ======= Defining typography =======
+  base:
+    family: Manrope
+    line-height: 1.6
+  headings:
+    family: Cormorant Upright
+    weight: normal
+  link:
+    color: purple
+  monospace:
+    family: Courier Prime
+    size: 1em
