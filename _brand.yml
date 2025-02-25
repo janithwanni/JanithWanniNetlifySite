@@ -13,6 +13,7 @@ color:
     dartmouth_green: "#196952"
     jungle_green: "#0CA67A"
     mint: "#24C99B"
+    burgundy: "#800020"
 # ===== Defining palette colors =======
   foreground: black
   background: white
@@ -28,18 +29,18 @@ color:
 
 typography:
   fonts:
-    - family: Cormorant Upright
+    - family: Unna
       source: google
-    - family: Manrope
+    - family: Newsreader
       source: google
     - family: Courier Prime
       source: google
 # ======= Defining typography =======
   base:
-    family: Manrope
+    family: Newsreader
     line-height: 1.6
   headings:
-    family: Cormorant Upright
+    family: Unna
     weight: normal
   link:
     color: purple
