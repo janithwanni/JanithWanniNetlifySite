@@ -1,7 +1,8 @@
 project:
   type: website
   output-dir: _docs
-
+  preview:
+    port: 3126
 website:
   title: "Janith Wanniarachchi"
   navbar:

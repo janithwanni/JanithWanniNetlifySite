@@ -1,26 +1,8 @@
 ---
-navbar: false
+navbar: true 
 format: html
 ---
 
-```{=html}
-<header>
-  <nav class = "navbar">
-    <div class = "container">
-    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </nav>
-</header>
-```
-
-:::{.center}
-[Hi I'm,]{.slide-up} 
-
-[Janith Wanniarachchi]{.title-text .h1 .slide-up .later}    
-
-:::
 
 <!-- Hi there, I’m Janith Wanniarachchi, A Econometrics and Business Statistics PhD candidate at Monash University, Australia, an R Shiny Developer at [Appsilon](https://appsilon.com/) and a BSc. in Statistics (Hons.) graduate from the University of Sri Jayewardenepura, Sri Lanka. -->
 
