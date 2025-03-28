@@ -1,7 +1,43 @@
 ---
 navbar: true 
-format: html
+format: 
+  html:
+    include-in-header:
+      - text: |
+          <script src="https://unpkg.com/scrollama"></script>
 ---
+
+```{=html}
+<style>
+.step {
+margin: auto;
+padding: 50vh 0;
+border: 2px solid red;
+}
+</style>
+<script type="module">
+const scroller = scrollama();
+console.log(scroller)
+scroller.setup({
+  step: ".step", debug: true
+}).onStepEnter((response) => {
+  console.log("Inside step enter")
+  console.log(response)
+}).onStepExit((response) => {
+  console.log("Inside step exit")
+  console.log(response)
+})
+</script>
+<div>
+<div class="step">Hi there, I'm Janith Wanniarachchi, scroll down to see more of my story.</div>
+<div class="step">I am interested in story telling in charts and poems.</div>
+<div class="step">You can take a look at some of my poems and creative work on the creative tab.</div>
+<div class="step">I am a patchwork of experience gained from many side quests, but these days I'm playing with Svelte these days.</div>
+<div class="step">Right now I'm a PhD Candidate at Monash University, Australia, an previously an R Shiny Developer at Appsilon.</div>
+<div class="step">My roots are in a small humble island of Sri Lanka with its sunny beaches and cold mountains.</div>
+<div class="step">There's more to who I am, what I have done and how I ended up here. An updated history of my work and achievements can be foud in my <a href="Janith_Wanniarachchi_Portfolio.pdf">my CV here</a> </div>
+</div>
+```
 
 
 <!-- Hi there, I’m Janith Wanniarachchi, A Econometrics and Business Statistics PhD candidate at Monash University, Australia, an R Shiny Developer at [Appsilon](https://appsilon.com/) and a BSc. in Statistics (Hons.) graduate from the University of Sri Jayewardenepura, Sri Lanka. -->
