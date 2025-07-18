@@ -1,47 +1,9 @@
 /*-- scss:defaults --*/
+$nav-link-color: lightgray;
+
 /*-- scss:rules --*/
-
-.cc-nb-main-container {
-  padding: 0.5rem 1rem !important;
-  border-radius: 50%
-}
-
-.title-text {
-  font-size: 6rem;
-}
-
 .navbar {
   border: none !important;
-}
-
-.center {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.slide-up {
-  display: block;
-  animation-name: slideTextUp;
-  animation-duration: 4s;
-  animation-timing-function: ease-in-out;
-}
-
-.later {
-  animation-delay: 1s;
-  animation-fill-mode: both;
-}
-
-@keyframes slideTextUp {
- 0%,50% {
-   transform: translateY(2rem);
-   opacity: 0;
- } 
- 60%, 100% {
-   transform: translateY(0%);
-   opacity: 1;
- }
 }
 
 p {

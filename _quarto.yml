@@ -17,8 +17,8 @@ website:
         href: blog.html
       - text: "Creative Corner"
         href: creatives.qmd
-      - text: "About"
-        href: about.qmd
+      # - text: "About"
+      #   href: about.qmd
       - icon: github
         href: https://github.com/janithwanni
 
