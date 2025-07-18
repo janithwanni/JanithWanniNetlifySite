@@ -45,41 +45,10 @@ format:
   <br/>
   <span> wander on to the creative content section to feed your imagination,</span>
   <br/>
-  <span>Or read up on my history in my CV here.</span>
+  <span>Or read up on my history in my CV <a href="Portfolio.pdf">here.</a> </span>
 </div>
 ```
 
-<!-- ::: {.title-line .fade1} -->
-<!-- Welcome fellow wanderer, -->
-<!-- You have stumbled upon the many that stories that I, -->
-<!-- :::  -->
-<!---->
-<!-- ::: {.title-line .fade2 .name} -->
-<!-- Janith Wanniarachchi -->
-<!-- :::  -->
-<!---->
-<!-- ::: {.title-line .fade3} -->
-<!-- have written with the few breaths left in my life. -->
-<!-- ::: -->
-<!---->
-<!-- ::: {.title-line .fade4} -->
-<!-- If there is anything that you can take away from this website,<br/> -->
-<!-- let it be that in a world full of perfectly generated and curated content,<br/> -->
-<!-- being human by making mistakes lets your creation be more genuine and heart felt.<br/> -->
-<!-- ::: -->
-<!---->
-<!-- ::: {.title-line .fade5} -->
-<!-- In return if there is one thing I can ask from you, -->
-<!-- my dear visitor,<br/> -->
-<!-- is to tread gently through these pages and treat them with compassion, empathy and understanding,<br/> -->
-<!-- for every page is a collection of the limited time in my life, -->
-<!-- that I have dedicated to.<br/> -->
-<!-- :::  -->
-<!---->
-<!-- ::: {.title-line .fade6} -->
-<!-- With that being said, wander on to the creative content section to feed your imagination,<br/> -->
-<!-- Or read up on my history in my CV here.<br/> -->
-<!-- :::  -->
 
 <!-- Hi there, I’m Janith Wanniarachchi, A Econometrics and Business Statistics PhD candidate at Monash University, Australia, an R Shiny Developer at [Appsilon](https://appsilon.com/) and a BSc. in Statistics (Hons.) graduate from the University of Sri Jayewardenepura, Sri Lanka. -->
 
@@ -89,9 +58,6 @@ format:
 
 <!-- There's more to come in this section! Stay tuned! -->
 
-```{=html}
-<!-- <h5> Until the site revamp is done you can always check out the creative corner where I update frequently! Or check out my Github to see what I have been up to recently </h5> -->
-```
 
 ```{=html}
 <script>
