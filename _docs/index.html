@@ -30,8 +30,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -40,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-99866174e94a4afa1195c397a345b859.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2bca1c845a18e2675850f2fb20d2b24f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ca5c778531c7a10cd07c0e9b762f9136.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,34 +66,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-8F5XVPT9G2"></script>
-
-<script type="text/plain" cookie-consent="tracking">
-
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-8F5XVPT9G2', { 'anonymize_ip': true});
-</script>
-
-<script type="text/javascript" charset="UTF-8">
-document.addEventListener('DOMContentLoaded', function () {
-cookieconsent.run({
-  "notice_banner_type":"simple",
-  "consent_type":"implied",
-  "palette":"light",
-  "language":"en",
-  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
-  "notice_banner_reject_button_hide":false,
-  "preferences_center_close_button_hide":false,
-  "website_name":""
-  ,
-"language":"en"
-  });
-});
-</script> 
-  
 <script src="https://unpkg.com/scrollama"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
 
 
 </head>
@@ -137,10 +110,6 @@ cookieconsent.run({
     <a class="nav-link" href="./creatives.html"> 
 <span class="menu-text">Creative Corner</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
-  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/janithwanni"> <i class="bi bi-github" role="img">
 </i> 
@@ -164,40 +133,72 @@ cookieconsent.run({
 
 
 
-<style>
-.step {
-margin: auto;
-padding: 50vh 0;
-border: 2px solid red;
-}
-</style>
-<script type="module">
-const scroller = scrollama();
-console.log(scroller)
-scroller.setup({
-  step: ".step", debug: true
-}).onStepEnter((response) => {
-  console.log("Inside step enter")
-  console.log(response)
-}).onStepExit((response) => {
-  console.log("Inside step exit")
-  console.log(response)
-})
-</script>
-<div>
-<div class="step">Hi there, I'm Janith Wanniarachchi, scroll down to see more of my story.</div>
-<div class="step">I am interested in story telling in charts and poems.</div>
-<div class="step">You can take a look at some of my poems and creative work on the creative tab.</div>
-<div class="step">I am a patchwork of experience gained from many side quests, but these days I'm playing with Svelte these days.</div>
-<div class="step">Right now I'm a PhD Candidate at Monash University, Australia, an previously an R Shiny Developer at Appsilon.</div>
-<div class="step">My roots are in a small humble island of Sri Lanka with its sunny beaches and cold mountains.</div>
-<div class="step">There's more to who I am, what I have done and how I ended up here. An updated history of my work and achievements can be foud in my <a href="Janith_Wanniarachchi_Portfolio.pdf">my CV here</a> </div>
+<div class="fader-content">
+  <span>Welcome fellow wanderer,</span>
+  <br>
+  <span>You have stumbled upon the many stories that I,</span>
+  <br>
+  <span class="name">Janith Wanniarachchi</span>
+  <br>
+  <span>have written with the few breaths left in my life.</span>
+  <br>
+  <br>
+  <span>If there is anything that you can take away from this website,</span>
+  <br>
+  <span>let it be that in a world full of perfectly generated and curated content,</span>
+  <br>
+  <span> being human by making mistakes </span>
+  <br>
+  <span> lets your creation be more genuine and heart felt.</span>
+  <br>
+  <br>
+  <span>In return if there is one thing I can ask from you,</span>
+  <br>
+<span>my dear visitor,</span>
+  <br>
+  <span>is to tread gently through these pages </span>
+  <br>
+  <span>and treat them with compassion, empathy and understanding,</span>
+  <br>
+  <span>for every page is a collection of the limited time in my life, </span>
+  <br>
+  <span>that I have dedicated to.</span>
+  <br>
+  <br>
+  <span>With that being said, </span>
+  <br>
+  <span> wander on to the creative content section to feed your imagination,</span>
+  <br>
+  <span>Or read up on my history in my CV <a href="Portfolio.pdf">here.</a> </span>
 </div>
 <!-- Hi there, I’m Janith Wanniarachchi, A Econometrics and Business Statistics PhD candidate at Monash University, Australia, an R Shiny Developer at [Appsilon](https://appsilon.com/) and a BSc. in Statistics (Hons.) graduate from the University of Sri Jayewardenepura, Sri Lanka. -->
 <!-- There's more to who I am, what I have done, how I ended up here. An updated history of my work and achievements can be found in [my Curriculum Vitae here](Janith_Wanniarachchi_Portfolio.pdf) -->
 <!-- My research interests are mainly in data visualization, explainable AI and climate sciences. In this website you will find some of my work and interests in statistics and creative writing. If you find anything out of place or worth mentioning to me, please contact me through my socials. If you want to learn more about my academic and professional background, check out my Resume. -->
 <!-- There's more to come in this section! Stay tuned! -->
-<!-- <h5> Until the site revamp is done you can always check out the creative corner where I update frequently! Or check out my Github to see what I have been up to recently </h5> -->
+<script>
+ // use a script tag or an external JS file
+ document.addEventListener("DOMContentLoaded", (event) => {
+  document.fonts.ready.then(() => {
+    gsap.registerPlugin(SplitText)
+    let tl = gsap.timeline()
+
+    const numLines = 20;
+
+    let splits = Array(numLines).fill(0).map((x, i) => {
+    console.log(`.fader-content span:nth-of-type(${(i+1)})`)
+    return(SplitText.create(`.fader-content span:nth-of-type(${(i+1)})`, {type: "words"}))
+    })
+
+    splits.forEach(x => {
+      tl.from(x.words, {autoAlpha:0, duration: 0.1, stagger: 0.4})
+    })
+    
+    tl.from(".navbar-container", {opacity: 0, duration: 2})
+
+  })
+ });
+
+</script>
 
 
 
@@ -620,19 +621,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
-    <div class="nav-footer-left">
-      &nbsp;
-    </div>   
-    <div class="nav-footer-center">
-
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
-    <div class="nav-footer-right">
-      &nbsp;
-    </div>
-  </div>
-</footer>
 
 
 
