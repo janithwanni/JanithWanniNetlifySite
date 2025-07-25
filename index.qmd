@@ -10,42 +10,40 @@ format:
 ---
 ```{=html}
 <div class="fader-content">
-  <span>Welcome fellow wanderer,</span>
+  <span>Welcome fellow wanderer,
   <br/>
-  <span>You have stumbled upon the many stories that I,</span>
+  You have stumbled upon the many stories that I,
   <br/>
-  <span class="name">Janith Wanniarachchi</span>
+  have written with the few breaths left in my life.</span>
   <br/>
-  <span>have written with the few breaths left in my life.</span>
+
+  <span>If there is anything that you can take away from this website,
   <br/>
+  let it be that in a world full of perfectly generated and curated content,
   <br/>
-  <span>If there is anything that you can take away from this website,</span>
+  being human by making mistakes
   <br/>
-  <span>let it be that in a world full of perfectly generated and curated content,</span>
+  lets your creation be more genuine and heart felt.</span>
   <br/>
-  <span> being human by making mistakes </span>
+
+  <span>In return if there is one thing I can ask from you,
   <br/>
-  <span> lets your creation be more genuine and heart felt.</span>
+  my dear visitor,
   <br/>
+  is to tread gently through these pages
   <br/>
-  <span>In return if there is one thing I can ask from you,</span>
+  and treat them with compassion, empathy and understanding,
   <br/>
-<span>my dear visitor,</span>
+  for every page is a collection of the limited time in my life,
   <br/>
-  <span>is to tread gently through these pages </span>
+  that I have dedicated to.</span>
   <br/>
-  <span>and treat them with compassion, empathy and understanding,</span>
+
+  <span>With that being said,
   <br/>
-  <span>for every page is a collection of the limited time in my life, </span>
+  wander on to the creative content section to feed your imagination,
   <br/>
-  <span>that I have dedicated to.</span>
-  <br/>
-  <br/>
-  <span>With that being said, </span>
-  <br/>
-  <span> wander on to the creative content section to feed your imagination,</span>
-  <br/>
-  <span>Or read up on my history in my CV <a href="Portfolio.pdf">here.</a> </span>
+  Or read up on my history in my CV <a href="Portfolio.pdf">here.</a> </span>
 </div>
 ```
 
@@ -67,15 +65,15 @@ format:
     gsap.registerPlugin(SplitText)
     let tl = gsap.timeline()
 
-    const numLines = 20;
+    const numLines = 4;
 
     let splits = Array(numLines).fill(0).map((x, i) => {
     console.log(`.fader-content span:nth-of-type(${(i+1)})`)
-    return(SplitText.create(`.fader-content span:nth-of-type(${(i+1)})`, {type: "words"}))
+    return(SplitText.create(`.fader-content span:nth-of-type(${(i+1)})`, {type: ["words", "lines"]}))
     })
 
     splits.forEach(x => {
-      tl.from(x.words, {autoAlpha:0, duration: 0.1, stagger: 0.4})
+      tl.from(x.lines, {autoAlpha:0, duration: 0.9, stagger: 1})
     })
     
     tl.from(".navbar-container", {opacity: 0, duration: 2})
