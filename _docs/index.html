@@ -189,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
     })
 
     splits.forEach(x => {
-      tl.from(x.lines, {autoAlpha:0, duration: 0.9, stagger: 1})
+      tl.from(x.lines, {autoAlpha:0, duration: 0.2, stagger: 0.5})
     })
     
     tl.from(".navbar-container", {opacity: 0, duration: 2})
