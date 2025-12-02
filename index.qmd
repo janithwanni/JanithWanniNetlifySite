@@ -1,51 +1,32 @@
 ---
 navbar: true 
-format: 
-  html:
-    include-in-header:
-      - text: |
-          <script src="https://unpkg.com/scrollama"></script>
-          <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+format: html
 ---
-```{=html}
-<div class="fader-content">
-  <span>Welcome fellow wanderer,
-  <br/>
-  You have stumbled upon the many stories that I,
-  <br/>
-  have written with the few breaths left in my life.</span>
-  <br/>
 
-  <span>If there is anything that you can take away from this website,
-  <br/>
-  let it be that in a world full of perfectly generated and curated content,
-  <br/>
-  being human by making mistakes
-  <br/>
-  lets your creation be more genuine and heart felt.</span>
-  <br/>
+<i>
+Welcome fellow wanderer,     
+You have stumbled upon the many stories that I,     
+have written with the few breaths left in my life.      
+</i>
 
-  <span>In return if there is one thing I can ask from you,
-  <br/>
-  my dear visitor,
-  <br/>
-  is to tread gently through these pages
-  <br/>
-  and treat them with compassion, empathy and understanding,
-  <br/>
-  for every page is a collection of the limited time in my life,
-  <br/>
-  that I have dedicated to.</span>
-  <br/>
 
-  <span>With that being said,
-  <br/>
-  wander on to the creative content section to feed your imagination,
-  <br/>
-  Or read up on my history in my CV <a href="Portfolio.pdf">here.</a> </span>
-</div>
-```
+If there is anything that you can take away from this website,    
+let it be that in a world full of perfectly generated and curated content,     
+_being human by making mistakes_     
+_lets your creation be more genuine and heart felt._    
+
+
+In return if there is one thing I can ask from you,     
+my dear visitor,        
+is to tread gently through these pages      
+and treat them with compassion, empathy and understanding,      
+for every page is a collection of the limited time in my life,      
+that I have dedicated to.    
+
+
+With that being said,    
+wander on to the creative content section to feed your imagination,      
+Or read up on my history in my CV [here](Portfolio.pdf)    
 
 
 <!-- Hi there, I’m Janith Wanniarachchi, A Econometrics and Business Statistics PhD candidate at Monash University, Australia, an R Shiny Developer at [Appsilon](https://appsilon.com/) and a BSc. in Statistics (Hons.) graduate from the University of Sri Jayewardenepura, Sri Lanka. -->
@@ -56,30 +37,3 @@ format:
 
 <!-- There's more to come in this section! Stay tuned! -->
 
-
-```{=html}
-<script>
- // use a script tag or an external JS file
- document.addEventListener("DOMContentLoaded", (event) => {
-  document.fonts.ready.then(() => {
-    gsap.registerPlugin(SplitText)
-    let tl = gsap.timeline()
-
-    const numLines = 4;
-
-    let splits = Array(numLines).fill(0).map((x, i) => {
-    console.log(`.fader-content span:nth-of-type(${(i+1)})`)
-    return(SplitText.create(`.fader-content span:nth-of-type(${(i+1)})`, {type: ["words", "lines"]}))
-    })
-
-    splits.forEach(x => {
-      tl.from(x.lines, {autoAlpha:0, duration: 0.2, stagger: 0.5})
-    })
-    
-    tl.from(".navbar-container", {opacity: 0, duration: 2})
-
-  })
- });
-
-</script>
-```
