@@ -9,12 +9,12 @@ website:
     right:
       - text: "Home"
         href: index.qmd
-      - text: "Publications"
-        href: publications.qmd
-      - text: "Talks"
-        href: talks.qmd
-      - text: "Blog"
-        href: blog.html
+      # - text: "Publications"
+      #   href: publications.qmd
+      # - text: "Talks"
+      #   href: talks.qmd
+      # - text: "Blog"
+      #   href: blog.html
       - text: "Creative Corner"
         href: creatives.qmd
       # - text: "About"
