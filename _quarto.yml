@@ -5,22 +5,22 @@ project:
     port: 3126
 website:
   title: "Janith Wanniarachchi"
-  navbar:
-    right:
-      - text: "Home"
-        href: index.qmd
+  # navbar:
+  #   right:
+  #     - text: "Home"
+  #       href: index.qmd
       # - text: "Publications"
       #   href: publications.qmd
       # - text: "Talks"
       #   href: talks.qmd
       # - text: "Blog"
       #   href: blog.html
-      - text: "Creative Corner"
-        href: creatives.qmd
+      # - text: "Creative Corner"
+      #   href: creatives.qmd
       # - text: "About"
       #   href: about.qmd
-      - icon: github
-        href: https://github.com/janithwanni
+      # - icon: github
+      #   href: https://github.com/janithwanni
 
 format:
   html:

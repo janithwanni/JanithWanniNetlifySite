@@ -1,32 +1,39 @@
 ---
-navbar: true 
+navbar: false
 format: html
 ---
 
-<i>
-Welcome fellow wanderer,     
-You have stumbled upon the many stories that I,     
-have written with the few breaths left in my life.      
-</i>
+
+<div style="font-style: italic; font-size: 2rem; position: absolute; top: 50%; left: 50%; transform:translate(-50%,-50%);">
+As everything comes to an end,      
+so do the poets bleed their last drop of ink.      
+
+A society for dead poets exists for a reason, <br/> I suppose.     
+I shall see you all there someday.    
+
+<!-- Welcome fellow wanderer,      -->
+<!-- You have stumbled upon the many stories that I,      -->
+<!-- have written with the few breaths left in my life.       -->
+</div>
 
 
-If there is anything that you can take away from this website,    
-let it be that in a world full of perfectly generated and curated content,     
-_being human by making mistakes_     
-_lets your creation be more genuine and heart felt._    
+<!-- If there is anything that you can take away from this website,     -->
+<!-- let it be that in a world full of perfectly generated and curated content,      -->
+<!-- _being human by making mistakes_      -->
+<!-- _lets your creation be more genuine and heart felt._     -->
 
 
-In return if there is one thing I can ask from you,     
-my dear visitor,        
-is to tread gently through these pages      
-and treat them with compassion, empathy and understanding,      
-for every page is a collection of the limited time in my life,      
-that I have dedicated to.    
+<!-- In return if there is one thing I can ask from you,      -->
+<!-- my dear visitor,         -->
+<!-- is to tread gently through these pages       -->
+<!-- and treat them with compassion, empathy and understanding,       -->
+<!-- for every page is a collection of the limited time in my life,       -->
+<!-- that I have dedicated to.     -->
 
 
-With that being said,    
-wander on to the creative content section to feed your imagination,      
-Or read up on my history in my CV [here](Portfolio.pdf)    
+<!-- With that being said,     -->
+<!-- wander on to the creative content section to feed your imagination,       -->
+<!-- Or read up on my history in my CV [here](Portfolio.pdf)     -->
 
 
 <!-- Hi there, I’m Janith Wanniarachchi, A Econometrics and Business Statistics PhD candidate at Monash University, Australia, an R Shiny Developer at [Appsilon](https://appsilon.com/) and a BSc. in Statistics (Hons.) graduate from the University of Sri Jayewardenepura, Sri Lanka. -->
