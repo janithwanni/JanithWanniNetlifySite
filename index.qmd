@@ -4,7 +4,7 @@ format: html
 ---
 
 
-<div style="font-style: italic; font-size: 2rem; position: absolute; top: 50%; left: 50%; transform:translate(-50%,-50%);">
+<div style="font-style: italic; font-size: 2rem;">
 As everything comes to an end,      
 so do the poets bleed their last drop of ink.      
 

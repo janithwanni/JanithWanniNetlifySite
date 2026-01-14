@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: _docs
+  render: 
+    - index.qmd
   preview:
     port: 3126
 website:
