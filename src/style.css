@@ -284,6 +284,10 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 .lately a { color: var(--fg); text-decoration: none; }
 .lately a:hover { color: var(--accent); text-decoration: underline; }
 
+.thoughts-row:not(:empty) { margin-bottom: 4rem; }
+.thoughts li { grid-template-columns: 6.5rem minmax(0, 1fr); }
+.thoughts p { margin: 0; overflow-wrap: anywhere; white-space: pre-line; }
+
 .listening-row:not(:empty) { margin-bottom: 4rem; }
 .listening li { grid-template-columns: minmax(0, 1fr) auto; }
 .listening a, .listening .kind { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
