@@ -1,0 +1,165 @@
+<title>Riddler Classic : How long will the Bacterial Colony Last · Janith Wanniarachchi</title>
+<article class="post"><header class="page-head"><a class="back" href="/blog/" hx-get="/c/blog.html" hx-push-url="/blog/">← Blog</a><h1>Riddler Classic : How long will the Bacterial Colony Last</h1><p class="meta"><time datetime="2020-06-12">12 Jun 2020</time> · 6 min read</p></header><h1 id="riddler-classic">Riddler Classic</h1>
+<p><strong>Excerpt from <a href="https://fivethirtyeight.com/features/how-long-will-the-bacterial-colony-last/">FiveThirtyEight</a></strong></p>
+<p><strong>From Adam Wagner comes a curious case of colonies:</strong></p>
+<p>You are studying a new strain of bacteria, Riddlerium classicum (or R. classicum, as the researchers call it). Each R. classicum bacterium will do one of two things: split into two copies of itself or die. There is an 80 percent chance of the former and a 20 percent chance of the latter.</p>
+<p>If you start with a single R. classicum bacterium, what is the probability that it will lead to an everlasting colony (i.e., the colony will theoretically persist for an infinite amount of time)?</p>
+<p>Extra credit: Suppose that, instead of 80 percent, each bacterium divides with probability p.&nbsp;Now what’s the probability that a single bacterium will lead to an everlasting colony?</p>
+<h2 id="question-1">Question 1</h2>
+<h3 id="defining-the-problem">Defining the problem</h3>
+<p>Let’s take the case of one bacteria. Looking at the states that a bacteria can achieve it is clear that we can define a Bernoulli random variable as <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>e</mi><mi>t</mi><mspace width="0.222em"></mspace><mi>X</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">{</mo><mi>T</mi><mi>h</mi><mi>e</mi><mspace width="0.222em"></mspace><mi>e</mi><mi>v</mi><mi>e</mi><mi>n</mi><mi>t</mi><mspace width="0.222em"></mspace><mi>t</mi><mi>h</mi><mi>a</mi><mi>t</mi><mspace width="0.222em"></mspace><mi>a</mi><mspace width="0.222em"></mspace><mi>b</mi><mi>a</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>i</mi><mi>a</mi><mspace width="0.222em"></mspace><mi>w</mi><mi>i</mi><mi>l</mi><mi>l</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>p</mi><mi>l</mi><mi>i</mi><mi>t</mi><mspace width="0.222em"></mspace><mi>i</mi><mi>n</mi><mi>t</mi><mi>o</mi><mspace width="0.222em"></mspace><mi>t</mi><mi>w</mi><mi>o</mi><mo stretchy="false" form="postfix">}</mo><mo>∼</mo><mi>B</mi><mi>e</mi><mi>r</mi><mi>n</mi><mi>o</mi><mi>u</mi><mi>l</mi><mi>l</mi><mi>i</mi><mo stretchy="false" form="prefix">(</mo><mn>0.8</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Let\ X\ =\ \{The\ event\ that\ a\ bacteria\ will\ split\ into\ two\} \sim Bernoulli(0.8)</annotation></semantics></math> So first we sample from a Bernoulli variable. And if it comes true then we now have two bacteria.</p>
+<p>Now let’s consider the case of two bacteria where we have two trials. Guess a Bernoulli variable won’t cut it now (pun intended). Let’s define a new random variable as <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>L</mi><mi>e</mi><mi>t</mi><mspace width="0.222em"></mspace><mi>Y</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">{</mo><mi>T</mi><mi>h</mi><mi>e</mi><mspace width="0.222em"></mspace><mi>n</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mspace width="0.222em"></mspace><mi>o</mi><mi>f</mi><mspace width="0.222em"></mspace><mi>b</mi><mi>a</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>i</mi><mi>a</mi><mspace width="0.222em"></mspace><mi>t</mi><mi>h</mi><mi>a</mi><mi>t</mi><mspace width="0.222em"></mspace><mi>w</mi><mi>i</mi><mi>l</mi><mi>l</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>p</mi><mi>l</mi><mi>i</mi><mi>t</mi><mspace width="0.222em"></mspace><mi>i</mi><mi>n</mi><mi>t</mi><mi>o</mi><mspace width="0.222em"></mspace><mi>t</mi><mi>w</mi><mi>o</mi><mspace width="0.222em"></mspace><mi>f</mi><mi>r</mi><mi>o</mi><mi>m</mi><mspace width="0.222em"></mspace><mi>n</mi><mspace width="0.222em"></mspace><mi>b</mi><mi>a</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>i</mi><mi>a</mi><mo stretchy="false" form="postfix">}</mo></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>Y</mi><mspace width="0.222em"></mspace><mo>∼</mo><mi>B</mi><mi>i</mi><mi>n</mi><mi>o</mi><mi>m</mi><mi>i</mi><mi>a</mi><mi>l</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mn>0.8</mn><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>w</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>e</mi><mspace width="0.222em"></mspace><mi>n</mi><mspace width="0.222em"></mspace><mi>i</mi><mi>s</mi><mspace width="0.222em"></mspace><mi>t</mi><mi>h</mi><mi>e</mi><mspace width="0.222em"></mspace><mi>n</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mspace width="0.222em"></mspace><mi>o</mi><mi>f</mi><mspace width="0.222em"></mspace><mi>b</mi><mi>a</mi><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>i</mi><mi>a</mi><mspace width="0.222em"></mspace><mi>a</mi><mi>t</mi><mspace width="0.222em"></mspace><mi>a</mi><mspace width="0.222em"></mspace><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mspace width="0.222em"></mspace><mi>i</mi><mi>n</mi><mspace width="0.222em"></mspace><mi>t</mi><mi>i</mi><mi>m</mi><mi>e</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{gathered}Let\ Y\ =\ \{The\ number\ of\ bacteria\ that\ will\ split\ into\ two\ from\ n\ bacteria\}\\ Y\ \sim Binomial(n,0.8)\\ where\ n\ is\ the\ number\ of\ bacateria\ at\ a\ point\ in\ time\end{gathered}</annotation></semantics></math></p>
+<h3 id="dummy-simulation">Dummy Simulation</h3>
+<p>So I thought of doing a simply simulation(Is this a Monte Carlo Simulation? I have no idea.) First I thought of simulating the bacteria growth for <code>time_steps</code> and then I repeat that again and again for <code>evolutions</code> times and from there I find the probability.</p>
+<p>To find the probability I had to make an assumption, which was that the bacteria growths with upward trend will keep on going upward, which is satisfied as the probability of all bacteria dieing is quite low (i.e.&nbsp;for the case of let’s say 1000, then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mspace width="0.222em"></mspace><mo>∼</mo><mi>B</mi><mi>i</mi><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mn>1000</mn><mo>,</mo><mn>0.8</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X\ \sim Bin(1000,0.8)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><msup><mo>=</mo><mn>1000</mn></msup><msub><mi>C</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>0.8</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>0</mn></msup><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mn>0.2</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>1000</mn></msup><mo>≈</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Pr(X = 0) = ^{1000}C_{0}(0.8)^{0}\times(0.2)^{1000} \approx 0</annotation></semantics></math>)</p>
+<div class="cell">
+<pre class="r cell-code"><code>evolutions &lt;- 60
+time_steps &lt;- 60
+n_bactis &lt;- 1
+file_name_sim &lt;- paste(here::here(),"/blog/data/","riddler_2020_06_12_sim.csv",sep="")
+if(exists(file_name_sim)){
+  sim &lt;- read_csv(file_name_sim)
+}else{
+  sim &lt;- map_dfr(1:evolutions,function(x){
+  n_bactis &lt;- 1
+    lapply(1:time_steps, function(y){
+      if(n_bactis &gt;= (5*10^8)){
+        X &lt;- n_bactis
+        n_bactis &lt;- 1*10^9
+      }else{
+        X &lt;- rbinom(1,n_bactis,0.8)
+        n_bactis &lt;&lt;- X * 2
+      }
+      list(evol = x,step = y,not_dead = X,tot = n_bactis)
+    }) 
+  })
+  write_csv(sim,file_name_sim)
+}
+
+good_evols &lt;- sim %&gt;% filter(step == time_steps &amp; tot &gt; 0) %&gt;% nrow()
+prob &lt;- good_evols / evolutions
+
+sim %&gt;% 
+  ggplot(aes(x=step,y=tot,group=evol))+
+  geom_point(size=0.2) + 
+  geom_line(alpha=0.4) +
+  labs(x = "Time Step", y = "Total Bacteria (capped)",
+       title="Bacteria Simulation",
+       subtitle = "what is the probability that a single bacteria will lead to an everlasting colony?",
+       caption = "The total is capped at 10^9 to ensure that the simulation doesnt go beyond the integer limit") +
+  annotate("label",x=(time_steps/2),y=10^9,label = paste("Probability of spreading is =",prob))</code></pre>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img loading="lazy" decoding="async" src="/c/blog/2020-06-12-riddler-classic-how-long-will-the-bacterial-colony-last/2020-06-12-riddler-classic-how-long-will-the-bacterial-colony-last_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The answer to the question is that the probability is approximately 0.75 through simulations</p>
+<p>Now let’s try to mathematically derive it.</p>
+<h2 id="question-2">Question 2</h2>
+<p>So the second question seems like its just another layer of the earlier simulation to make it adaptable for more probabilities. But in reality what they require is a mathematical proof of the answer.</p>
+<h3 id="second-dummy-simulation">Second Dummy Simulation</h3>
+<div class="cell">
+<pre class="r cell-code"><code>evolutions &lt;- 80
+time_steps &lt;- 80
+n_bactis &lt;- 1
+probs &lt;- seq(0,1,by=0.1)
+
+file_name_sim_2 &lt;- paste(here::here(),"/blog/data/","riddler_2020_06_12_sim_2.csv",sep="")
+
+if(exists(file_name_sim_2)){
+  sim_2 &lt;- read_csv(file_name_sim_2)
+}else{
+  sim_2 &lt;- map_dfr(probs,function(p){
+    map_dfr(1:evolutions,function(x){
+      n_bactis &lt;- 1
+      lapply(1:time_steps, function(y){
+        if(n_bactis &gt;= (5*10^8)){
+          X &lt;- n_bactis
+          n_bactis &lt;- 1*10^9
+        }else{
+          X &lt;- rbinom(1,n_bactis,p)
+          n_bactis &lt;&lt;- X * 2
+        }
+        list(prob = p,evol = x,step = y,not_dead = X,tot = n_bactis)
+      }) 
+    })
+  })
+  write_csv(sim_2,file_name_sim_2)
+}
+sim_2 &lt;- sim_2 %&gt;% mutate(prob = as.factor(prob),
+                      evol_prob = paste(evol,prob))
+
+sim_2 %&gt;% 
+  ggplot(aes(x=step,y=tot,group=evol_prob,color=prob))+
+  geom_point(size=0.2) + 
+  geom_line(alpha=0.4) + 
+  labs(x = "Time Step", y = "Total Bacteria (capped)", color = "p")</code></pre>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img loading="lazy" decoding="async" src="/c/blog/2020-06-12-riddler-classic-how-long-will-the-bacterial-colony-last/2020-06-12-riddler-classic-how-long-will-the-bacterial-colony-last_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The relationship between <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> and the probability of a single bacteria creating a colony can be captured as follows.</p>
+<div class="cell">
+<pre class="r cell-code"><code>good_evols &lt;- sim_2 %&gt;% filter(step == time_steps &amp; tot &gt; 0) %&gt;% count(prob)
+# prob &lt;- good_evols / evolutions
+prob_relation &lt;- good_evols %&gt;% mutate(perc = n / evolutions,
+                      prob = round(as.numeric(levels(good_evols$prob))[good_evols$prob],2))
+prob_relation %&gt;% 
+  ggplot(aes(x = prob,y = perc)) +
+  geom_point() +
+  stat_smooth(method="lm") +
+  labs(title = "Relationship between p and probability of a bacteria making a colony",x = "p", y = "Pr(bacteria making a colony)")</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img loading="lazy" decoding="async" src="/c/blog/2020-06-12-riddler-classic-how-long-will-the-bacterial-colony-last/2020-06-12-riddler-classic-how-long-will-the-bacterial-colony-last_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<pre class="r cell-code"><code>prob_lm &lt;- lm(prob_relation,formula = perc ~ prob)
+summary(prob_lm)</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = perc ~ prob, data = prob_relation)
+
+Residuals:
+        1         2         3         4         5         6 
+-0.094048  0.002738  0.112024  0.058810  0.005595 -0.085119 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -0.8220     0.1648  -4.988 0.007556 ** 
+prob          1.9071     0.2143   8.901 0.000881 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.08963 on 4 degrees of freedom
+Multiple R-squared:  0.9519,    Adjusted R-squared:  0.9399 
+F-statistic: 79.22 on 1 and 4 DF,  p-value: 0.0008805</code></pre>
+</div>
+</div>
+<p>So the answer I got from this hack is<br>
+Probability&nbsp;of&nbsp;one&nbsp;Bacteria&nbsp;becoming&nbsp;an&nbsp;entire&nbsp;colony =1.9071429*p-0.8220238</p>
+<p>This is what I could mathematically derive as much as my tiny brain can allow,</p>
+<p>To begin with when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n = 1</annotation></semantics></math> all bacteria must replicate,<br>
+when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n = 2</annotation></semantics></math> still all bacteria must replicate, otherwise if only one replicates then we are still at 2 bacteria.<br>
+when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n = 4</annotation></semantics></math>, 3 or more should replicate,<br>
+when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">n = 6</annotation></semantics></math>, 4 or more should replicate,<br>
+when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">n = 10</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mfrac><mn>10</mn><mn>2</mn></mfrac><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(\frac{10}{2}) + 1</annotation></semantics></math> or more should replicate, when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">n = N</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mfrac><mi>N</mi><mn>2</mn></mfrac><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(\frac{N}{2}) + 1</annotation></semantics></math> or more should replicate</p>
+<p>Therefore the probability that with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> probability of replicating, a single bacteria can make an entire colony is given by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mfrac><mi>i</mi><mn>2</mn></mfrac><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn></mrow><mi>i</mi></munderover><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>i</mi></msub><mo>=</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex"> Pr(X_{1} = 1) + \sum_{i=1}^N\sum_{j=(\frac{i}{2}) + 1}^i Pr(X_{i} = j) </annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>r</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mfrac><mi>i</mi><mn>2</mn></mfrac><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn></mrow><mi>i</mi></munderover><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>i</mi><mi>j</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><msup><mi>p</mi><mi>j</mi></msup><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>i</mi><mo>−</mo><mi>j</mi></mrow></msup></mrow><annotation encoding="application/x-tex"> Pr(X_{1} = 1) + \sum_{i=1}^N\sum_{j=(\frac{i}{2}) + 1}^i {i \choose j}\times p^j \times (1-p)^{i-j}</annotation></semantics></math></p>
+<p>From here on I couldn’t find a simple expression for this so I let it be at this stage.</p></article>
