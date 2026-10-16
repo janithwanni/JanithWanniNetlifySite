@@ -3,6 +3,9 @@
 //   content/_out/talks.html                 -> public/c/talks.html        (route /talks/)
 //   content/_out/blog/<slug>/<file>.html    -> public/c/blog/<slug>.html  (route /blog/<slug>/)
 //
+// Fragments are requested without the extension (/c/talks, /c/ for the homepage):
+// Cloudflare Pages 308-redirects any *.html URL to that form, costing a round trip.
+//
 // Also writes the blog/creative listing fragments, copies figures, writes
 // content/routes.json (used by prerender.mjs) and public/_redirects for old URLs.
 import fs from 'node:fs';
@@ -27,7 +30,8 @@ const walk = (dir) =>
   });
 
 const meta = (html, name) => html.match(new RegExp(`<meta name="${name}" content="([^"]*)"`))?.[1] ?? '';
-const fragmentUrl = (route) => `/c${route.replace(/\/$/, '') || '/index'}.html`;
+const fragmentFile = (route) => `/c${route.replace(/\/$/, '') || '/index'}.html`;
+const fragmentUrl = (route) => `/c${route.replace(/\/$/, '') || '/'}`;
 const link = (route, text, cls = '') =>
   `<a${cls ? ` class="${cls}"` : ''} href="${route}" hx-get="${fragmentUrl(route)}" hx-push-url="${route}">${text}</a>`;
 const fmtDate = (iso) =>
@@ -104,11 +108,11 @@ fs.mkdirSync(DEST, { recursive: true });
 const routes = [];
 
 const writeFragment = (route, title, description, inner) => {
-  const file = path.join(PUBLIC, fragmentUrl(route));
+  const file = path.join(PUBLIC, fragmentFile(route));
   fs.mkdirSync(path.dirname(file), { recursive: true });
   const fullTitle = title ? `${title} · ${SITE}` : SITE;
   fs.writeFileSync(file, `<title>${fullTitle}</title>\n${inner.trim()}\n`);
-  routes.push({ route, fragment: fragmentUrl(route), title: fullTitle, description });
+  routes.push({ route, fragment: fragmentFile(route), title: fullTitle, description });
 };
 
 for (const page of pages) {

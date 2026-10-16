@@ -1,0 +1,8 @@
+# Cloudflare Pages response headers (copied to dist/ by Vite).
+
+# Vite's hashed bundles never change.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/img/*
+  Cache-Control: public, max-age=604800

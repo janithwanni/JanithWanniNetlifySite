@@ -2,7 +2,7 @@ import htmx from 'htmx.org';
 import './style.css';
 
 const main = document.getElementById('main');
-const fragmentFor = (pathname) => `/c${pathname.replace(/\/$/, '') || '/index'}.html`;
+const fragmentFor = (pathname) => `/c${pathname.replace(/\/$/, '') || '/'}`;
 
 function markCurrentSection() {
   const section = location.pathname.split('/')[1];

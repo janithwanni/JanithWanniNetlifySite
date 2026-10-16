@@ -50,6 +50,11 @@ Or read up on my history in my CV [here](Portfolio.pdf)
 ::: {#notebook}
 :::
 
+<!-- Filled lazily by functions/c/listening.js; stays empty if Spotify is unavailable. -->
+```{=html}
+<section class="listening-row" aria-label="Recently played" hx-get="/c/listening" hx-trigger="revealed" hx-target="this" hx-swap="innerHTML"></section>
+```
+
 ::: {.colophon}
 [⁂]{aria-hidden="true"}
 
