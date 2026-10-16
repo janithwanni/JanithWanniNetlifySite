@@ -61,3 +61,5 @@ content/renv/
 **/*.quarto_ipynb
 *.old
 raw/
+.dev.vars
+.wrangler/
