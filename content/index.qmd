@@ -52,7 +52,7 @@ Or read up on my history in my CV [here](Portfolio.pdf)
 
 <!-- Filled by src/main.js from the getmessages function; stays empty if it is unavailable. -->
 ```{=html}
-<section class="thoughts-row" aria-label="Thoughts and musings" data-thoughts="https:hear.janithwanni.com/.netlify/functions/getmessages?limit=5"></section>
+<section class="thoughts-row" aria-label="Thoughts and musings" data-thoughts="https://hear.janithwanni.com/.netlify/functions/getmessages?limit=5"></section>
 ```
 
 <!-- Filled lazily by functions/c/listening.js; stays empty if Spotify is unavailable. -->
