@@ -116,6 +116,8 @@ for (const page of pages) {
     .replace(/<header id="title-block-header">[\s\S]*?<\/header>/, '')
     .replace(/<img (?![^>]*loading=)/g, '<img loading="lazy" decoding="async" ');
   page.minutes = readingTime(body);
+  page.html = body;
+  if (page.route === '/') continue; // written below, once the listings are known
   writeFragment(page.route, page.title, page.description,
     `<article class="${page.section ? 'post' : 'page'}">${header(page)}${body.trim()}</article>`);
 }
@@ -135,6 +137,53 @@ for (const [section, { title, heading }] of Object.entries(SECTIONS)) {
 ${items.join('\n')}
 </ul></article>`);
 }
+
+// Homepage: a table of contents and the latest poem fill content/index.qmd's placeholders.
+const home = pages.find((p) => p.route === '/');
+const byPage = (route) => pages.find((p) => p.route === route);
+const bySection = (s) => pages.filter((p) => p.section === s).sort((a, b) => b.date.localeCompare(a.date));
+const count = (html, tag) => (html.match(new RegExp(`<${tag}[ >]`, 'g')) ?? []).length;
+const fmtMonth = (iso) => new Date(iso).toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+
+const chapter = (num, title, note, right) =>
+  `<span class="num">${num}</span><span class="chapter">${title}<em>${note}</em></span>` +
+  `<span class="leader"></span><span class="count">${right}</span>`;
+const contents = `<nav class="contents" aria-labelledby="contents-head">
+<h2 id="contents-head" class="rule-head">Contents</h2>
+<ol>
+<li>${link('/creative/', chapter('I', 'Creative Corner', 'Poems, letters &amp; short stories', `${bySection('creative').length} pieces`))}</li>
+<li>${link('/blog/', chapter('II', 'Blog', 'Statistics, R &amp; generative art', `${bySection('blog').length} essays`))}</li>
+<li>${link('/talks/', chapter('III', 'Talks', 'Meetups, workshops &amp; conferences', `${count(byPage('/talks/').html, 'h2')} talks`))}</li>
+<li>${link('/publications/', chapter('IV', 'Publications', 'Papers &amp; R packages', `${count(byPage('/publications/').html, 'h3')} works`))}</li>
+<li><a href="/Portfolio.pdf">${chapter('V', 'Curriculum Vitae', 'The longer story', 'PDF')}</a></li>
+</ol>
+</nav>`;
+
+const [latest, ...older] = bySection('creative');
+const excerpt = latest.html.match(/<p>((?:(?!<\/p>)[\s\S]){40,}?)<\/p>/)?.[1] ?? '';
+const lately = [...older, ...bySection('blog')]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 4)
+  .map((p) => `<li><time datetime="${p.date}">${fmtMonth(p.date)}</time>${link(p.route, p.title)}` +
+    `<span class="kind">${p.section === 'blog' ? 'essay' : 'verse'}</span></li>`);
+const notebook = `<section class="notebook" aria-labelledby="notebook-head">
+<h2 id="notebook-head" class="rule-head">From the notebook</h2>
+<figure class="excerpt">
+<blockquote><p>${excerpt}</p></blockquote>
+<figcaption>${link(latest.route, `<cite>${latest.title}</cite>`)} · <time datetime="${latest.date}">${fmtDate(latest.date)}</time></figcaption>
+</figure>
+<p class="more">${link(latest.route, 'Continue reading →')}</p>
+<h3 class="small-head">Lately</h3>
+<ul class="lately">
+${lately.join('\n')}
+</ul>
+</section>`;
+
+writeFragment('/', '', 'Statistician, writer and wanderer. Poems, stories and statistics by Janith Wanniarachchi.',
+  `<article class="home">${home.html.replace(/<!--[\s\S]*?-->\s*/g, "")
+    .replace(/<div id="contents">\s*<\/div>/, contents)
+    .replace(/<div id="notebook">\s*<\/div>/, notebook)
+    .trim()}</article>`);
 
 routes.sort((a, b) => a.route.localeCompare(b.route));
 fs.writeFileSync(path.join(SRC, 'routes.json'), JSON.stringify(routes, null, 2) + '\n');

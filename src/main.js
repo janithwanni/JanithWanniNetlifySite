@@ -6,7 +6,7 @@ const fragmentFor = (pathname) => `/c${pathname.replace(/\/$/, '') || '/index'}.
 
 function markCurrentSection() {
   const section = location.pathname.split('/')[1];
-  for (const a of document.querySelectorAll('nav a')) {
+  for (const a of document.querySelectorAll('.site-head nav a')) {
     if (a.dataset.section === section) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
   }
