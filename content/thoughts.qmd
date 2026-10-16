@@ -1,0 +1,16 @@
+---
+title: "Thoughts & Musings"
+description: "Postcards of passing thoughts by Janith Wanniarachchi"
+---
+
+::: {.postcards-intro}
+Little notes, written in passing and sent without an address.\
+Take whichever one you need.
+:::
+
+<!-- Filled by src/main.js from the getmessages function. -->
+```{=html}
+<ol class="postcards" data-postcards="https://hear.janithwanni.com/.netlify/functions/getmessages" aria-live="polite">
+<li class="postcards-status">The post is on its way…</li>
+</ol>
+```

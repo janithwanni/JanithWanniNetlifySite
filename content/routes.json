@@ -256,5 +256,11 @@
     "fragment": "/c/talks.html",
     "title": "Talks · Janith Wanniarachchi",
     "description": ""
+  },
+  {
+    "route": "/thoughts/",
+    "fragment": "/c/thoughts.html",
+    "title": "Thoughts &amp; Musings · Janith Wanniarachchi",
+    "description": "Postcards of passing thoughts by Janith Wanniarachchi"
   }
 ]

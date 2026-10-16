@@ -12,38 +12,79 @@ function markCurrentSection() {
   }
 }
 
-// The homepage's thoughts and musings come as JSON ([{ message, time }]), so they are
-// rendered here rather than swapped in by htmx. Any failure leaves the section empty.
+// Thoughts and musings come as JSON ([{ message, time }]) from the getmessages function,
+// so they are rendered here rather than swapped in by htmx: a short list on the homepage
+// ([data-thoughts]) and postcards on /thoughts/ ([data-postcards]).
 const dateFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+const weekdayFmt = new Intl.DateTimeFormat('en-GB', { weekday: 'long' });
+
+const el = (tag, props = {}, ...children) => {
+  const node = Object.assign(document.createElement(tag), props);
+  node.append(...children);
+  return node;
+};
+
+async function fetchThoughts(url) {
+  const res = await fetch(url, { headers: { Accept: 'application/json' } });
+  if (!res.ok) throw new Error(`getmessages ${res.status}`);
+  return (await res.json())
+    .filter((t) => t && t.message)
+    // Accept Unix timestamps in seconds or milliseconds.
+    .map(({ message, time }) => ({ message, date: new Date(time < 1e12 ? time * 1000 : time) }))
+    .sort((a, b) => b.date - a.date);
+}
+
+const timeEl = (date, text = dateFmt.format(date)) => el('time', { dateTime: date.toISOString() }, text);
+
+function thoughtsList(thoughts) {
+  const more = el('a', { href: '/thoughts/' }, 'Read them all as postcards →');
+  more.setAttribute('hx-get', '/c/thoughts');
+  more.setAttribute('hx-push-url', '/thoughts/');
+  return [
+    el('h3', { className: 'small-head' }, 'Thoughts & musings'),
+    el('ul', { className: 'lately thoughts' },
+      ...thoughts.map(({ message, date }) => el('li', {}, timeEl(date), el('p', {}, message)))),
+    el('p', { className: 'more' }, more),
+  ];
+}
+
+function postcards(thoughts) {
+  return thoughts.map(({ message, date }, i) => {
+    const [day, month, year] = dateFmt.format(date).toUpperCase().split(' ');
+    return el('li', { className: 'postcard' },
+      el('div', { className: 'postcard-note' },
+        el('p', {}, message),
+        el('p', { className: 'postcard-sign' }, `${weekdayFmt.format(date)}, `, timeEl(date))),
+      el('div', { className: 'postcard-side', ariaHidden: 'true' },
+        el('span', { className: 'stamp' }, el('span', {}, '❦')),
+        el('span', { className: 'postmark' }, el('span', {}, `${day} ${month}`, el('br'), year)),
+        el('span', { className: 'address' }, 'To the wanderer', el('br'), 'wherever you are'),
+        el('span', { className: 'postcard-no' }, `No. ${thoughts.length - i}`)));
+  });
+}
 
 async function loadThoughts() {
-  const box = main.querySelector('[data-thoughts]');
-  if (!box || box.firstElementChild) return;
-  try {
-    const res = await fetch(box.dataset.thoughts, { headers: { Accept: 'application/json' } });
-    if (!res.ok) return;
-    const thoughts = (await res.json())
-      .filter((t) => t && t.message)
-      .sort((a, b) => b.time - a.time);
-    if (!thoughts.length) return;
-
-    const head = Object.assign(document.createElement('h3'), { className: 'small-head', textContent: 'Thoughts & musings' });
-    const list = Object.assign(document.createElement('ul'), { className: 'lately thoughts' });
-    for (const { message, time } of thoughts) {
-      // Accept Unix timestamps in seconds or milliseconds.
-      const date = new Date(time < 1e12 ? time * 1000 : time);
-      const li = document.createElement('li');
-      const when = Object.assign(document.createElement('time'), {
-        dateTime: date.toISOString(),
-        textContent: dateFmt.format(date),
-      });
-      const what = Object.assign(document.createElement('p'), { textContent: message });
-      li.append(when, what);
-      list.append(li);
+  for (const [selector, key, render] of [
+    ['[data-thoughts]', 'thoughts', thoughtsList],
+    ['[data-postcards]', 'postcards', postcards],
+  ]) {
+    const box = main.querySelector(selector);
+    // data-loaded survives htmx's history snapshot, so going back doesn't refetch.
+    if (!box || box.hasAttribute('data-loaded')) continue;
+    box.setAttribute('data-loaded', '');
+    try {
+      const thoughts = await fetchThoughts(box.dataset[key]);
+      if (thoughts.length) box.replaceChildren(...render(thoughts));
+      else if (key === 'postcards') box.replaceChildren(el('li', { className: 'postcards-status' }, 'No post today.'));
+      htmx.process(box);
+    } catch (err) {
+      console.error('thoughts:', err);
+      box.removeAttribute('data-loaded');
+      // The homepage list just stays empty; the postcards page says so.
+      if (key === 'postcards') {
+        box.replaceChildren(el('li', { className: 'postcards-status' }, 'The post seems to be delayed. Please try again a little later.'));
+      }
     }
-    box.replaceChildren(head, list);
-  } catch (err) {
-    console.error('thoughts:', err);
   }
 }
 
