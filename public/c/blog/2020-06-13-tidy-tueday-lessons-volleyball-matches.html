@@ -1,0 +1,164 @@
+<title>TidyTueday lessons : Volleyball Matches · Janith Wanniarachchi</title>
+<article class="post"><header class="page-head"><a class="back" href="/blog/" hx-get="/c/blog.html" hx-push-url="/blog/">← Blog</a><h1>TidyTueday lessons : Volleyball Matches</h1><p class="meta"><time datetime="2020-05-19">19 May 2020</time> · 5 min read</p></header><div class="cell">
+<pre class="r cell-code"><code>knitr::opts_chunk$set(warning = FALSE)</code></pre>
+</div>
+<h1 id="beach-volleyball-pairs">Beach Volleyball Pairs</h1>
+<p>For this weeks TidyTuesday dataset, the R4DS community has given a dataset on Volleyball Match statistics. This contained data in a wide format and the matches were mostly from the international FIVB tournaments but about 1/3 is from the US-centric AVP. I had only a vague idea about Beach Volleyball as I personally have played only regular volleyball(is there a term for that?) during PE period in school. So to get an idea I opened up youtube and searched beach volleyball and looked at the first match, which turned out to be a women’s beach volleyball match. And so I watched and I had a small question as to what pairs of players normally go well together as I heard the commentators explaining how these players played well with these partners and so on.</p>
+<h2 id="load-data">Load Data</h2>
+<h2 id="filtering">Filtering</h2>
+<p>Since it was far less biased to look at the International Matches I had filtered it below.</p>
+<div class="cell">
+<pre class="r cell-code"><code># select only international matches
+int_df &lt;- vb_matches %&gt;% 
+  filter(circuit == "FIVB")</code></pre>
+</div>
+<p>Here I found a fun little use for functional programming as I wanted to get only the columns that had a complete rate of over 95%. I refrained from trying to handle the serves and attack columns due to this reason as their complete rate was quite low and to impute them would have caused even more of an hassle.</p>
+<div class="cell">
+<pre class="r cell-code"><code>#select only the columns that have a complete rate of over 95%
+
+sum_na &lt;- compose(sum,is.na)
+is_not_na &lt;- negate(is.na)
+complete_rate_mapper &lt;- as_mapper(~ 100 - (sum_na(.x)/length(.x) * 100 ))
+
+int_df &lt;- int_df[,names(keep(map(int_df,complete_rate_mapper),
+                             ~ .x &gt; 95))]
+# skimr::skim(int_df)</code></pre>
+</div>
+<h1 id="data-cleaning">Data Cleaning</h1>
+<p>Initially I found having two countries of the players seperate odd and therefore thought of merging them only to realize that there were instances where the countries didn’t match. (which was quite odd to me). Regardless I decided to name those mixed and let it be.</p>
+<div class="cell">
+<pre class="r cell-code"><code>#merge player countries
+int_df &lt;- int_df %&gt;%
+  mutate(w_country = if_else(
+    w_p1_country == w_p2_country,w_p1_country,"Mixed"),
+    l_country = if_else(
+      l_p1_country == l_p2_country,l_p1_country,"Mixed")
+    ) %&gt;%
+  select(-l_p1_country,-l_p2_country,-w_p1_country,-w_p2_country)</code></pre>
+</div>
+<p>There were so many tournaments played in this dataset and to look at them all together made all the graphs really cluttered and therefore I thought to use only the top 10 tournaments with highest number of records.</p>
+<div class="cell">
+<pre class="r cell-code"><code># recode gender variables
+int_df &lt;- int_df %&gt;% 
+  mutate(gender = fct_recode(gender,"Men" = "M","Women" = "W"))
+
+# limiting the problem to the top 10 tournaments
+top_ten_tournaments &lt;- int_df %&gt;% select(tournament) %&gt;% count(tournament) %&gt;% arrange(desc(n)) %&gt;% top_n(1) %&gt;% .$tournament</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>Selecting by n</code></pre>
+</div>
+<pre class="r cell-code"><code>int_df &lt;- int_df %&gt;% filter(tournament %in% top_ten_tournaments)</code></pre>
+</div>
+<h2 id="finding-the-best-player-performances">Finding the best player performances</h2>
+<p>Even then there were too many, hence I decided to limit my scope to only the Mens team in USA. So to start finding the best player pair combinations the first thing I did was to count the Wins and Losses for the player combinations seperately. and then I combined them together and then got the percentages of wins and losses from total matches per player combination. And then I plotted a pair plot to see it.</p>
+<div class="cell">
+<pre class="r cell-code"><code>#for one country and one gender and for one tournament
+m_country &lt;- "United States"
+m_gender &lt;- "Men"
+m_w_df &lt;- int_df %&gt;% 
+  filter(gender == m_gender &amp; w_country == m_country) %&gt;% 
+  count(w_player1,w_player2) %&gt;% 
+  mutate(win_loss = "Win")
+
+m_l_df &lt;- int_df %&gt;% 
+  filter(gender == m_gender &amp; l_country == m_country ) %&gt;% 
+  count(l_player1,l_player2) %&gt;% 
+  mutate(win_loss = "Loss")
+
+m_df &lt;- bind_rows(m_w_df %&gt;% 
+                    rename(player_1 = w_player1) %&gt;%
+                    rename(player_2 = w_player2)
+                  ,m_l_df %&gt;% 
+                    rename(player_1 = l_player1) %&gt;%
+                    rename(player_2 = l_player2))
+m_df &lt;- m_df %&gt;% 
+  mutate(player_1 = gsub("([A-Z][a-z])*\\s([A-Z])[a-z]*","\\1 \\2.",m_df$player_1),
+         player_2 = gsub("([A-Z][a-z])*\\s([A-Z])[a-z]*","\\1 \\2.",m_df$player_2)) %&gt;% 
+  group_by(player_1,player_2) %&gt;% 
+  mutate(perc = n / sum(n)) %&gt;% 
+  ungroup()
+
+ggplot(m_df %&gt;% 
+         mutate(pairs = row.names(m_df),
+                win_loss = factor(win_loss,levels=c("Win","Loss"))) %&gt;% 
+         gather(player,name,player_1,player_2),
+       aes(x=player,y=name,group=pairs)) +
+  geom_point(aes(color=win_loss,alpha=perc)) +
+  geom_line(aes(color=win_loss,alpha=perc)) + 
+  labs(x = "Player",y="Name",alpha="Ratio of Win/Loss",color="Win/Loss",title="Player Combinations in United States Men's Team in Gstaad Tournament for all years") +
+  scale_color_brewer(palette="Set1")</code></pre>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img loading="lazy" decoding="async" src="/c/blog/2020-06-13-tidy-tueday-lessons-volleyball-matches/2020-06-13-tidy-tueday-lessons-volleyball-matches_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<h2 id="an-approach-with-a-different-statistic">An approach with a different statistic</h2>
+<p>Now there were several problems with the above statistics. One was that multiple colors on one another really didn’t convey which one was the best.</p>
+<p>Instead of using that confusing statistic I decided to use something different. I calculated the ratio of wins and losses as before and this time I calculated the difference between the ratios and then decided to categorize them by postive, negative or zero change.</p>
+<p>In addition I also used some regular expressions to edit the names of the players so that I can put the names on the plot without cluttering the entire axis.</p>
+<div class="cell">
+<pre class="r cell-code"><code># different approach
+m_w_df &lt;- int_df %&gt;% 
+  filter(gender == m_gender &amp; 
+           w_country == m_country 
+  ) %&gt;% 
+  count(w_player1,w_player2,name="n_wins") %&gt;% 
+  rename(player_1 = w_player1) %&gt;%
+  rename(player_2 = w_player2)
+
+m_l_df &lt;- int_df %&gt;% 
+  filter(gender == m_gender &amp; 
+           l_country == m_country 
+  ) %&gt;% 
+  count(l_player1,l_player2,name = "n_loss") %&gt;% 
+  rename(player_1 = l_player1) %&gt;%
+  rename(player_2 = l_player2)
+
+m_df &lt;- m_w_df %&gt;% 
+  full_join(m_l_df) </code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(player_1, player_2)`</code></pre>
+</div>
+<pre class="r cell-code"><code>m_df[is.na(m_df$n_wins),"n_wins"] &lt;- 0
+m_df[is.na(m_df$n_loss),"n_loss"] &lt;- 0
+m_df &lt;- m_df %&gt;% 
+  mutate(total = n_wins + n_loss,
+         ratio_wins = n_wins / total,
+         ratio_loss = n_loss / total,
+         ratio_diff = ratio_wins - ratio_loss) %&gt;% 
+  mutate(good_bad = factor(case_when(
+    (ratio_diff &gt; 0) ~ 0.8,
+    (ratio_diff &lt; 0) ~ 0.2,
+    (ratio_diff == 0) ~ 0.5
+  ),levels=c(0.2,0.5,0.8),labels=c("Bad","Neutral","Good"))) %&gt;% 
+  select(-ratio_wins,-ratio_loss,-total,-ratio_diff)
+  
+m_df &lt;- m_df %&gt;% 
+  mutate(player_1 = gsub("([A-Z][a-z])*\\s([A-Z])[a-z]*","\\1 \\2.",m_df$player_1),
+         player_2 = gsub("([A-Z][a-z])*\\s([A-Z])[a-z]*","\\1 \\2.",m_df$player_2))
+
+m_df %&gt;% 
+  mutate(pairs = row.names(m_df)) %&gt;% 
+  gather(player,name,player_1,player_2) %&gt;% 
+ggplot(aes(x=player,y=name,group=pairs)) +
+  geom_point(size=0.9) +
+  geom_line(aes(color=good_bad,alpha=as.numeric(good_bad)),size=1.0) + 
+  labs(x = "Player",y="Name",
+       color="Pair Performance",
+       title="Player Combinations in United States Men's Team in Gstaad Tournament for all years",
+       alpha = "Pair Performance") +
+  scale_color_brewer(palette="Set1") +
+  scale_alpha_continuous(breaks=c(0.2,0.5,0.8))</code></pre>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img loading="lazy" decoding="async" src="/c/blog/2020-06-13-tidy-tueday-lessons-volleyball-matches/2020-06-13-tidy-tueday-lessons-volleyball-matches_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<h2 id="ending-notes">Ending notes</h2>
+<p>Although the plot looked beautiful, it’s still not helpful at all. Maybe adding a plotly widget with tooltip text or annotating the best combinations might be helpful but I dont see any way to annotate without cluttering the plot.</p></article>

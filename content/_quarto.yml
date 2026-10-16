@@ -1,0 +1,21 @@
+# Renders bare HTML (no Bootstrap, no Quarto JS). scripts/build-content.mjs
+# turns each page into an htmx fragment under public/c/.
+project:
+  type: default
+  output-dir: _out
+  render:
+    - "*.qmd"
+    - "blog/**/*.qmd"
+    - "creative/**/*.qmd"
+
+format:
+  html:
+    minimal: true
+    theme: none
+    highlight-style: none
+    html-math-method: mathml
+    toc: false
+    anchor-sections: false
+    code-copy: false
+    link-external-icon: false
+    embed-resources: false

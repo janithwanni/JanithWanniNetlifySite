@@ -1,0 +1,136 @@
+<title>First Attempt at Generative Art · Janith Wanniarachchi</title>
+<article class="post"><header class="page-head"><a class="back" href="/blog/" hx-get="/c/blog.html" hx-push-url="/blog/">← Blog</a><h1>First Attempt at Generative Art</h1><p class="meta"><time datetime="2020-05-27">27 May 2020</time> · 2 min read</p></header><h1 id="my-first-generative-art">My first Generative Art</h1>
+<p>From the <a href="https://www.youtube.com/playlist?list=PLRPB0ZzEYegPHHji3tBw2U4yp-DxMrUkB">functional programming in R for artists (and scientists) video series</a> by <a href="https://www.youtube.com/channel/UCfNGzUFfsy_3udMY8UyaqBA">Danielle Navarro</a>. More of her amazing work can be found at her <a href="https://art.djnavarro.net/">website</a></p>
+<div class="cell">
+<pre class="r cell-code"><code>library(tidyverse)</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.2     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<pre class="r cell-code"><code>library(RColorBrewer)
+
+set.seed(42)
+n_scales &lt;- 8
+all_scales &lt;- runif(n_scales,0.95,1)
+# all_scales &lt;- c(.8,.9,.95)
+
+n_angles &lt;- 8
+# all_angles &lt;- runif(min=-10,max=10,n=n_angles) 
+# all_angles &lt;- rbinom(n_angles,10,0.5)
+all_angles &lt;- rnorm(n_angles,-10,sd=20)
+# all_angles &lt;- c(-10,-5,0,5,10,15,20,25)
+cycles &lt;- 10
+splits &lt;- 2
+color_increment &lt;- 0.1
+low_color &lt;- "#DAE2F8"
+high_color &lt;- "#D6A4A4"
+size_decrement &lt;- 0.1
+
+radian &lt;- function(degree){
+  (degree / 360) * 2 * pi  
+}
+
+adjust_scale &lt;- function(scale){
+  
+  new_scale &lt;- scale * sample(all_scales,size=length(scale),replace=TRUE)
+  return(new_scale)
+}
+adjust_angle &lt;- function(angle){
+  
+  new_angle &lt;- angle + sample(all_angles,size=length(angle),replace=TRUE)
+  return(new_angle) 
+}
+
+adjust_x &lt;- function(old_x,scale,angle){
+  new_x &lt;- old_x + scale * cos(radian(angle))
+  return(new_x)
+}
+adjust_y &lt;- function(old_y,scale,angle){
+  new_y &lt;- old_y + scale * sin(radian(angle))
+  return(new_y)
+}
+adjust_color &lt;- function(color){
+  new_color &lt;- color + color_increment
+  return(new_color)
+}
+adjust_size &lt;- function(size){
+  new_size &lt;- size - size_decrement
+  return(new_size)
+}
+grow_from &lt;- function(tips){
+  new_growth &lt;- tips %&gt;% 
+    mutate(
+      old_x = new_x,
+      old_y = new_y,
+      scale = adjust_scale(scale),
+      angle = adjust_angle(angle),
+      new_x = adjust_x(old_x,scale,angle),
+      new_y = adjust_y(old_y,scale,angle),
+      color = adjust_color(color),
+      size = adjust_size(size)
+      )
+  return(new_growth)
+}
+grow_sapling &lt;- function(){
+  sapling &lt;- tibble(
+    old_x = 0,old_y = 0,
+    new_x = 0,new_y = 1,
+    scale = 1,angle = 90,
+    color = 0,size = 1
+  )
+  return(sapling)
+}
+
+grow_multi &lt;- function(tips){
+  branches &lt;- map_dfr(.x = 1:splits,
+                  .f= ~ grow_from(tips))
+  return(branches)
+}
+draw_tree &lt;- function(tree){
+  pic &lt;- ggplot(tree,aes(x=old_x,y=old_y,xend=new_x,yend=new_y))+
+    geom_segment(aes(color=color,alpha=size),size=1,show.legend = FALSE)+
+    # coord_equal()+
+    theme_void()+
+    xlim(-10,10) + 
+    ylim(0,10) + 
+    # theme_black()+
+    scale_color_gradient(low=low_color,
+                         high=high_color) +
+    theme(plot.background = element_rect(fill = "black")) # +
+    # ggsave(paste(Sys.time(),"ashtree.png"))
+  return(pic)
+}
+grow_tree &lt;- function(){
+  tree &lt;- map_dfr(accumulate(.x=1:cycles,
+                     .f= ~ grow_multi(.),
+                     .init = grow_sapling() ),
+                  ~.x)
+  return(tree)
+}
+
+dat &lt;- grow_tree()
+pic &lt;- draw_tree(dat)</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<pre class="r cell-code"><code>plot(pic)</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 10 rows containing missing values (`geom_segment()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img loading="lazy" decoding="async" src="/c/blog/2020-06-08-first-attempt-at-generative-art/2020-06-08-first-attempt-at-generative-art_files/figure-html/unnamed-chunk-1-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div></article>

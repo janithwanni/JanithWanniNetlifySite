@@ -52,10 +52,12 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# quarto website
-/.quarto/
-_creative/*/*_files/
-_post/*/*_files/
-archive/
-renv/
+# site
+node_modules/
+dist/
+content/_out/
+content/.quarto/
+content/renv/
+**/*.quarto_ipynb
 *.old
+raw/

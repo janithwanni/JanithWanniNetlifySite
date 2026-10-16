@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Janith Wanniarachchi</title>
+  <meta name="description" content="Stories, poems and statistics by Janith Wanniarachchi">
+  <meta name="color-scheme" content="light dark">
+  <meta name="htmx-config" content='{"allowEval":false,"includeIndicatorStyles":false}'>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%236827B3'/><text x='16' y='22' font-family='Georgia,serif' font-size='18' fill='white' text-anchor='middle'>JW</text></svg>">
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body hx-target="#main" hx-swap="innerHTML show:window:top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-head">
+    <a class="brand" href="/" hx-get="/c/index.html" hx-push-url="/">Janith Wanniarachchi</a>
+    <nav aria-label="Main">
+      <a href="/publications/" hx-get="/c/publications.html" hx-push-url="/publications/" data-section="publications">Publications</a>
+      <a href="/talks/" hx-get="/c/talks.html" hx-push-url="/talks/" data-section="talks">Talks</a>
+      <a href="/blog/" hx-get="/c/blog.html" hx-push-url="/blog/" data-section="blog">Blog</a>
+      <a href="/creative/" hx-get="/c/creative.html" hx-push-url="/creative/" data-section="creative">Creative Corner</a>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1"></main>
+  <footer class="site-foot">
+    <a href="https://github.com/janithwanni">GitHub</a>
+    <a href="https://www.linkedin.com/in/janith-wanniarachchi">LinkedIn</a>
+    <a href="/Portfolio.pdf">CV</a>
+  </footer>
+</body>
+</html>
