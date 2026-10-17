@@ -303,6 +303,115 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 .listening a, .listening .kind { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .listening time { white-space: nowrap; font-size: 0.9rem; }
 
+/* Colours: a shelf of spines, each striped with a photograph's palette. Opening one
+   pulls it out and shows the photograph as a plate beneath the shelf. */
+.colours-row:not(:empty) { margin-bottom: 4rem; }
+.shelf {
+  --plate-h: 5rem; /* room reserved under the shelf while a plate is out */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.3rem;
+  max-width: 30rem;
+  margin: 0 auto;
+  padding: 1rem 0.5rem 0;
+  border-bottom: 3px double var(--line);
+}
+.shelf:has(.spine[open]) { margin-bottom: var(--plate-h); }
+.shelf:has(.spine[open] img) { --plate-h: 21rem; }
+/* The hex codes wrap onto a second line on narrow screens. */
+@media (max-width: 34rem) {
+  .shelf { --plate-h: 6.75rem; }
+  .shelf:has(.spine[open] img) { --plate-h: 22.75rem; }
+}
+.shelf-note { margin: 0.75rem 0 0; color: var(--muted); font-size: 0.9rem; font-style: italic; }
+
+.spine { flex: 0 1 2.2rem; min-width: 1.1rem; }
+.spine summary {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 10rem;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 2px 2px 0 0;
+  overflow: hidden;
+  list-style: none;
+  cursor: pointer;
+  transform-origin: bottom center;
+}
+.spine summary::-webkit-details-marker { display: none; }
+.spine:nth-child(3n) summary { height: 9rem; }
+.spine:nth-child(4n + 1) summary { height: 11rem; }
+.spine:nth-child(5n + 2) summary { height: 9.5rem; }
+.spine summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.spine[open] summary { translate: 0 -0.75rem; }
+
+.bands { position: absolute; inset: 0; display: flex; flex-direction: column; }
+/* Gilt bands near the head and tail of each spine */
+.spine summary::before, .spine summary::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  z-index: 1;
+  height: 4px;
+  border-block: 1px solid rgb(255 255 255 / 0.45);
+}
+.spine summary::before { top: 0.5rem; }
+.spine summary::after { bottom: 0.5rem; }
+
+.spine-label {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  max-height: 65%;
+  padding: 0.45rem 0.1rem;
+  writing-mode: vertical-rl;
+  background: color-mix(in srgb, var(--card) 85%, transparent);
+  color: var(--fg);
+  font-size: 0.85rem;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.plate {
+  position: absolute;
+  inset-inline: 0;
+  top: calc(100% + 1.25rem);
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  margin: 0;
+}
+.plate img {
+  display: block;
+  width: min(100% - 12px, 20rem);
+  height: 14rem;
+  object-fit: cover;
+  background: var(--line);
+  outline: 1px solid var(--line);
+  outline-offset: 4px;
+}
+.plate figcaption { font-style: normal; line-height: 1.6rem; font-variant-caps: all-small-caps; letter-spacing: 0.08em; }
+.plate cite { font-style: italic; }
+.plate .hexes { display: block; font: 0.8rem/1.6rem var(--mono); letter-spacing: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .spine summary { transition: rotate 0.3s, translate 0.3s; }
+  .shelf { transition: margin-bottom 0.3s; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .spine:not([open]) summary:hover { rotate: -4deg; translate: 0 -4px; }
+}
+
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
 /* Thoughts: a stack of postcards ------------------------------------------- */
 .postcards-intro { margin-bottom: 3rem; color: var(--muted); font-style: italic; text-align: center; }
 .postcards { display: grid; gap: 2.75rem; margin: 0 0 3rem; padding: 0; list-style: none; }
