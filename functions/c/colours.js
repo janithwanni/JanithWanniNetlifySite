@@ -4,7 +4,8 @@
 // kept in the edge cache, so getcolors is hit at most once per TTL per data centre.
 
 const SOURCE = 'https://hear.janithwanni.com/.netlify/functions/getcolors?limit=12';
-const TTL = 3600;
+// New photos show up within TTL (edge) or a minute (browser).
+const TTL = 300;
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
@@ -73,7 +74,7 @@ export async function onRequestGet({ request, waitUntil }) {
   if (!list.length) return new Response(null, { status: 204 });
 
   const res = new Response(render(list), {
-    headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': `public, max-age=${TTL}` },
+    headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': `public, max-age=60, s-maxage=${TTL}` },
   });
   waitUntil(cache.put(request, res.clone()));
   return res;
