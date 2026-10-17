@@ -1,10 +1,72 @@
 ---
 title: "Talks"
+description: "Conference talks, meetups and workshops by Janith Wanniarachchi on explainable AI, R and data visualisation"
 ---
 
-I love sharing my knowledge with others, be it through tutoring sessions for my colleagues or a talk for a crowd of enthusiasts. These are some of the places where I got the opportunity to share my knowledge publicly.
+I love sharing what I learn, whether that's a conference talk, a meetup workshop or a tutorial for colleagues. Recent talks are about my PhD work on explainable AI. Earlier ones are workshops on R, Shiny, TensorFlow and data visualisation for Sri Lankan student and developer communities.
 
-## Abuja useR Group September 2022 meetup
+::: {.talk-list}
+- [2026]{.year} [Visual Explanations of XAI Explainers](#user-2026) [useR! 2026]{.venue}
+- [2023]{.year} [Seeing the Smoke Before the Fire](#iasc-ars-2023) [IASC-ARS, Sydney · award]{.venue}
+- [2022]{.year} [Interactive maps in Shiny with leaflet](#abuja-user-group-september-2022-meetup) [Abuja useR Group]{.venue}
+- [2022]{.year} [scatteR: generating instance space with scagnostics](#user-2022) [useR! 2022]{.venue}
+- [2022]{.year} [Explainability of ML interpretability methods](#octave-thesis-presentation) [Octave Symposium · top 10]{.venue}
+- [2022]{.year} [Sports analytics for netball](#edex-presentation-on-sports-analytics-on-netball) [EDEX Expo]{.venue}
+- [2022]{.year} [RETRO paper reading](#retro-paper-reading-presentation) [labml.ai]{.venue}
+- [2021]{.year} [Data wrangling in R](#rladiescolombo-april-2021-meetup) [R-Ladies Colombo]{.venue}
+- [2021]{.year} [Fundamentals of data visualisation](#fundamentals-of-data-visualization) [Statistics Society, USJ]{.venue}
+- [2021]{.year} [Data visualisation in Tableau](#data-visualization-in-tableau) [Statistics Society, USJ]{.venue}
+- [2019]{.year} [Sentiment analysis in the browser with TensorFlow.js](#tensorflow-all-around-2019) [TensorFlow User Group Sri Lanka]{.venue}
+- [2019]{.year} [Loss functions, regularisation & RNNs](#google-developer-group-ml-bootcamp-2019) [GDG ML Bootcamp]{.venue}
+:::
+
+[The stories behind them]{.small-head}
+
+<details class="talk" id="user-2026">
+<summary><h2>useR! 2026: Visual Explanations of XAI Explainers</h2></summary>
+
+LIME, SHAP, counterfactuals and Anchors often give conflicting explanations for the same prediction, because each looks at a different facet of the model. Using a wombat loan-eligibility example, this talk splits these methods into three shared parts: a perturbation mechanism, an optimisation objective and a structured output. It then shows geometric representations that place each explanation back in the data space. It also introduces two R packages from my PhD: [kumquat](https://janithwanni.github.io/kumquat/), for inspecting LIME's internals, and [kultarr](https://janithwanni.github.io/kultarr/), an Anchors implementation in pure R.
+
+<div class = "talk-links">
+
+[Slides & code](https://github.com/janithwanni/user-2026)
+[Blog post](blog/2026-10-17-visual-explanations-of-explainers/visual-explanations-of-explainers.qmd)
+
+</div>
+
+</details>
+
+<details class="talk" id="iasc-ars-2023">
+<summary><h2>IASC-ARS 2023: Seeing the Smoke Before the Fire</h2></summary>
+
+This talk was given at the 12th conference of the Asian Regional Section of the International Association for Statistical Computing at Macquarie University, Sydney. It applied counterfactual explanations and Anchors to machine learning models of bushfires, to show the spatiotemporal indicators that push a prediction towards fire. The talk received the **Outstanding Young Researcher / Student Contributed Oral Presentation Award**.
+
+<div class = "talk-links">
+
+[Slides](https://janithwanni.quarto.pub/seeing-the-smoke-before-the-fire/)
+[GitHub](https://github.com/janithwanni/iascars-2023-sydney)
+
+</div>
+
+</details>
+
+<details class="talk" id="user-2022">
+<summary><h2>useR! 2022: scatteR</h2></summary>
+
+I presented scatteR in the Synthetic Data and Text Analysis session as a diversity scholarship winner, and chaired the Inference Methods session. scatteR generates scatterplots that match target scagnostic measures, giving controllable data for testing visual and machine learning methods.
+
+<div class = "talk-links">
+
+[Recording](https://www.youtube.com/watch?v=e2bE9o9DaNE&list=PL77T87Q0eoJhayMV5-dRZHiGPqJVM1WnB&index=2&t=2564s)
+[Session](https://user2022.r-project.org/program/talks/#session-36-synthetic-data-and-text-analysis)
+[Preprint](https://doi.org/10.48550/arXiv.2209.06682)
+
+</div>
+
+</details>
+
+<details class="talk" id="abuja-user-group-september-2022-meetup">
+<summary><h2>Abuja useR Group September 2022 meetup</h2></summary>
 
 <img src="img/talks/abuja-use-r-september-poster.webp" width="1000" height="564" alt="" class = "talks-img"/> <img src="img/talks/abuja-use-r-shiny_dashboard.webp" width="1000" height="559" alt="" class = "talks-img"/>
 
@@ -17,7 +79,10 @@ Dr. Stephen Balogun was my coordinator for the useR! 2022 conference and after t
 
 </div>
 
-## RLadiesColombo April 2021 meetup
+</details>
+
+<details class="talk" id="rladiescolombo-april-2021-meetup">
+<summary><h2>RLadiesColombo April 2021 meetup</h2></summary>
 
 <img src="img/talks/RLadies_poster.webp" width="676" height="380" alt="" class = "talks-img">
 
@@ -29,11 +94,14 @@ The idea that I wanted to follow in this session was to stray away from the stan
 
 <div class = "talk-links">
 
-[Slides](https://www.rladies-colombo-april-2021.netlify.app)
+[Slides](https://rladies-colombo-april-2021.netlify.app)
 
 </div>
 
-## Tensorflow All Around 2019
+</details>
+
+<details class="talk" id="tensorflow-all-around-2019">
+<summary><h2>Tensorflow All Around 2019</h2></summary>
 
 Tensorflow All Around was an event organized by the Tensorflow User Group of Sri Lanka parallel to similar events organized all through out the globe. I was the head of the Tensorflow User Group of Sri Lanka during this period and I took the initiative to organize the event and presented a talk on using Tensorflow.js for sentiment analysis on the browser. There were over 30 participants who followed along with the talk by trying out the different components of setting up Tensorflow.js on a webpage and classifying sentiment of text collected through an API call with the help of a Universal Sentence Encoder. 
 
@@ -46,7 +114,10 @@ Tensorflow All Around was an event organized by the Tensorflow User Group of Sri
 
 </div>
 
-## Google Developer Group ML Bootcamp 2019
+</details>
+
+<details class="talk" id="google-developer-group-ml-bootcamp-2019">
+<summary><h2>Google Developer Group ML Bootcamp 2019</h2></summary>
 
 This was my first talk in the Google Developer Group in Sri Lanka, where I was helping out a two day bootcamp by providing two sessions. One session was in helping the audience understand loss functions and the other session was on RNNs for sequential data. The audience consisted of many professionals in the Software industry and they were quite enthusiastic on using the concepts that were taught during the sessions. Both sessions were conducted using Python and Tensorflow.
 
@@ -79,7 +150,10 @@ This was my first talk in the Google Developer Group in Sri Lanka, where I was h
 
 </div>
 
-## Octave Thesis Presentation
+</details>
+
+<details class="talk" id="octave-thesis-presentation">
+<summary><h2>Octave Thesis Presentation</h2></summary>
 
 The Octave Advanced Analytics Symposium, organized a research competition where undergraduates and postgraduates submitted the abstract of their thesis and the finalists recieved the opportunity to showcase their thesis to a panel of judges. I was able to secure the position of top 10 finalist in the competition based on the abstract of my thesis.
 
@@ -89,12 +163,15 @@ The Octave Advanced Analytics Symposium, organized a research competition where 
 
 <div class = "talk-links">
 
-[Slides](https://www.janiths-octave-thesis-presentation.netlify.app)
+[Slides](https://janiths-octave-thesis-presentation.netlify.app)
 [Recording](https://drive.google.com/file/d/1pdUgGgjd9fzLDWxpKgz2TQpd1guF69dU/view?usp=sharing)
 
 </div>
 
-## RETRO Paper reading presentation
+</details>
+
+<details class="talk" id="retro-paper-reading-presentation">
+<summary><h2>RETRO Paper reading presentation</h2></summary>
 
 During my time working as a contractor consultant for labml.ai, I was priviledged to record and upload a paper reading session on the paper on the RETRO model,a large language model developed by Deepmind. The core conceptof the paper was summarized and contained within a short video for researchers to watch and gain a highlevel idea of the inner workings of the RETRO model.
 
@@ -105,7 +182,10 @@ During my time working as a contractor consultant for labml.ai, I was priviledge
 
 </div>
 
-## EDEX presentation on Sports Analytics on Netball
+</details>
+
+<details class="talk" id="edex-presentation-on-sports-analytics-on-netball">
+<summary><h2>EDEX presentation on Sports Analytics on Netball</h2></summary>
 
 As an initiave of the Sports Analytics Unit of University of Sri Jayewardenepura, a data entry application was to be built for the Sri Lankan Netball team. In this project I built the data entry application using R Shiny and a Microsoft Azure SQL database. The architecture and the thought process behind the app development was shared in EDEX, an annual higher studies exhibition organized by the Royal College Union. 
 
@@ -120,7 +200,10 @@ As an initiave of the Sports Analytics Unit of University of Sri Jayewardenepura
 
 </div>
 
-## Fundamentals of Data Visualization
+</details>
+
+<details class="talk" id="fundamentals-of-data-visualization">
+<summary><h2>Fundamentals of Data Visualization</h2></summary>
 
 During my time as the President of the Statistics Society, I decided to initiate a data visualization competition called Pearl Viz. The inspiration for the name came from Iron Viz, the annual data visualization competition organized by Tableau and since Sri Lanka is known as the Pearl of the Indian Ocean. Data visualization is a skill that most statistics undergraduates obtain in their first year in the university. However, the tools that were used for data visualization in the classroom was limited by their performance and sharing capabilities. Therefore new visualization technologies should be introduced if the students were to take on the task of providing visualizations using modern Business Intelligence tools. To introduce students to these tools along with the Do's and Dont's of data visualization, I organized a short webinar on the Fundamentals of Data Visualization. As a live demo I took a wireframe sketch of a dashboard based on the career of the popular pop artist P!nk and turned it into a shareable interactive web based dashboard using Google Data Studio.
 
@@ -135,7 +218,10 @@ During my time as the President of the Statistics Society, I decided to initiate
 
 </div>
 
-## Data Visualization in Tableau
+</details>
+
+<details class="talk" id="data-visualization-in-tableau">
+<summary><h2>Data Visualization in Tableau</h2></summary>
 
 As the next step of preparing students to modern BI tools, I decided to give a small tutorial on Tableau, specifically Tableau Public and Tableau Cloud, two free data visualization tools that undergraduates can use to learn and enhance their skills to be better prepared for the industry. In this instance a live demo was done using the starter demo dataset from Tableau on the amount of $\text{CO}_2$ emmisions while another live demo was done using an movie profit and review dataset.
 
@@ -147,3 +233,5 @@ As the next step of preparing students to modern BI tools, I decided to give a s
 [Recording](https://drive.google.com/file/d/1J6O4U39zx7q32TTpXpxNvCSxXN3ULoyQ/view?usp=drivesdk)
 
 </div>
+
+</details>

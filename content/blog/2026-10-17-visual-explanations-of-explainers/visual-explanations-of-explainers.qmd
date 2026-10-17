@@ -1,0 +1,60 @@
+---
+title: "Seeing what the explainers see"
+author: Janith Wanniarachchi
+date: '2026-10-17'
+description: "LIME, SHAP, Anchors and counterfactuals often disagree. Drawing them in the data space shows why."
+---
+
+Ask four explainable AI (XAI) methods why a model made a prediction and you can get four different answers.
+That isn't a bug in any one of them.
+Each method looks at a different facet of the model, but they usually come back to us as a bar chart of numbers, which hides the fact that each is answering a different question.
+
+This post summarises the first project of my PhD (chapter 2 of my [thesis](https://phd.janithwanni.com/03-chap3-geom.html)), done with Dianne Cook, Kate Saunders, Patricia Menendez and Thiyanga Talagala.
+The idea is simple: **put the explanations back where the data lives.**
+
+## Four explainers, three shared parts
+
+Local explainers try to answer "why did the model predict *this* for *this* observation?"
+Most of them have the same three parts:
+
+1. **A perturbation mechanism**: some way of generating nearby, "what-if" points.
+2. **An optimisation objective**: what the method is trying to find among those points.
+3. **A structured output**: the form the answer comes back in.
+
+The methods differ in what they choose for each part, and that's where the disagreement comes from.
+
+| Explainer | What it looks for | Its shape in the data space |
+|---|---|---|
+| **SHAP** | Each feature's share of the prediction | Arrows parallel to the feature axes |
+| **LIME** | A simple model that mimics the black box nearby | A local linear decision boundary |
+| **Counterfactuals** | The closest point that changes the prediction | Another point, with a path to it |
+| **Anchors** | A rule that "locks in" the prediction | A box around the observation |
+
+Once each output is drawn as a geometric object (an arrow, a line, a point or a box), you can lay all four over the same scatterplot and over the model's own decision boundary.
+
+## A small, honest example
+
+To make the comparison easy to check, we used a simulated two-variable classification problem with a known, rule-based decision boundary. The model was a random forest of 10 trees, and we explained four observations.
+Because the true boundary is known, you can see each explanation next to the truth.
+
+Two things stand out:
+
+- **The methods often disagree on which feature matters most**, even for the same point and the same model.
+- **Each explanation makes sense in its own terms.** An Anchors box that hugs a boundary corner and SHAP arrows that point mostly along one axis aren't contradicting each other. They answer different questions.
+
+To compare the numbers directly, we also put the methods' feature-importance outputs on a common scale. The pictures do most of the explaining, though.
+
+## Beyond two dimensions
+
+Real models rarely have two features.
+For higher dimensions, the same geometric objects can be shown in *tours*: animated sequences of linear projections that let you look at high-dimensional data from many angles.
+An Anchors box becomes a hyper-rectangle and a LIME boundary becomes a hyperplane, and a tour shows how they sit relative to the data and the model.
+This is part of why I rebuilt Anchors and LIME in R (see [the next post](../2026-10-17-rebuilding-lime-and-anchors-in-r/rebuilding-lime-and-anchors-in-r.qmd)): the geometry has to be accessible for it to be drawn.
+
+## Why this matters
+
+If you use XAI to justify a lending decision, a medical triage rule or a climate-risk score, "the explainer said so" isn't enough.
+Seeing the explanation against the data tells you *what kind* of claim each method is making, and when two methods disagree, it tells you why.
+My message isn't to pick the best explainer. Use several, and look at them together.
+
+I presented this work at **useR! 2026** as *Visual Explanations of XAI Explainers*, using a (very serious) wombat loan-eligibility example. The [slides and code are on GitHub](https://github.com/janithwanni/user-2026).

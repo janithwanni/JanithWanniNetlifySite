@@ -96,6 +96,13 @@ document.body.addEventListener('htmx:afterSettle', (e) => {
 });
 document.body.addEventListener('htmx:historyRestore', () => { markCurrentSection(); loadThoughts(); });
 
+// In-page links to a collapsed <details> (the talks list) open it before jumping there.
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href^="#"]');
+  const target = a && document.getElementById(decodeURIComponent(a.hash.slice(1)));
+  if (target?.matches('details')) target.open = true;
+});
+
 // A missing fragment falls back to a normal page load (and Netlify's 404).
 document.body.addEventListener('htmx:responseError', (e) => {
   const href = e.detail.elt.getAttribute('href');

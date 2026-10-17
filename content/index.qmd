@@ -41,7 +41,7 @@ that I have dedicated to.
 
 With that being said,\
 wander on to the creative content section to feed your imagination,\
-Or read up on my history in my CV [here](Portfolio.pdf)
+Or read up on my history in my CV [here](cv.qmd)
 :::
 
 ::: {#contents}

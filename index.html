@@ -3,11 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Janith Wanniarachchi</title>
-  <meta name="description" content="Stories, poems and statistics by Janith Wanniarachchi">
+  <title>Janith Wanniarachchi · Statistician, explainable AI &amp; data visualisation</title>
+  <meta name="description" content="PhD candidate at Monash University researching explainable AI, data visualisation and interpretable models. R packages, talks, writing and poems.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Janith Wanniarachchi">
+  <meta property="og:title" content="Janith Wanniarachchi · Statistician, explainable AI &amp; data visualisation">
+  <meta property="og:description" content="PhD candidate at Monash University researching explainable AI, data visualisation and interpretable models. R packages, talks, writing and poems.">
+  <meta property="og:url" content="/">
+  <meta name="twitter:card" content="summary">
   <meta name="color-scheme" content="light dark">
   <meta name="htmx-config" content='{"allowEval":false,"includeIndicatorStyles":false}'>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%236827B3'/><text x='16' y='22' font-family='Georgia,serif' font-size='18' fill='white' text-anchor='middle'>JW</text></svg>">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Janith Wanniarachchi",
+    "jobTitle": "PhD candidate in Econometrics and Business Statistics",
+    "affiliation": {
+      "@type": "CollegeOrUniversity",
+      "name": "Monash University",
+      "department": "Department of Econometrics and Business Statistics"
+    },
+    "email": "mailto:janithcwanni@gmail.com",
+    "knowsAbout": ["Explainable AI", "Data visualisation", "Interpretable machine learning", "Statistics", "R"],
+    "sameAs": [
+      "https://github.com/janithwanni",
+      "https://www.linkedin.com/in/janith-wanniarachchi",
+      "https://bsky.app/profile/janithwanni.bsky.social",
+      "https://phd.janithwanni.com"
+    ]
+  }
+  </script>
   <script type="module" src="/src/main.js"></script>
 </head>
 <body hx-target="#main" hx-swap="innerHTML show:window:top">
@@ -15,17 +42,21 @@
   <header class="site-head">
     <a class="brand" href="/" hx-get="/c/" hx-push-url="/">Janith Wanniarachchi</a>
     <nav aria-label="Main">
-      <a href="/publications/" hx-get="/c/publications" hx-push-url="/publications/" data-section="publications">Publications</a>
+      <a href="/research/" hx-get="/c/research" hx-push-url="/research/" data-section="research">Research</a>
+      <a href="/software/" hx-get="/c/software" hx-push-url="/software/" data-section="software">Software</a>
       <a href="/talks/" hx-get="/c/talks" hx-push-url="/talks/" data-section="talks">Talks</a>
       <a href="/blog/" hx-get="/c/blog" hx-push-url="/blog/" data-section="blog">Blog</a>
       <a href="/creative/" hx-get="/c/creative" hx-push-url="/creative/" data-section="creative">Creative Corner</a>
+      <a href="/cv/" hx-get="/c/cv" hx-push-url="/cv/" data-section="cv">CV</a>
     </nav>
   </header>
   <main id="main" tabindex="-1"></main>
   <footer class="site-foot">
+    <a href="mailto:janithcwanni@gmail.com">Email</a>
     <a href="https://github.com/janithwanni">GitHub</a>
     <a href="https://www.linkedin.com/in/janith-wanniarachchi">LinkedIn</a>
-    <a href="/Portfolio.pdf">CV</a>
+    <a href="https://phd.janithwanni.com">PhD thesis</a>
+    <a href="/cv/" hx-get="/c/cv" hx-push-url="/cv/">CV</a>
   </footer>
 </body>
 </html>

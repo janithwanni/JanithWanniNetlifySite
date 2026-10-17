@@ -17,6 +17,7 @@ const OUT = path.join(SRC, '_out');
 const PUBLIC = path.join(ROOT, 'public');
 const DEST = path.join(PUBLIC, 'c');
 const SITE = 'Janith Wanniarachchi';
+const HOME_TITLE = `${SITE} · Statistician, explainable AI &amp; data visualisation`;
 
 const SECTIONS = {
   blog: { title: 'Blog', heading: 'Blog Articles' },
@@ -110,7 +111,7 @@ const routes = [];
 const writeFragment = (route, title, description, inner) => {
   const file = path.join(PUBLIC, fragmentFile(route));
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  const fullTitle = title ? `${title} · ${SITE}` : SITE;
+  const fullTitle = title ? `${title} · ${SITE}` : HOME_TITLE;
   fs.writeFileSync(file, `<title>${fullTitle}</title>\n${inner.trim()}\n`);
   routes.push({ route, fragment: fragmentFile(route), title: fullTitle, description });
 };
@@ -156,10 +157,11 @@ const contents = `<nav class="contents" aria-labelledby="contents-head">
 <h2 id="contents-head" class="rule-head">Contents</h2>
 <ol>
 <li>${link('/creative/', chapter('I', 'Creative Corner', 'Poems, letters &amp; short stories', `${bySection('creative').length} pieces`))}</li>
-<li>${link('/blog/', chapter('II', 'Blog', 'Statistics, R &amp; generative art', `${bySection('blog').length} essays`))}</li>
-<li>${link('/talks/', chapter('III', 'Talks', 'Meetups, workshops &amp; conferences', `${count(byPage('/talks/').html, 'h2')} talks`))}</li>
-<li>${link('/publications/', chapter('IV', 'Publications', 'Papers &amp; R packages', `${count(byPage('/publications/').html, 'h3')} works`))}</li>
-<li><a href="/Portfolio.pdf">${chapter('V', 'Curriculum Vitae', 'The longer story', 'PDF')}</a></li>
+<li>${link('/blog/', chapter('II', 'Blog', 'Explainable AI, statistics &amp; R', `${bySection('blog').length} essays`))}</li>
+<li>${link('/research/', chapter('III', 'Research', 'Explainable AI &amp; visualisation', `${count(byPage('/research/').html, 'h3')} works`))}</li>
+<li>${link('/software/', chapter('IV', 'Software', 'R packages &amp; tools', `${count(byPage('/software/').html, 'h3')} packages`))}</li>
+<li>${link('/talks/', chapter('V', 'Talks', 'Conferences, meetups &amp; workshops', `${count(byPage('/talks/').html, 'h2')} talks`))}</li>
+<li>${link('/cv/', chapter('VI', 'Curriculum Vitae', 'The longer story', 'HTML · PDF'))}</li>
 </ol>
 </nav>`;
 
@@ -183,11 +185,15 @@ ${lately.join('\n')}
 </ul>
 </section>`;
 
-writeFragment('/', '', 'Statistician, writer and wanderer. Poems, stories and statistics by Janith Wanniarachchi.',
+writeFragment('/', '', 'PhD candidate at Monash University researching explainable AI, data visualisation and interpretable models. R packages, talks, writing and poems.',
   `<article class="home">${home.html.replace(/<!--[\s\S]*?-->\s*/g, "")
     .replace(/<div id="contents">\s*<\/div>/, contents)
     .replace(/<div id="notebook">\s*<\/div>/, notebook)
     .trim()}</article>`);
+
+// The CV also renders to PDF (Typst) from content/cv.qmd.
+if (fs.existsSync(path.join(OUT, 'cv.pdf'))) fs.copyFileSync(path.join(OUT, 'cv.pdf'), path.join(PUBLIC, 'cv.pdf'));
+else console.warn('  missing content/_out/cv.pdf; public/cv.pdf not updated');
 
 routes.sort((a, b) => a.route.localeCompare(b.route));
 fs.writeFileSync(path.join(SRC, 'routes.json'), JSON.stringify(routes, null, 2) + '\n');
@@ -197,6 +203,10 @@ const redirects = [
   '/blog.html /blog/ 301',
   '/creatives.html /creative/ 301',
   '/about.html / 301',
+  '/publications/ /research/ 301',
+  '/publications.html /research/ 301',
+  '/Portfolio.pdf /cv.pdf 301',
+  '/Janith_Wanniarachchi_Portfolio.pdf /cv.pdf 301',
   ...pages.filter((p) => p.route !== '/').map((p) => `/${p.rel} ${p.route} 301`),
 ];
 fs.writeFileSync(path.join(PUBLIC, '_redirects'), redirects.join('\n') + '\n');

@@ -2,8 +2,8 @@
   {
     "route": "/",
     "fragment": "/c/index.html",
-    "title": "Janith Wanniarachchi",
-    "description": "Statistician, writer and wanderer. Poems, stories and statistics by Janith Wanniarachchi."
+    "title": "Janith Wanniarachchi · Statistician, explainable AI &amp; data visualisation",
+    "description": "PhD candidate at Monash University researching explainable AI, data visualisation and interpretable models. R packages, talks, writing and poems."
   },
   {
     "route": "/blog/",
@@ -46,6 +46,24 @@
     "fragment": "/c/blog/2020-07-30-communicating-results-from-an-analysis-a-short-thriller.html",
     "title": "Communicating results from an analysis : A short thriller · Janith Wanniarachchi",
     "description": "One of my experiences in telling a story with data and the challenges associated with the journey"
+  },
+  {
+    "route": "/blog/2026-10-17-random-seeds-and-simple-models/",
+    "fragment": "/c/blog/2026-10-17-random-seeds-and-simple-models.html",
+    "title": "Simple models are hard to find (but worth finding) · Janith Wanniarachchi",
+    "description": "How the random seed decides whether a small neural network succeeds, and why that matters for interpretability"
+  },
+  {
+    "route": "/blog/2026-10-17-rebuilding-lime-and-anchors-in-r/",
+    "fragment": "/c/blog/2026-10-17-rebuilding-lime-and-anchors-in-r.html",
+    "title": "Why I rebuilt LIME and Anchors in R · Janith Wanniarachchi",
+    "description": "kumquat and kultarr: explainers whose every step you can inspect, debug and draw"
+  },
+  {
+    "route": "/blog/2026-10-17-visual-explanations-of-explainers/",
+    "fragment": "/c/blog/2026-10-17-visual-explanations-of-explainers.html",
+    "title": "Seeing what the explainers see · Janith Wanniarachchi",
+    "description": "LIME, SHAP, Anchors and counterfactuals often disagree. Drawing them in the data space shows why."
   },
   {
     "route": "/creative/",
@@ -246,16 +264,28 @@
     "description": "Tis the season to be lovey-dovey"
   },
   {
-    "route": "/publications/",
-    "fragment": "/c/publications.html",
-    "title": "Publications · Janith Wanniarachchi",
-    "description": ""
+    "route": "/cv/",
+    "fragment": "/c/cv.html",
+    "title": "Curriculum Vitae · Janith Wanniarachchi",
+    "description": "CV of Janith Wanniarachchi: PhD candidate at Monash University in explainable AI and data visualisation"
+  },
+  {
+    "route": "/research/",
+    "fragment": "/c/research.html",
+    "title": "Research · Janith Wanniarachchi",
+    "description": "Explainable AI, data visualisation and interpretable models: PhD research by Janith Wanniarachchi at Monash University"
+  },
+  {
+    "route": "/software/",
+    "fragment": "/c/software.html",
+    "title": "Software · Janith Wanniarachchi",
+    "description": "R packages for explainable AI, visualisation and data generation by Janith Wanniarachchi"
   },
   {
     "route": "/talks/",
     "fragment": "/c/talks.html",
     "title": "Talks · Janith Wanniarachchi",
-    "description": ""
+    "description": "Conference talks, meetups and workshops by Janith Wanniarachchi on explainable AI, R and data visualisation"
   },
   {
     "route": "/thoughts/",

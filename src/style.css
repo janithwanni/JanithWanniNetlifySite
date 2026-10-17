@@ -58,7 +58,8 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* Small caps: labels, dates, navigation */
 .site-head nav, .site-foot, .overline, .rule-head, .small-head, .label, .count, .meta, .back,
-.excerpt figcaption, .lately time, .lately .kind, .talk-links a {
+.excerpt figcaption, .lately time, .lately .kind, .talk-links a,
+.badge, .card-meta, .talk-list .year, .talk-list .venue, .when {
   font-family: var(--serif);
   font-variant-caps: all-small-caps;
   letter-spacing: 0.08em;
@@ -93,7 +94,8 @@ main.htmx-request { opacity: 0.5; }
 .site-foot {
   display: flex;
   justify-content: center;
-  gap: 1.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
   padding-block: 1.5rem 3rem;
   border-top: 3px double var(--line);
   font-size: 1.05rem;
@@ -218,6 +220,80 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 
 .twitter-tweet { font-size: 0.95rem; }
 .twitter-tweet .citation { font-style: normal; }
+
+/* Research, software & CV ---------------------------------------------------- */
+.lede { margin-bottom: 2.5rem; font-size: 1.2rem; }
+.lede p { margin: 0 0 0.75em; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.2rem;
+  background: var(--card);
+  border: 1px solid var(--card-edge);
+  font-size: 1rem;
+}
+.card h3 { margin: 0 0 0.5rem; font-size: 1.2rem; line-height: 1.3; }
+.card p { margin: 0 0 0.75rem; }
+.card p:last-child { margin: auto 0 0; padding-top: 0.6rem; border-top: 1px solid var(--card-edge); }
+.card-meta { color: var(--muted); }
+
+.badge {
+  display: inline-block;
+  margin-right: 0.3rem;
+  padding: 0 0.55em;
+  border: 1px solid var(--accent);
+  border-radius: 1em;
+  color: var(--accent);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.refs ul { padding-left: 1.2rem; }
+.refs li { margin-bottom: 0.9rem; }
+
+/* Talks: an at-a-glance list, then the stories as collapsible sections */
+.talk-list ul { margin: 0 0 3rem; padding: 0; list-style: none; }
+.talk-list li {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  gap: 0 0.75rem;
+  padding-block: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.talk-list .year { grid-row: span 2; color: var(--muted); }
+.talk-list a { color: var(--fg); text-decoration: none; }
+.talk-list a:hover { color: var(--accent); text-decoration: underline; }
+.talk-list .venue { color: var(--muted); font-size: 0.95rem; }
+.small-head { display: block; margin-bottom: 0.75rem; color: var(--muted); letter-spacing: 0.3em; text-align: center; }
+
+.talk { border-bottom: 1px solid var(--line); }
+.talk summary { display: flex; gap: 0.75rem; align-items: baseline; padding-block: 0.6rem; cursor: pointer; list-style: none; }
+.talk summary::-webkit-details-marker { display: none; }
+.talk summary::before { content: '+'; flex: 0 0 1rem; color: var(--accent); font-family: var(--mono); }
+.talk[open] summary::before { content: '−'; }
+.talk summary h2 { margin: 0; font-size: 1.3rem; }
+.talk summary:hover h2 { color: var(--accent); }
+.talk summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.talk[open] { padding-bottom: 1.5rem; }
+
+.cv-contact { margin-bottom: 1rem; }
+.cv-item {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 0 1rem;
+  margin-bottom: 0.9rem;
+  font-size: 1rem;
+}
+.cv-item p { margin: 0; }
+.when { color: var(--muted); }
+@media (max-width: 34rem) { .cv-item { grid-template-columns: 1fr; } }
 
 /* Homepage: the title page ------------------------------------------------- */
 .home { text-align: center; }
@@ -535,3 +611,13 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 @keyframes rise { from { opacity: 0; transform: translateY(6px); } }
 
 @media (prefers-reduced-motion: reduce) { main { transition: none; } }
+
+/* Print (the CV in particular) ---------------------------------------------- */
+@media print {
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .site-head, .site-foot, .skip, .talk-links { display: none; }
+  main { width: auto; padding: 0; }
+  main > article > * { animation: none; }
+  a { color: inherit; text-decoration: none; }
+  .cv-item, .card { break-inside: avoid; }
+}

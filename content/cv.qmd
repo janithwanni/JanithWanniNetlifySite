@@ -1,0 +1,249 @@
+---
+title: "Curriculum Vitae"
+description: "CV of Janith Wanniarachchi: PhD candidate at Monash University in explainable AI and data visualisation"
+filters:
+  - cv-typst.lua
+format:
+  html: default
+  typst:
+    output-file: cv.pdf
+    title: "Janith Wanniarachchi"
+    papersize: a4
+    margin:
+      x: 2cm
+      y: 1.8cm
+    fontsize: 10pt
+---
+
+::: {.cv-contact}
+**PhD candidate, Monash University: explainable AI and data visualisation**\
+[janithcwanni@gmail.com](mailto:janithcwanni@gmail.com) ·
+[github.com/janithwanni](https://github.com/janithwanni) ·
+[linkedin.com/in/janith-wanniarachchi](https://www.linkedin.com/in/janith-wanniarachchi) ·
+[phd.janithwanni.com](https://phd.janithwanni.com)
+:::
+
+::: {.content-visible when-format="html"}
+::: {.talk-links}
+[Download PDF](/cv.pdf)
+:::
+:::
+
+## Profile
+
+Statistician and R developer. I research how to make machine learning explanations visible and trustworthy, and I build open-source software to do it.
+I have industry experience in Shiny and R package engineering, I teach at Monash, and I have a track record of community talks and workshops.
+
+## Education
+
+::: {.cv-item}
+[2023 – now]{.when}
+
+**PhD, Econometrics and Business Statistics**, Monash University, Australia\
+Thesis: *Explaining AI through visual explanations and efficient interpretable models.* Supervisors: Dianne Cook, Patricia Menendez, Thiyanga Talagala, Kate Saunders. Australian Government Research Training Program (RTP) Scholarship.
+:::
+
+::: {.cv-item}
+[2017 – 2022]{.when}
+
+**BSc (Honours) in Statistics, First Class**, University of Sri Jayewardenepura, Sri Lanka\
+Minors in Computer Science and Mathematics. Statistics GPA 3.88; overall GPA 3.82.
+:::
+
+::: {.cv-item}
+[2013]{.when}
+
+**Diploma in Web Engineering**, ESOFT Metro Campus
+:::
+
+## Research projects
+
+::: {.cv-item}
+[Chapter 2]{.when}
+
+**Visual explanations of XAI explainers**: geometric representations of LIME, SHAP, counterfactuals and Anchors in the data space.
+:::
+
+::: {.cv-item}
+[Chapter 3]{.when}
+
+**Random seeds and the complexity–parsimony trade-off**: the seed sensitivity of simple neural networks, with a Shiny teaching tool.
+:::
+
+::: {.cv-item}
+[Chapters 4–6]{.when}
+
+**kultarr, kumquat and sillysplines**: transparent R implementations of Anchors and LIME, and an interactive generator for synthetic data.
+:::
+
+## Publications & presentations
+
+::: {.cv-item}
+[2026]{.when}
+
+**Wanniarachchi, J.** *Visual Explanations of XAI Explainers.* useR! 2026.
+:::
+
+::: {.cv-item}
+[2023]{.when}
+
+**Wanniarachchi, J.** *Seeing the Smoke Before the Fire: Visualising Spatiotemporal Indicators of Bushfires through Counterfactual Explanations of Machine Learning Models.* 12th IASC-ARS Conference, Macquarie University, Sydney.
+:::
+
+::: {.cv-item}
+[2022]{.when}
+
+**Wanniarachchi, J. C.**, & Talagala, T. S. *scatteR: Generating instance space based on scagnostics.* arXiv:2209.06682. Presented at useR! 2022.
+:::
+
+::: {.cv-item}
+[2022]{.when}
+
+Karunanayake, V. J., **Wanniarachchi, J. C.**, Karunanayake, P. N. K., & Rajapaksha, U. U. S. *Intelligent System to Verify the Effectiveness of Proposed Teacher Transfers Incorporating Human Factors.* ICARC 2022, IEEE. doi:10.1109/ICARC54489.2022.9754089
+:::
+
+## Software
+
+::: {.cv-item}
+[Author]{.when}
+
+**kumquat** (CRAN): transparent LIME · **scatteR** (CRAN): scagnostics-driven data generation · **kultarr**: Anchors in pure R · **sillysplines**: interactive spline data generator
+:::
+
+::: {.cv-item}
+[Contributor]{.when}
+
+**DSjobtracker**, **nic** and **tsdataleaks** (all on CRAN): data curation, colour palettes, and Rcpp performance work
+:::
+
+## Experience
+
+::: {.cv-item}
+[2023 – 2024]{.when}
+
+**Teaching Associate**, Monash University\
+Tutorials for ETC5523 *Communicating with Data* (Shiny, R packages, storytelling with visualisation) and ETC5512 *Wild-Caught Data* (collecting and wrangling tabular and geospatial data).
+:::
+
+::: {.cv-item}
+[2022 – 2023]{.when}
+
+**R/Shiny Developer**, Appsilon\
+Built Shiny dashboards and provided software engineering support for R package development for life-sciences clients.
+:::
+
+::: {.cv-item}
+[2021 – 2022]{.when}
+
+**Contractor Consultant**, labml.ai\
+Analysed online user segments and feature usage, and recorded research paper explainers (e.g. DeepMind's RETRO).
+:::
+
+::: {.cv-item}
+[2020 – 2021]{.when}
+
+**Trainee Data Analyst**, Trabeya\
+Built the deduplication component of an automated data-cleaning product and a session-based recommender served through a real-time microservices backend.
+:::
+
+::: {.cv-item}
+[2021]{.when}
+
+**Consultant Data Analyst**, CreativeHub\
+Built a hypothesis-testing framework and dashboards for Facebook ad campaigns.
+:::
+
+::: {.cv-item}
+[2019]{.when}
+
+**Contractor Consultant**, Intellimorph\
+Built anomaly detection for robotic process automation and a computer vision system for a robotic hand.
+:::
+
+::: {.cv-item}
+[2021]{.when}
+
+**Consultant**, Statistical Consultancy Service, University of Sri Jayewardenepura\
+Curated and cleaned the 2021 DSjobtracker data for CRAN.
+:::
+
+## Awards
+
+::: {.cv-item}
+[2023]{.when}
+
+**United Nations Datathon**: 2nd place globally and 1st in the Oceania region (team of five; solar-farm siting web app).
+:::
+
+::: {.cv-item}
+[2023]{.when}
+
+**Outstanding Young Researcher / Student Contributed Oral Presentation Award**, IASC-ARS 2023.
+:::
+
+::: {.cv-item}
+[2022]{.when}
+
+**SLAAS Physical Science Award in Statistics**, Sri Lanka Association for the Advancement of Science, for the best BSc Statistics (Hons) research.
+:::
+
+::: {.cv-item}
+[2022]{.when}
+
+**useR! 2022 diversity scholarship**; **top 10 finalist**, Octave Advanced Analytics Symposium; nominee for the Most Venerable Sri Sumangala Gold Medal, University of Sri Jayewardenepura.
+:::
+
+::: {.cv-item}
+[2017 – 2020]{.when}
+
+1st runner-up at hackStat 2.0 (2019) and the SLIIT Codefest Datathon (2019); finalist at Data Storm 2.0 (2020) and the Dialog Datathon; honourable mention at the Asia-Pacific Informatics Olympiad (2017); IEEEXtreme 12.0 global rank 487.
+:::
+
+## Selected talks
+
+::: {.cv-item}
+[2019 – 2026]{.when}
+
+useR! 2026 · IASC-ARS 2023 · useR! 2022 · Abuja useR Group (2022) · EDEX Expo (2022) · R-Ladies Colombo (2021) · Fundamentals of Data Visualisation and Tableau workshops (2021) · GDG ML Bootcamp (2019) · TensorFlow All Around (2019).
+Full list at [janithwanni.netlify.app/talks](https://janithwanni.netlify.app/talks/).
+:::
+
+## Leadership & service
+
+::: {.cv-item}
+[2022]{.when}
+
+**Session chair**, useR! 2022 (Inference Methods).
+:::
+
+::: {.cv-item}
+[2020 – 2021]{.when}
+
+**President**, Statistics Society, University of Sri Jayewardenepura. Founded the Pearl Viz data visualisation competition and ran the "Ask the Experts" alumni panel (200+ students) and the Outliers student writing programme.
+:::
+
+::: {.cv-item}
+[2019]{.when}
+
+**Head**, TensorFlow User Group Sri Lanka. Organised TensorFlow All Around 2019.
+:::
+
+## Skills
+
+::: {.cv-item}
+[Languages]{.when}
+
+R (Shiny, package development, S7, Rcpp, tidyverse), Python (PyTorch, TensorFlow), JavaScript/Svelte, SQL, C++
+:::
+
+::: {.cv-item}
+[Tools]{.when}
+
+Quarto, Git, Azure SQL, Google Cloud, Tableau, Power BI
+:::
+
+::: {.cv-item}
+[English]{.when}
+
+IELTS overall 8.0 (Listening 9.0, Reading 9.0)
+:::

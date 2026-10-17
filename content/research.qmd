@@ -1,0 +1,116 @@
+---
+title: "Research"
+description: "Explainable AI, data visualisation and interpretable models: PhD research by Janith Wanniarachchi at Monash University"
+---
+
+::: {.lede}
+I am a PhD candidate in the [Department of Econometrics & Business Statistics](https://www.monash.edu/business/ebs) at Monash University, supervised by
+[Dianne Cook](https://dicook.org), Patricia Menendez, Thiyanga Talagala and Kate Saunders.
+My research asks how we can *see* what explainable AI methods are telling us, and whether simpler, interpretable models can stand in for complex ones.
+:::
+
+## PhD thesis
+
+**Explaining AI through visual explanations and efficient interpretable models**
+
+Local explainers such as LIME, SHAP, Anchors and counterfactuals each describe a different facet of a model, and they often disagree.
+The thesis places their explanations back in the data space, where they can be explored with high-dimensional visualisation such as tours.
+It rebuilds two explainers in R so that every intermediate step can be inspected, and it shows that small, well-chosen models can rival larger ones.
+
+::: {.talk-links}
+[Read the thesis](https://phd.janithwanni.com)
+[Source code](https://github.com/janithwanni/phd-thesis)
+:::
+
+## Projects
+
+::: {.cards}
+
+::: {.card}
+### Visual explanations of the explainers
+
+Draws SHAP, LIME, counterfactuals and Anchors geometrically in the data space so they can be compared side by side. In the same model they often name different features as most important.
+
+[With D. Cook, K. Saunders, P. Menendez & T. Talagala]{.card-meta}
+
+[Chapter](https://phd.janithwanni.com/03-chap3-geom.html) ·
+[Blog post](blog/2026-10-17-visual-explanations-of-explainers/visual-explanations-of-explainers.qmd) ·
+[useR! 2026 talk](https://github.com/janithwanni/user-2026)
+:::
+
+::: {.card}
+### Random seeds, stability & parsimony
+
+Single-layer neural networks show that simple models can match complex ones but are harder to find: their accuracy swings with the random seed. The project comes with a Shiny teaching tool.
+
+[Neural networks · Shiny · teaching]{.card-meta}
+
+[Chapter](https://phd.janithwanni.com/04-chap4-seed.html) ·
+[Blog post](blog/2026-10-17-random-seeds-and-simple-models/random-seeds-and-simple-models.qmd)
+:::
+
+::: {.card}
+### kultarr: Anchors, revisited
+
+A pure-R implementation of Anchors that you can debug and visualise. It uses S7 classes, memoised rewards and parallel search, and includes helpers for drawing anchors in high dimensions.
+
+[R package · in development]{.card-meta}
+
+[Chapter](https://phd.janithwanni.com/05-chap5-anchors.html) ·
+[Docs](https://janithwanni.github.io/kultarr/) ·
+[Blog post](blog/2026-10-17-rebuilding-lime-and-anchors-in-r/rebuilding-lime-and-anchors-in-r.qmd)
+:::
+
+::: {.card}
+### kumquat: a simpler LIME
+
+A transparent take on LIME for tabular data. It returns the perturbations, predictions and local GLM, so you can audit exactly how an explanation was built.
+
+[R package · CRAN]{.card-meta}
+
+[Chapter](https://phd.janithwanni.com/06-chap6-kumquat.html) ·
+[Docs](https://janithwanni.github.io/kumquat/) ·
+[CRAN](https://cran.r-project.org/package=kumquat)
+:::
+
+::: {.card}
+### sillysplines: drawn decision boundaries
+
+An interactive widget for sketching a linear-spline decision boundary and downloading the coordinates as a synthetic classification dataset, for teaching and model testing.
+
+[R package · htmlwidget]{.card-meta}
+
+[Chapter](https://phd.janithwanni.com/07-chap7-sillysplines.html) ·
+[Docs](https://janithwanni.github.io/sillysplines/)
+:::
+
+::: {.card}
+### scatteR: inverse scagnostics
+
+My undergraduate thesis. It generates scatterplots that match target scagnostic measures by placing points with simulated annealing, which gives data for testing visual and ML methods.
+
+[R package · CRAN · useR! 2022]{.card-meta}
+
+[Preprint](https://doi.org/10.48550/arXiv.2209.06682) ·
+[CRAN](https://cran.r-project.org/package=scatteR) ·
+[GitHub](https://github.com/janithwanni/scatteR)
+:::
+
+:::
+
+## Publications & presentations
+
+::: {.refs}
+- **Wanniarachchi, J.** (2026). *Visual Explanations of XAI Explainers.* useR! 2026. [Slides & code](https://github.com/janithwanni/user-2026)
+- **Wanniarachchi, J.** (2023). *Seeing the Smoke Before the Fire: Visualising Spatiotemporal Indicators of Bushfires through Counterfactual Explanations of Machine Learning Models.* 12th Conference of the Asian Regional Section of the IASC (IASC-ARS), Macquarie University, Sydney. *Outstanding Young Researcher / Student Contributed Oral Presentation Award.* [Slides](https://janithwanni.quarto.pub/seeing-the-smoke-before-the-fire/)
+- **Wanniarachchi, J. C.**, & Talagala, T. S. (2022). *scatteR: Generating instance space based on scagnostics.* arXiv:2209.06682 [stat.CO]. Presented at useR! 2022. [doi:10.48550/arXiv.2209.06682](https://doi.org/10.48550/arXiv.2209.06682) · [Talk](https://www.youtube.com/watch?v=e2bE9o9DaNE&list=PL77T87Q0eoJhayMV5-dRZHiGPqJVM1WnB&index=2&t=2564s)
+- Karunanayake, V. J., **Wanniarachchi, J. C.**, Karunanayake, P. N. K., & Rajapaksha, U. U. S. (2022). *Intelligent System to Verify the Effectiveness of Proposed Teacher Transfers Incorporating Human Factors.* 2nd International Conference on Advanced Research in Computing (ICARC), IEEE. [doi:10.1109/ICARC54489.2022.9754089](https://doi.org/10.1109/ICARC54489.2022.9754089)
+:::
+
+## Recognition
+
+- **United Nations Datathon 2023**: 2nd place globally and 1st in the Oceania region, for a web app that sites solar farms to serve communities without reliable energy.
+- **Outstanding Young Researcher Award**, IASC-ARS 2023.
+- **SLAAS Physical Science Award in Statistics (2022)**, Sri Lanka Association for the Advancement of Science, for the best BSc Statistics (Hons) research.
+- **Top 10 finalist**, Octave Advanced Analytics Symposium 2022 research competition.
+- **useR! 2022 diversity scholarship** and session chair.

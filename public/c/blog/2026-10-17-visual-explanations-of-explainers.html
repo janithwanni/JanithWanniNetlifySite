@@ -1,0 +1,61 @@
+<title>Seeing what the explainers see · Janith Wanniarachchi</title>
+<article class="post"><header class="page-head"><a class="back" href="/blog/" hx-get="/c/blog" hx-push-url="/blog/">← Blog</a><h1>Seeing what the explainers see</h1><p class="meta"><time datetime="2026-10-17">17 Oct 2026</time> · 3 min read</p></header><p>Ask four explainable AI (XAI) methods why a model made a prediction and you can get four different answers. That isn’t a bug in any one of them. Each method looks at a different facet of the model, but they usually come back to us as a bar chart of numbers, which hides the fact that each is answering a different question.</p>
+<p>This post summarises the first project of my PhD (chapter 2 of my <a href="https://phd.janithwanni.com/03-chap3-geom.html">thesis</a>), done with Dianne Cook, Kate Saunders, Patricia Menendez and Thiyanga Talagala. The idea is simple: <strong>put the explanations back where the data lives.</strong></p>
+<h2 id="four-explainers-three-shared-parts">Four explainers, three shared parts</h2>
+<p>Local explainers try to answer “why did the model predict <em>this</em> for <em>this</em> observation?” Most of them have the same three parts:</p>
+<ol type="1">
+<li><strong>A perturbation mechanism</strong>: some way of generating nearby, “what-if” points.</li>
+<li><strong>An optimisation objective</strong>: what the method is trying to find among those points.</li>
+<li><strong>A structured output</strong>: the form the answer comes back in.</li>
+</ol>
+<p>The methods differ in what they choose for each part, and that’s where the disagreement comes from.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Explainer</th>
+<th>What it looks for</th>
+<th>Its shape in the data space</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>SHAP</strong></td>
+<td>Each feature’s share of the prediction</td>
+<td>Arrows parallel to the feature axes</td>
+</tr>
+<tr class="even">
+<td><strong>LIME</strong></td>
+<td>A simple model that mimics the black box nearby</td>
+<td>A local linear decision boundary</td>
+</tr>
+<tr class="odd">
+<td><strong>Counterfactuals</strong></td>
+<td>The closest point that changes the prediction</td>
+<td>Another point, with a path to it</td>
+</tr>
+<tr class="even">
+<td><strong>Anchors</strong></td>
+<td>A rule that “locks in” the prediction</td>
+<td>A box around the observation</td>
+</tr>
+</tbody>
+</table>
+<p>Once each output is drawn as a geometric object (an arrow, a line, a point or a box), you can lay all four over the same scatterplot and over the model’s own decision boundary.</p>
+<h2 id="a-small-honest-example">A small, honest example</h2>
+<p>To make the comparison easy to check, we used a simulated two-variable classification problem with a known, rule-based decision boundary. The model was a random forest of 10 trees, and we explained four observations. Because the true boundary is known, you can see each explanation next to the truth.</p>
+<p>Two things stand out:</p>
+<ul>
+<li><strong>The methods often disagree on which feature matters most</strong>, even for the same point and the same model.</li>
+<li><strong>Each explanation makes sense in its own terms.</strong> An Anchors box that hugs a boundary corner and SHAP arrows that point mostly along one axis aren’t contradicting each other. They answer different questions.</li>
+</ul>
+<p>To compare the numbers directly, we also put the methods’ feature-importance outputs on a common scale. The pictures do most of the explaining, though.</p>
+<h2 id="beyond-two-dimensions">Beyond two dimensions</h2>
+<p>Real models rarely have two features. For higher dimensions, the same geometric objects can be shown in <em>tours</em>: animated sequences of linear projections that let you look at high-dimensional data from many angles. An Anchors box becomes a hyper-rectangle and a LIME boundary becomes a hyperplane, and a tour shows how they sit relative to the data and the model. This is part of why I rebuilt Anchors and LIME in R (see <a href="/blog/2026-10-17-rebuilding-lime-and-anchors-in-r/" hx-get="/c/blog/2026-10-17-rebuilding-lime-and-anchors-in-r" hx-push-url="/blog/2026-10-17-rebuilding-lime-and-anchors-in-r/">the next post</a>): the geometry has to be accessible for it to be drawn.</p>
+<h2 id="why-this-matters">Why this matters</h2>
+<p>If you use XAI to justify a lending decision, a medical triage rule or a climate-risk score, “the explainer said so” isn’t enough. Seeing the explanation against the data tells you <em>what kind</em> of claim each method is making, and when two methods disagree, it tells you why. My message isn’t to pick the best explainer. Use several, and look at them together.</p>
+<p>I presented this work at <strong>useR! 2026</strong> as <em>Visual Explanations of XAI Explainers</em>, using a (very serious) wombat loan-eligibility example. The <a href="https://github.com/janithwanni/user-2026">slides and code are on GitHub</a>.</p></article>

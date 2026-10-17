@@ -1,0 +1,106 @@
+---
+title: "Software"
+description: "R packages for explainable AI, visualisation and data generation by Janith Wanniarachchi"
+---
+
+::: {.lede}
+I think software counts as research output. These are the R packages I've written or contributed to, most of them built to answer a question in my research.
+More on [GitHub](https://github.com/janithwanni).
+:::
+
+## Author
+
+::: {.cards}
+
+::: {.card}
+### kumquat
+
+A simpler, transparent LIME for tabular data. It exposes the perturbations, the black-box predictions and the local GLM, so you can see how each explanation is built.
+
+[CRAN]{.badge} [Explainable AI]{.badge}
+
+[Docs](https://janithwanni.github.io/kumquat/) ·
+[CRAN](https://cran.r-project.org/package=kumquat) ·
+[GitHub](https://github.com/janithwanni/kumquat)
+:::
+
+::: {.card}
+### kultarr
+
+Anchors written in pure R. You can inspect it and debug it, it runs in parallel and caches its search, and it can draw anchors in high-dimensional tours.
+
+[In development]{.badge} [Explainable AI]{.badge}
+
+[Docs](https://janithwanni.github.io/kultarr/) ·
+[GitHub](https://github.com/janithwanni/kultarr)
+:::
+
+::: {.card}
+### scatteR
+
+Generates scatterplots with given scagnostic features, using simulated annealing. Presented at useR! 2022.
+
+[CRAN]{.badge} [Data generation]{.badge}
+
+[CRAN](https://cran.r-project.org/package=scatteR) ·
+[GitHub](https://github.com/janithwanni/scatteR) ·
+[Preprint](https://doi.org/10.48550/arXiv.2209.06682)
+:::
+
+::: {.card}
+### sillysplines
+
+An htmlwidget (Svelte front end) for drawing a linear-spline decision boundary and exporting it as a synthetic classification dataset.
+
+[In development]{.badge} [Teaching]{.badge}
+
+[Docs](https://janithwanni.github.io/sillysplines/) ·
+[GitHub](https://github.com/janithwanni/sillysplines)
+:::
+
+:::
+
+## Contributor
+
+::: {.cards}
+
+::: {.card}
+### DSjobtracker
+
+A data package of the skills and qualifications asked for in data science job ads worldwide. I curated and cleaned the 2021 data as a consultant at the Statistical Consultancy Service, University of Sri Jayewardenepura.
+
+[CRAN]{.badge} [Data]{.badge}
+
+[CRAN](https://cran.r-project.org/package=DSjobtracker) ·
+[GitHub](https://github.com/thiyangt/DSjobtracker)
+:::
+
+::: {.card}
+### nic
+
+Nature Inspired Colour palettes from Sri Lankan flora and fauna. I photographed the sources, quantised the images and built colour-blind-friendly palettes.
+
+[CRAN]{.badge} [Visualisation]{.badge}
+
+[CRAN](https://cran.r-project.org/package=nic) ·
+[GitHub](https://github.com/thiyangt/nic)
+:::
+
+::: {.card}
+### tsdataleaks
+
+Detects data leakage between series in forecasting competitions. I sped up its core calculations with Rcpp.
+
+[CRAN]{.badge} [Time series]{.badge}
+
+[CRAN](https://cran.r-project.org/package=tsdataleaks) ·
+[GitHub](https://github.com/thiyangt/tsdataleaks)
+:::
+
+:::
+
+## Apps & tools
+
+- **[Bird watcher](https://janithwanni.shinyapps.io/abuja-bird-watcher/)**: a Shiny and leaflet app for exploring bird-watching sites in Nigeria with GBIF data, built for the Abuja useR group.
+- **Netball data entry**: a real-time Shiny app backed by Azure SQL for the Sri Lankan national netball team (Sports Analytics Unit, University of Sri Jayewardenepura).
+- **Shiny dashboards for life-sciences clients** at [Appsilon](https://www.appsilon.com), plus engineering support for their R packages.
