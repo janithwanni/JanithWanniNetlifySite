@@ -191,15 +191,6 @@ As an initiave of the Sports Analytics Unit of University of Sri Jayewardenepura
 
 <img src="img/talks/edex_presentation_pic.webp" width="1000" height="750" alt="" class = "talks-img">
 
-<iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2FEdexExpo%2Fvideos%2F380566463887126%2F&show_text=false&width=267&t=0" width="267" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-
-<div class = "talk-links">
-
-[Facebook Video](https://www.facebook.com/EdexExpo/videos/380566463887126/)
-[Slide](https://docs.google.com/presentation/d/12pENsQKbmH35r1uGS7QY_ZX3cHps43bCmcQN6U7Ka9c/edit?usp=sharing)
-
-</div>
-
 </details>
 
 <details class="talk" id="fundamentals-of-data-visualization">

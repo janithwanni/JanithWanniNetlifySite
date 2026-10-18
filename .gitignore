@@ -63,3 +63,5 @@ content/renv/
 raw/
 .dev.vars
 .wrangler/
+
+/.luarc.json

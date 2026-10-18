@@ -1,7 +1,7 @@
 ---
 title: "Simple models are hard to find (but worth finding)"
 author: Janith Wanniarachchi
-date: '2026-10-17'
+date: '2025-08-23'
 description: "How the random seed decides whether a small neural network succeeds, and why that matters for interpretability"
 ---
 

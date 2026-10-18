@@ -1,0 +1,50 @@
+<title>Why I rebuilt LIME and Anchors in R · Janith Wanniarachchi</title>
+<article class="post"><header class="page-head"><a class="back" href="/blog/" hx-get="/c/blog" hx-push-url="/blog/">← Blog</a><h1>Why I rebuilt LIME and Anchors in R</h1><p class="meta"><time datetime="2024-09-12">12 Sept 2024</time> · 3 min read</p></header><p>If you want to <em>see</em> an explanation (draw it, put it in a tour, check it against the data), you need access to everything the explainer computed along the way. When I started my PhD, the existing R tools for two of the most popular local explainers didn’t give me that. So I wrote my own: <strong>kumquat</strong> for LIME and <strong>kultarr</strong> for Anchors.</p>
+<p>These are chapters 4 and 5 of my <a href="https://phd.janithwanni.com">thesis</a>.</p>
+<h2 id="kumquat-a-simpler-lime">kumquat: a simpler lime</h2>
+<p>The <a href="https://cran.r-project.org/package=lime"><code>lime</code></a> package is a careful port of the original method, and it handles many data types. That flexibility comes at a cost: the intermediate pieces (the perturbed data, the weights given to each point, the fitted local model) are hidden. When an explanation looks odd, it’s hard to tell whether the model is odd or the explainer is.</p>
+<p><a href="https://janithwanni.github.io/kumquat/">kumquat</a> is deliberately smaller. For tabular data it:</p>
+<ul>
+<li><strong>samples perturbations from a small neighbourhood</strong> around the observation,</li>
+<li><strong>gives every perturbed point a weight of 1</strong>, and</li>
+<li><strong>fits an unregularised GLM</strong> (logistic regression for classification) as the local model, so every variable gets an importance score, however small.</li>
+</ul>
+<p>What you get back is everything: the perturbation distribution, the black-box predictions, the local model’s predictions, the GLM object and its coefficients. You can audit exactly where an explanation came from.</p>
+<p>It’s a separate package rather than a change to <code>lime</code>, so existing users’ results don’t shift under them. kumquat is meant for understanding and demonstration, not production.</p>
+<pre class="r"><code>install.packages("kumquat")</code></pre>
+<h2 id="kultarr-anchors-revisited">kultarr: Anchors, revisited</h2>
+<p>Anchors explains a prediction with a rule, such as “if <em>x</em> &gt; 0.5 and <em>y</em> &gt; 0.5, the model predicts U”, that holds with high precision near the observation. The existing R route to Anchors calls out to a Java implementation. Computation happens in a separate environment, which makes it slow to iterate on and hard to debug.</p>
+<p><a href="https://janithwanni.github.io/kultarr/">kultarr</a> is Anchors in pure R:</p>
+<ul>
+<li><strong>S7 classes</strong> represent anchors, so the data structure is explicit and easy to extend.</li>
+<li><strong>Memoisation</strong> (<code>memoise</code>) caches rewards for states it has already visited, which cuts repeated work on large datasets.</li>
+<li><strong>Parallel processing</strong> (<code>furrr</code>) explains each observation independently.</li>
+<li><strong>Visualisation helpers</strong> bundle the bounds and aesthetic settings needed to draw anchors as boxes, including in <a href="https://janithwanni.github.io/kultarr/articles/tour_aesthetics.html">high-dimensional tours</a>.</li>
+</ul>
+<pre class="r"><code>pak::pak("janithwanni/kultarr")
+
+library(kultarr)
+library(randomForest)
+
+set.seed(145)
+train_data &lt;- data.frame(x = runif(100), y = runif(100), z = runif(100))
+train_data[21, ] &lt;- c(0.5, 0.5, 0.5)
+train_data$cls &lt;- factor(ifelse(train_data$x &gt; 0.5 &amp; train_data$y &gt; 0.5, "U", "D"))
+
+rf_model &lt;- randomForest(cls ~ ., data = train_data)
+model_func &lt;- carrier::crate(function(data) {
+  randomForest:::predict.randomForest(!!rf_model, data)
+})
+
+final_bounds &lt;- make_anchors(
+  dataset = train_data,
+  cols = c("x", "y", "z"),
+  instance = train_data[21, ],
+  model_func = model_func,
+  class_col = "cls",
+  verbose = FALSE
+)
+final_bounds$final_anchor  # bounds plus reward, precision and coverage</code></pre>
+<h2 id="the-point-of-it-all">The point of it all</h2>
+<p>Neither package tries to be the fastest or most general explainer. They’re built so that <strong>nothing is hidden</strong>, because you can’t visualise or question what you can’t see. That’s what makes the geometric pictures in <a href="/blog/2026-10-17-visual-explanations-of-explainers/" hx-get="/c/blog/2026-10-17-visual-explanations-of-explainers" hx-push-url="/blog/2026-10-17-visual-explanations-of-explainers/">Seeing what the explainers see</a> possible.</p>
+<p>Feedback, issues and pull requests are very welcome on <a href="https://github.com/janithwanni">GitHub</a>.</p></article>

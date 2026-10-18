@@ -48,6 +48,18 @@
     "description": "One of my experiences in telling a story with data and the challenges associated with the journey"
   },
   {
+    "route": "/blog/2024-09-12-rebuilding-lime-and-anchors-in-r/",
+    "fragment": "/c/blog/2024-09-12-rebuilding-lime-and-anchors-in-r.html",
+    "title": "Why I rebuilt LIME and Anchors in R · Janith Wanniarachchi",
+    "description": "kumquat and kultarr: explainers whose every step you can inspect, debug and draw"
+  },
+  {
+    "route": "/blog/2025-08-23-random-seeds-and-simple-models/",
+    "fragment": "/c/blog/2025-08-23-random-seeds-and-simple-models.html",
+    "title": "Simple models are hard to find (but worth finding) · Janith Wanniarachchi",
+    "description": "How the random seed decides whether a small neural network succeeds, and why that matters for interpretability"
+  },
+  {
     "route": "/blog/2026-10-17-random-seeds-and-simple-models/",
     "fragment": "/c/blog/2026-10-17-random-seeds-and-simple-models.html",
     "title": "Simple models are hard to find (but worth finding) · Janith Wanniarachchi",
