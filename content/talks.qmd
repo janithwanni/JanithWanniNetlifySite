@@ -7,6 +7,7 @@ I love sharing what I learn, whether that's a conference talk, a meetup workshop
 
 ::: {.talk-list}
 - [2026]{.year} [Visual Explanations of XAI Explainers](#user-2026) [useR! 2026]{.venue}
+- [2025]{.year} [Engaging reproducible presentations with Quarto](#numbats-quarto-tutorial-2025) [NUMBATs tutorial]{.venue}
 - [2024]{.year} [Fun with ObservableJS in Quarto](#hacky-hour-ojs-2024) [NUMBATs Hacky Hour]{.venue}
 - [2023]{.year} [Seeing the Smoke Before the Fire](#iasc-ars-2023) [IASC-ARS, Sydney · award]{.venue}
 - [2023]{.year} [webR: R without the hassle (almost)](#hacky-hour-webr-2023) [NUMBATs Hacky Hour]{.venue}
@@ -32,6 +33,21 @@ LIME, SHAP, counterfactuals and Anchors often give conflicting explanations for 
 <div class = "talk-links">
 
 [Slides & code](https://github.com/janithwanni/user-2026)
+
+</div>
+
+</details>
+
+<details class="talk" id="numbats-quarto-tutorial-2025">
+<summary><h2>NUMBATs Tutorial 2025: Engaging Reproducible Presentations</h2></summary>
+
+In July 2025, Krisanat Anukarnsakulchularp, Jayani Lakshika and I ran a three-part [NUMBATs](https://numbat.space) workshop on reproducibility with Quarto, mentored by Professor Di Cook. I led the third session, on building presentations with Quarto and reveal.js. Starting from a basic `.qmd` file, it covers adding and positioning images with alt text, showing code and output with animated transitions, built-in and custom SCSS themes, design choices for accessibility, presentation tools such as speaker view and overview mode, incremental animations, and hosting the slides as static HTML.
+
+<div class = "talk-links">
+
+[Slides](https://numbat-tutorials.github.io/tutorial_reproducibility_with_quarto/session3/#/)
+[Workshop](https://numbat-tutorials.github.io/tutorial_reproducibility_with_quarto/)
+[GitHub](https://github.com/numbat-tutorials/tutorial_reproducibility_with_quarto)
 
 </div>
 
