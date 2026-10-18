@@ -31,8 +31,9 @@ format:
 
 ## Profile
 
-Statistician and R developer. I research how to make machine learning explanations visible and trustworthy, and I build open-source software to do it.
+Statistician and developer working on **data visualisation and web development**. I research how to make machine learning explanations visible and trustworthy, and I build open-source software and interactive tools to do it.
 I have industry experience in Shiny and R package engineering, I teach at Monash, and I have a track record of community talks and workshops.
+I'm looking for roles building interactive data visualisation and web tools.
 
 ## Education
 
@@ -114,6 +115,26 @@ Karunanayake, V. J., **Wanniarachchi, J. C.**, Karunanayake, P. N. K., & Rajapak
 [Contributor]{.when}
 
 **DSjobtracker**, **nic** and **tsdataleaks** (all on CRAN): data curation, colour palettes, and Rcpp performance work
+:::
+
+## Skills
+
+::: {.cv-item}
+[Visualisation]{.when}
+
+D3, ggplot2, Shiny, htmlwidgets, high-dimensional tours (tourr), scrollytelling, canvas and SVG graphics
+:::
+
+::: {.cv-item}
+[Web]{.when}
+
+JavaScript, Svelte, htmx, Vite, HTML and CSS (responsive, accessible, dark mode), Cloudflare Pages Functions, Netlify Functions, Quarto
+:::
+
+::: {.cv-item}
+[Statistics & ML]{.when}
+
+R (package development, S7, Rcpp, parallel computing), explainable AI (LIME, SHAP, Anchors, counterfactuals), simulation, random forests and neural networks
 :::
 
 ## Experience
@@ -205,7 +226,7 @@ Curated and cleaned the 2021 DSjobtracker data for CRAN.
 [2019 – 2026]{.when}
 
 useR! 2026 · IASC-ARS 2023 · useR! 2022 · Abuja useR Group (2022) · EDEX Expo (2022) · R-Ladies Colombo (2021) · Fundamentals of Data Visualisation and Tableau workshops (2021) · GDG ML Bootcamp (2019) · TensorFlow All Around (2019).
-Full list at [janithwanni.netlify.app/talks](https://janithwanni.netlify.app/talks/).
+Full list at [janithwanni.com/talks](https://janithwanni.com/talks/).
 :::
 
 ## Leadership & service

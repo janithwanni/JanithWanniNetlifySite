@@ -10,6 +10,8 @@
     "pages:dev": "npm run build && wrangler pages dev dist --compatibility-date=2026-10-01"
   },
   "dependencies": {
+    "d3-scale": "^4.0.2",
+    "d3-selection": "^3.0.0",
     "htmx.org": "^2.0.11"
   },
   "devDependencies": {

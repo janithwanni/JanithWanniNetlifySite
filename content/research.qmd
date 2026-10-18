@@ -34,6 +34,7 @@ Draws SHAP, LIME, counterfactuals and Anchors geometrically in the data space so
 [With D. Cook, K. Saunders, P. Menendez & T. Talagala]{.card-meta}
 
 [Chapter](https://phd.janithwanni.com/03-chap3-geom.html) ·
+[Interactive essay](blog/2026-10-18-where-the-explainers-point/where-the-explainers-point.qmd) ·
 [Blog post](blog/2026-10-17-visual-explanations-of-explainers/visual-explanations-of-explainers.qmd) ·
 [useR! 2026 talk](https://github.com/janithwanni/user-2026)
 :::

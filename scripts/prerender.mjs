@@ -9,8 +9,8 @@ const DIST = path.join(ROOT, 'dist');
 const shell = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8');
 const routes = JSON.parse(fs.readFileSync(path.join(ROOT, 'content', 'routes.json'), 'utf8'));
 
-// Production origin, for absolute og:url links in social previews.
-const SITE_URL = 'https://janithwanni.netlify.app';
+// Production origin, for absolute canonical and og:url links and the sitemap.
+const SITE_URL = 'https://janithwanni.com';
 
 const attr = (s) => s.replace(/&(?!(amp|quot|lt|gt|#\d+);)/g, '&amp;').replace(/"/g, '&quot;');
 
@@ -19,6 +19,7 @@ function render({ title, description, section, body, route = '/' }) {
     .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
     .replace(/(<meta property="og:title" content=")[^"]*/, `$1${attr(title)}`)
     .replace(/(<meta property="og:url" content=")[^"]*/, `$1${SITE_URL}${route}`)
+    .replace(/(<link rel="canonical" href=")[^"]*/, `$1${SITE_URL}${route}`)
     .replace(/<main id="main"([^>]*)><\/main>/, `<main id="main"$1>${body}</main>`);
   if (description) {
     html = html
@@ -41,5 +42,12 @@ fs.writeFileSync(path.join(DIST, '404.html'), render({
   body: '<article class="page"><header class="page-head"><h1>Lost, wanderer?</h1></header>' +
     '<p>This page does not exist. <a href="/">Head back home</a>.</p></article>',
 }));
+
+fs.writeFileSync(path.join(DIST, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${routes.map(({ route }) => `  <url><loc>${SITE_URL}${route}</loc></url>`).join('\n')}
+</urlset>
+`);
+fs.writeFileSync(path.join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
 
 console.log(`Prerendered ${routes.length} pages`);

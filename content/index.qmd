@@ -18,6 +18,11 @@ studying data visualisation, explainable AI and extreme climate events,
 and, in the margins, writing poems.
 :::
 
+::: {.now-next}
+[Now]{.nn} Finishing my PhD at Monash.\
+[Next]{.nn} Looking for roles in **data visualisation and web development**: interactive tools that help people see what their data and models are doing. [Say hello](mailto:janithcwanni@gmail.com).
+:::
+
 ::: {.epigraph}
 [To the visitor]{.label}
 
@@ -41,7 +46,7 @@ that I have dedicated to.
 
 With that being said,\
 wander on to the creative content section to feed your imagination,\
-Or read up on my history in my CV [here](cv.qmd)
+Or read up on my history in [my CV](cv.qmd)
 :::
 
 ::: {#contents}
@@ -69,5 +74,6 @@ Or read up on my history in my CV [here](cv.qmd)
 [⁂]{aria-hidden="true"}
 
 Set in the typefaces already on your device.\
-No trackers, no cookies , only words.
+No trackers, no cookies, only words.\
+[How this site is built](blog/2026-10-18-how-this-site-is-built/how-this-site-is-built.qmd)
 :::

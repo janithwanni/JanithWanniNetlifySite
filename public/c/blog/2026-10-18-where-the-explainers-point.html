@@ -1,0 +1,163 @@
+<title>Where the explainers point · Janith Wanniarachchi</title>
+<article class="post"><header class="page-head"><a class="back" href="/blog/" hx-get="/c/blog" hx-push-url="/blog/">← Blog</a><h1>Where the explainers point</h1><p class="meta"><time datetime="2026-10-18">18 Oct 2026</time> · 6 min read</p></header><p>Ask four explainable AI methods why a model made a prediction and you can get four different answers. This page walks through one small example from my thesis, <a href="https://phd.janithwanni.com/03-chap3-geom.html"><em>Visual explanations of the explainers</em></a> (with Dianne Cook, Kate Saunders, Patricia Menendez and Thiyanga Talagala). Instead of reading the explanations as numbers, we draw each one where the data lives, and watch them disagree.</p>
+<p>Scroll on. The figure changes as you go.</p>
+<div class="scrolly" data-scrolly="/data/explainers.json">
+<figure class="scrolly-figure">
+  <div class="stage"><p class="stage-note">The figure needs JavaScript. The text tells the whole story without it.</p></div>
+  <figcaption>
+    <span class="key key-a">class A</span>
+    <span class="key key-b">class B</span>
+    <span class="key key-poi">point of interest</span>
+    <span class="vh" aria-live="polite"></span>
+  </figcaption>
+</figure>
+<div class="steps">
+<section id="the-data" class="step" data-step="data" data-alt="A square scatterplot of 1,500 points coloured by class, with the true class regions shaded.">
+<h2>The data</h2>
+<p>Two features, <em>x</em> and <em>y</em>, each drawn uniformly between −1 and 1: 5,000 points in all (1,500 are shown here). Each point’s class comes from a fixed rule with corners and slanted edges. Class A fills the lower left, a sloping band through the middle and everything right of <em>x</em> = 0.4, except for a wedge cut out along the bottom right.</p>
+</section>
+<section id="the-model" class="step" data-step="model" data-alt="The random forest's predicted class shaded over the whole square, with the true boundary drawn as lines on top.">
+<h2>The model</h2>
+<p>A random forest of 10 trees learns its own version of that rule. The shading is now the <strong>model’s</strong> prediction at every location. The lines show the true boundary.</p>
+<p>It’s close, but it’s built from rectangles, so the slopes become staircases. We know its training algorithm, but not its functional form, which is exactly when we reach for explainers.</p>
+</section>
+<section id="four-points" class="step" data-step="points" data-alt="Four numbered points marked on the model surface, each on or next to the boundary.">
+<h2>Four points</h2>
+<p>We ask the explainers about four observations. Each sits on or right next to the model’s boundary, where its staircase makes a simple story least likely to hold.</p>
+</section>
+<section id="the-usual-view" class="step" data-step="usual" data-alt="Zoomed in on point 1, on a slanted edge of the boundary.">
+<h2>The usual view</h2>
+<p>Here’s point 1, at (0, 0.1), predicted class A. Explainers usually report back as a bar chart: how important was each feature? Normalised so the top feature scores 1:</p>
+<table class="imp caption-top">
+<caption>Normalised importance, point 1</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">Method</th>
+<th data-quarto-table-cell-role="th" scope="col"><em>x</em></th>
+<th data-quarto-table-cell-role="th" scope="col"><em>y</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">LIME</th>
+<td><span class="bar" style="--v: 0.49"></span>0.49</td>
+<td><span class="bar top" style="--v: 1"></span>1.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">SHAP</th>
+<td><span class="bar" style="--v: 0.43"></span>0.43</td>
+<td><span class="bar top" style="--v: 1"></span>1.00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">Counterfactual</th>
+<td><span class="bar top" style="--v: 1"></span>1.00</td>
+<td><span class="bar" style="--v: 0.59"></span>0.59</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">Anchors</th>
+<td><span class="bar" style="--v: 0.62"></span>0.62</td>
+<td><span class="bar top" style="--v: 1"></span>1.00</td>
+</tr>
+</tbody>
+</table>
+<p>Three methods say <em>y</em>, and the counterfactual says <em>x</em>. Which one is right? From the bars alone there’s no way to tell.</p>
+</section>
+<section id="three-shared-parts" class="step" data-step="parts" data-alt="Point 1 with its neighbourhood box and a 21 by 21 grid of perturbed points coloured by the model's prediction.">
+<h2>Three shared parts</h2>
+<p>Most local explainers are built from the same three parts:</p>
+<ol type="1">
+<li>a <strong>perturbation mechanism</strong> that makes what-if points near the observation (here, a 21 × 21 grid in a 0.2-wide box);</li>
+<li>an <strong>optimisation objective</strong> that uses the model’s predictions on those points;</li>
+<li>a <strong>structured output</strong>: the explanation.</li>
+</ol>
+<p>They differ in what they choose for each part, and that’s where the disagreement comes from. So instead of comparing their numbers, let’s draw what each one found.</p>
+</section>
+<section id="shap-forces-along-the-axes" class="step" data-step="shap" data-alt="Axis-parallel arrows from each of the four points, sized by their SHAP values.">
+<h2>SHAP: forces along the axes</h2>
+<p>SHAP splits a prediction into a contribution from each feature: how far it moves the predicted probability of class A away from the average over the neighbourhood.</p>
+<p>We draw each contribution as an arrow <strong>parallel to its axis</strong>, sized by its magnitude and coloured by the class it pushes towards. At point 3, the whole push comes from <em>x</em>. Its <em>y</em> arrow has zero length.</p>
+<p>SHAP’s arrows describe <em>forces on the prediction</em>. They don’t point to where the boundary is.</p>
+</section>
+<section id="lime-a-straight-line-through-a-bend" class="step" data-step="lime" data-alt="Zoomed in on point 1: the perturbed grid shows the model's predictions as squares and the local model's predictions as dots, with LIME's straight boundary and an arrow at right angles to it.">
+<h2>LIME: a straight line through a bend</h2>
+<p>LIME fits a simple model (here a LASSO logistic regression, with <a href="https://janithwanni.github.io/kumquat/">kumquat</a>) to the model’s predictions on the perturbed grid.</p>
+<p>The squares show the random forest’s predictions and the dots show the local model’s. LIME’s explanation <em>is</em> that straight boundary. The arrow at right angles to it shows which feature the local model leans on: mostly <em>y</em>, a little <em>x</em>.</p>
+</section>
+<div class="step" data-step="lime3" data-alt="Zoomed in on point 3, beside the vertical edge at x = 0.4: LIME's boundary is a vertical line.">
+<p>Point 3 sits beside the vertical edge at <em>x</em> = 0.4. LIME’s line is vertical too, so <em>y</em> gets exactly zero weight. When the picture matches the boundary like this, we can trust the numbers.</p>
+</div>
+<section id="counterfactuals-the-nearest-other-side" class="step" data-step="cf" data-alt="Lines from each of the four points to their counterfactual: the nearest observed point the model puts in the other class.">
+<h2>Counterfactuals: the nearest other side</h2>
+<p>A counterfactual answers “what’s the smallest change that flips the prediction?” We used the What-If approach: the nearest <em>observed</em> point that the model puts in the other class with probability of at least 0.9 (nearest by Gower distance).</p>
+<p>Its explanation is a direction. At point 2 the path drops almost straight down (0.05 in <em>y</em>, 0.002 in <em>x</em>), so the counterfactual says <em>y</em>, while the other three methods say <em>x</em>.</p>
+</section>
+<section id="anchors-a-box-that-holds-the-prediction" class="step" data-step="anchors" data-alt="Each point's neighbourhood box drawn dashed, with its anchor box drawn solid inside it.">
+<h2>Anchors: a box that holds the prediction</h2>
+<p>Anchors (from <a href="https://janithwanni.github.io/kultarr/">kultarr</a>) looks for an if-then rule: a box around the point inside which the model almost always gives the same answer. The box needs a precision of at least 0.95. Ours range from 0.99 to 1.00, and each covers 25% to 43% of its neighbourhood (the dashed square).</p>
+<p>A side that has to stay <strong>short</strong> marks the more important feature, because the box can’t stretch far that way before the prediction changes.</p>
+</section>
+<div class="step" data-step="anchors4" data-alt="Zoomed in on point 4: the anchor box is pinned to the bottom right corner of the neighbourhood box, short in both directions.">
+<p>At point 4, the anchor stays short in both directions, slightly shorter in <em>y</em> (0.11 against 0.13). Anchors says <em>y</em>, but only just.</p>
+</div>
+<section id="why-they-disagree" class="step" data-step="disagree" data-alt="Zoomed in on point 1 with all four explanations overlaid: SHAP arrows, LIME's line, the counterfactual path and the anchor box.">
+<h2>Why they disagree</h2>
+<p>Back to point 1, with all four drawn together.</p>
+<p>Point 1 sits on an edge that slopes up at 0.8, so moving in <em>y</em> crosses it faster than moving in <em>x</em>. SHAP, LIME and Anchors all summarise the whole neighbourhood, and they pick up that slope: <em>y</em>. The counterfactual looks for a single observed point on the other side, and the nearest one happens to lie mostly to the left: <em>x</em>.</p>
+<p>Each answer is right about the question it asks. Across all four points the methods agree on the top feature only at point 3:</p>
+<table class="agree caption-top">
+<caption>Top feature by point and method</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">Point</th>
+<th data-quarto-table-cell-role="th" scope="col">LIME</th>
+<th data-quarto-table-cell-role="th" scope="col">SHAP</th>
+<th data-quarto-table-cell-role="th" scope="col">CF</th>
+<th data-quarto-table-cell-role="th" scope="col">Anchors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">1</th>
+<td>y</td>
+<td>y</td>
+<td class="differs">x</td>
+<td>y</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">2</th>
+<td>x</td>
+<td>x</td>
+<td class="differs">y</td>
+<td>x</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">3</th>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">4</th>
+<td>y</td>
+<td class="differs">x</td>
+<td>y</td>
+<td>y</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="your-turn" class="step explore" data-step="explore" data-alt="Explore mode: choose a point and the explanations to draw.">
+<h2>Your turn</h2>
+<p>Pick a point and the explainers to draw.</p>
+<div class="explore-controls"></div>
+</section>
+</div>
+</div>
+<h2 id="what-to-take-away">What to take away</h2>
+<p>My message isn’t to pick the best explainer. <strong>Use several, and look at them together, in the data space.</strong> Once each explanation is drawn as an object (an arrow, a line, a point or a box) next to the model’s boundary, you can see what kind of claim each method makes, and a disagreement turns into something you can explain rather than a contradiction.</p>
+<p>Real models rarely have two features. The same objects carry over to higher dimensions: an anchor becomes a hyper-rectangle and LIME’s line becomes a hyperplane. They can be shown in <em>tours</em>, animated sequences of projections, which is part of why I <a href="/blog/2026-10-17-rebuilding-lime-and-anchors-in-r/" hx-get="/c/blog/2026-10-17-rebuilding-lime-and-anchors-in-r" hx-push-url="/blog/2026-10-17-rebuilding-lime-and-anchors-in-r/">rebuilt LIME and Anchors in R</a>.</p>
+<p>I presented this work at useR! 2026 as <em>Visual Explanations of XAI Explainers</em>. The <a href="https://github.com/janithwanni/user-2026">slides and code are on GitHub</a>. For the full method, the definitions and the references, read <a href="https://phd.janithwanni.com/03-chap3-geom.html">chapter 2 of the thesis</a>, or the shorter <a href="/blog/2026-10-17-visual-explanations-of-explainers/" hx-get="/c/blog/2026-10-17-visual-explanations-of-explainers" hx-push-url="/blog/2026-10-17-visual-explanations-of-explainers/">summary post</a>.</p>
+<div class="colophon-note">
+<p>Every number and shape on this page comes from the paper’s saved results: the random forest’s predictions on a 0.01 grid, kumquat for LIME, kernelshap for SHAP, the counterfactuals package for What-If and kultarr for Anchors. They are exported to JSON with an R script and drawn in the browser with D3.</p>
+</div></article>

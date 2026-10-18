@@ -88,13 +88,20 @@ async function loadThoughts() {
   }
 }
 
+// Interactive figures load their code only on the pages that have one.
+function loadScrolly() {
+  const box = main.querySelector('[data-scrolly]');
+  if (box) import('./scrolly.js').then(({ default: scrolly }) => scrolly(box));
+}
+
 document.body.addEventListener('htmx:afterSettle', (e) => {
   if (e.detail.target !== main) return;
   markCurrentSection();
   loadThoughts();
+  loadScrolly();
   main.focus({ preventScroll: true });
 });
-document.body.addEventListener('htmx:historyRestore', () => { markCurrentSection(); loadThoughts(); });
+document.body.addEventListener('htmx:historyRestore', () => { markCurrentSection(); loadThoughts(); loadScrolly(); });
 
 // In-page links to a collapsed <details> (the talks list) open it before jumping there.
 document.addEventListener('click', (e) => {
@@ -111,5 +118,5 @@ document.body.addEventListener('htmx:responseError', (e) => {
 
 // Production pages are prerendered; the dev server only serves the empty shell.
 if (!main.firstElementChild) htmx.ajax('GET', fragmentFor(location.pathname), { target: main, swap: 'innerHTML' });
-else loadThoughts();
+else { loadThoughts(); loadScrolly(); }
 markCurrentSection();

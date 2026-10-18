@@ -78,6 +78,18 @@
     "description": "LIME, SHAP, Anchors and counterfactuals often disagree. Drawing them in the data space shows why."
   },
   {
+    "route": "/blog/2026-10-18-how-this-site-is-built/",
+    "fragment": "/c/blog/2026-10-18-how-this-site-is-built.html",
+    "title": "How this site is built · Janith Wanniarachchi",
+    "description": "Quarto for writing, htmx for navigation, a few edge functions for the live bits, and no trackers: the plumbing behind this website."
+  },
+  {
+    "route": "/blog/2026-10-18-where-the-explainers-point/",
+    "fragment": "/c/blog/2026-10-18-where-the-explainers-point.html",
+    "title": "Where the explainers point · Janith Wanniarachchi",
+    "description": "A scroll-through version of chapter 2 of my thesis: LIME, SHAP, counterfactuals and Anchors drawn on the same model, the same data and the same four points."
+  },
+  {
     "route": "/creative/",
     "fragment": "/c/creative.html",
     "title": "Creative Corner · Janith Wanniarachchi",

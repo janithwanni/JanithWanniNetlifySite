@@ -1,0 +1,99 @@
+<title>How this site is built · Janith Wanniarachchi</title>
+<article class="post"><header class="page-head"><a class="back" href="/blog/" hx-get="/c/blog" hx-push-url="/blog/">← Blog</a><h1>How this site is built</h1><p class="meta"><time datetime="2026-10-18">18 Oct 2026</time> · 5 min read</p></header><p>This site is meant to feel like an old book: system serif fonts, a paper-grain background, a table of contents on the title page and a fleuron at the end of every post. Underneath it’s a small, fast web app. Here’s how the pieces fit together, and why I chose each one.</p>
+<h2 id="the-shape-of-it">The shape of it</h2>
+<pre><code>content/            Quarto sources: pages, blog posts, poems
+scripts/            build-content.mjs, prerender.mjs
+src/                main.js, style.css, scrolly.js
+functions/c/        Cloudflare Pages Functions for the live sections
+public/             fragments, CV PDF, images, data for interactive posts</code></pre>
+<p>There’s one HTML shell, one stylesheet and one small script. Every page is a <em>fragment</em> of HTML that gets swapped into the shell’s <code>&lt;main&gt;</code>.</p>
+<h2 id="writing-quarto-rendered-bare">Writing: Quarto, rendered bare</h2>
+<p>I write everything (research pages, R posts with code, poems) in Quarto. Quarto normally brings Bootstrap, a theme and its own JavaScript. Here it’s set to <code>minimal: true</code> and <code>theme: none</code>, so the output is plain semantic HTML and the site’s own stylesheet does all the styling.</p>
+<p>R posts are <em>frozen</em>: their code is run once on my machine (with the package versions pinned by renv), and the results are stored with the source. That keeps the deploy fast and means the server never needs R.</p>
+<p>The CV is a single <code>cv.qmd</code> that renders twice: to HTML for the site, and to a PDF through Typst. A 13-line Lua filter lays out each entry as a two-column date | details grid, so both versions match.</p>
+<h2 id="building-from-pages-to-fragments">Building: from pages to fragments</h2>
+<p><code>scripts/build-content.mjs</code> (about 200 lines of Node, no dependencies) turns Quarto’s output into the site:</p>
+<ul>
+<li>each page becomes a fragment under <code>/c/</code>, with relative links rewritten so they work from any URL;</li>
+<li>the blog and creative listings, reading times and the homepage’s table of contents (with live counts of poems, essays, talks and packages) are generated from the pages themselves;</li>
+<li>images are lazy-loaded and decoded off the main thread;</li>
+<li>old URLs from previous versions of the site get 301 redirects.</li>
+</ul>
+<p>Then Vite builds the shell, and <code>scripts/prerender.mjs</code> writes a complete <code>index.html</code> for every route, with the right title, description and social-preview tags. The first visit to any page is a single HTML request that works even without JavaScript.</p>
+<h2 id="navigating-htmx">Navigating: htmx</h2>
+<p>After that first load, <a href="https://htmx.org">htmx</a> takes over. Each navigation link carries an <code>hx-get</code> pointing at its fragment, so a click fetches only the new content (often a few kilobytes) and swaps it into <code>&lt;main&gt;</code>, updating the URL and history. There’s no client-side router and no framework, and the whole script, htmx included, is about 20 kB compressed. If a fragment ever fails to load, the link falls back to a normal page load.</p>
+<p>htmx’s <code>eval</code> features are turned off, so no code can run from attributes.</p>
+<h2 id="the-live-bits-edge-functions">The live bits: edge functions</h2>
+<p>Three parts of the homepage change on their own:</p>
+<ul>
+<li><strong>Thoughts &amp; musings</strong> are short notes I post from my phone. They come as JSON from a small Netlify function on a separate site and become a list on the homepage and a stack of <a href="/thoughts/" hx-get="/c/thoughts" hx-push-url="/thoughts/">postcards</a>.</li>
+<li><strong>On the shelf, in colour</strong> is a shelf of book spines, each striped with the colour palette of a photograph I’ve taken. A Cloudflare Pages Function builds the shelf as HTML, and htmx loads it only when it scrolls into view (<code>hx-trigger="revealed"</code>). A photo is only downloaded when you take its book off the shelf.</li>
+<li><strong>Recently played</strong> comes from Spotify. Only the edge function talks to Spotify: it holds the credentials, and even the album covers are proxied, so your browser never contacts Spotify.</li>
+</ul>
+<p>Each function caches its response at the edge for a few minutes, so the upstream services see at most a handful of requests no matter how many people visit. If one of them is down, its section simply stays empty.</p>
+<h2 id="interactive-posts">Interactive posts</h2>
+<p>Some posts need more than HTML. <a href="/blog/2026-10-18-where-the-explainers-point/" hx-get="/c/blog/2026-10-18-where-the-explainers-point" hx-push-url="/blog/2026-10-18-where-the-explainers-point/">Where the explainers point</a> is a scrollytelling version of a thesis chapter, drawn with D3. Its code and data load only on that page: the script is split out at build time and imported when the page has a figure to draw, and the data (exported from the paper’s R results) is 13 kB compressed. The model’s prediction surface is drawn on a canvas, and everything else is SVG in data coordinates, so zooming in redraws a single transform.</p>
+<h2 id="small-choices-that-add-up">Small choices that add up</h2>
+<ul>
+<li><strong>No trackers, no cookies, no web fonts.</strong> The fonts are the serifs already on your device (Charter, Iowan Old Style, Palatino), so text appears instantly and nothing is downloaded.</li>
+<li><strong>The paper grain</strong> is a few hundred bytes of inline SVG noise, not an image.</li>
+<li><strong>Dark mode</strong> follows your system setting. Every colour is a CSS variable with a dark counterpart, including the class colours in the interactive figures.</li>
+<li><strong>Motion is optional.</strong> Page transitions, the postcards’ tilt and the scrollytelling zooms all switch off when your system asks for reduced motion.</li>
+<li><strong>Accessibility</strong> is part of the design: a skip link, real headings and lists, labelled navigation, visible focus rings, and text alternatives for the colour shelf, which names each colour (“deep blue 34%”) for screen readers.</li>
+<li><strong>Print</strong> gets its own stylesheet, mostly for the CV.</li>
+</ul>
+<h2 id="how-it-scores">How it scores</h2>
+<p>I check the production build with Lighthouse (version 12) using its mobile preset, which simulates a mid-range phone on a slow 4G connection.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Page</th>
+<th>Performance</th>
+<th>Accessibility</th>
+<th>Best practices</th>
+<th>SEO</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Home</td>
+<td>100</td>
+<td>100</td>
+<td>96*</td>
+<td>100</td>
+</tr>
+<tr class="even">
+<td>Research</td>
+<td>100</td>
+<td>100</td>
+<td>100</td>
+<td>100</td>
+</tr>
+<tr class="odd">
+<td>CV</td>
+<td>100</td>
+<td>100</td>
+<td>100</td>
+<td>100</td>
+</tr>
+<tr class="even">
+<td><a href="/blog/2026-10-18-where-the-explainers-point/" hx-get="/c/blog/2026-10-18-where-the-explainers-point" hx-push-url="/blog/2026-10-18-where-the-explainers-point/">Where the explainers point</a></td>
+<td>99–100</td>
+<td>100</td>
+<td>100</td>
+<td>100</td>
+</tr>
+<tr class="odd">
+<td>This post</td>
+<td>100</td>
+<td>100</td>
+<td>100</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+<p>On the simulated phone, the largest element paints in 1.1 to 1.3 seconds, and nothing shifts as the page loads. With the desktop preset it’s under half a second.</p>
+<p>*The one point lost on the homepage is a console error from my local test server: the thoughts feed only answers requests from this site’s own domain.</p>
+<p>Getting there took a few fixes: a <code>robots.txt</code> and a sitemap generated at build time, canonical links, a link that only said “here”, and a figure legend whose text was too faint.</p>
+<h2 id="hosting">Hosting</h2>
+<p>The site is static files on Cloudflare Pages, plus the three small functions. The deploy only runs <code>npm run build</code>, which needs neither Quarto nor R, because the rendered fragments are committed with the source. Publishing a new poem means writing a <code>.qmd</code>, running one command and pushing.</p></article>

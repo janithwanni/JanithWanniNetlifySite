@@ -1,4 +1,4 @@
-# janithwanni.netlify.app
+# janithwanni.com
 
 A static Vite site: one HTML shell, one small stylesheet, and htmx. Pages are written in
 Quarto (`content/`), rendered to bare HTML, and served as fragments that htmx swaps into `<main>`.

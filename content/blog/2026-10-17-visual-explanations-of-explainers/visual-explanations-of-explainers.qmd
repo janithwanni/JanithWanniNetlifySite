@@ -11,6 +11,7 @@ Each method looks at a different facet of the model, but they usually come back 
 
 This post summarises the first project of my PhD (chapter 2 of my [thesis](https://phd.janithwanni.com/03-chap3-geom.html)), done with Dianne Cook, Kate Saunders, Patricia Menendez and Thiyanga Talagala.
 The idea is simple: **put the explanations back where the data lives.**
+To scroll through the example with the real figures, read the interactive version, [Where the explainers point](../2026-10-18-where-the-explainers-point/where-the-explainers-point.qmd).
 
 ## Four explainers, three shared parts
 
