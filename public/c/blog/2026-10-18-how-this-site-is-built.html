@@ -3,9 +3,9 @@
 <h2 id="the-shape-of-it">The shape of it</h2>
 <pre><code>content/            Quarto sources: pages, blog posts, poems
 scripts/            build-content.mjs, prerender.mjs
-src/                main.js, style.css, scrolly.js
+src/                main.js, style.css
 functions/c/        Cloudflare Pages Functions for the live sections
-public/             fragments, CV PDF, images, data for interactive posts</code></pre>
+public/             fragments, CV PDF, images</code></pre>
 <p>There’s one HTML shell, one stylesheet and one small script. Every page is a <em>fragment</em> of HTML that gets swapped into the shell’s <code>&lt;main&gt;</code>.</p>
 <h2 id="writing-quarto-rendered-bare">Writing: Quarto, rendered bare</h2>
 <p>I write everything (research pages, R posts with code, poems) in Quarto. Quarto normally brings Bootstrap, a theme and its own JavaScript. Here it’s set to <code>minimal: true</code> and <code>theme: none</code>, so the output is plain semantic HTML and the site’s own stylesheet does all the styling.</p>
@@ -31,14 +31,12 @@ public/             fragments, CV PDF, images, data for interactive posts</code>
 <li><strong>Recently played</strong> comes from Spotify. Only the edge function talks to Spotify: it holds the credentials, and even the album covers are proxied, so your browser never contacts Spotify.</li>
 </ul>
 <p>Each function caches its response at the edge for a few minutes, so the upstream services see at most a handful of requests no matter how many people visit. If one of them is down, its section simply stays empty.</p>
-<h2 id="interactive-posts">Interactive posts</h2>
-<p>Some posts need more than HTML. <a href="/blog/2026-10-18-where-the-explainers-point/" hx-get="/c/blog/2026-10-18-where-the-explainers-point" hx-push-url="/blog/2026-10-18-where-the-explainers-point/">Where the explainers point</a> is a scrollytelling version of a thesis chapter, drawn with D3. Its code and data load only on that page: the script is split out at build time and imported when the page has a figure to draw, and the data (exported from the paper’s R results) is 13 kB compressed. The model’s prediction surface is drawn on a canvas, and everything else is SVG in data coordinates, so zooming in redraws a single transform.</p>
 <h2 id="small-choices-that-add-up">Small choices that add up</h2>
 <ul>
 <li><strong>No trackers, no cookies, no web fonts.</strong> The fonts are the serifs already on your device (Charter, Iowan Old Style, Palatino), so text appears instantly and nothing is downloaded.</li>
 <li><strong>The paper grain</strong> is a few hundred bytes of inline SVG noise, not an image.</li>
-<li><strong>Dark mode</strong> follows your system setting. Every colour is a CSS variable with a dark counterpart, including the class colours in the interactive figures.</li>
-<li><strong>Motion is optional.</strong> Page transitions, the postcards’ tilt and the scrollytelling zooms all switch off when your system asks for reduced motion.</li>
+<li><strong>Dark mode</strong> follows your system setting. Every colour is a CSS variable with a dark counterpart.</li>
+<li><strong>Motion is optional.</strong> Page transitions and the postcards’ tilt both switch off when your system asks for reduced motion.</li>
 <li><strong>Accessibility</strong> is part of the design: a skip link, real headings and lists, labelled navigation, visible focus rings, and text alternatives for the colour shelf, which names each colour (“deep blue 34%”) for screen readers.</li>
 <li><strong>Print</strong> gets its own stylesheet, mostly for the CV.</li>
 </ul>
@@ -77,13 +75,6 @@ public/             fragments, CV PDF, images, data for interactive posts</code>
 <td>100</td>
 </tr>
 <tr class="even">
-<td><a href="/blog/2026-10-18-where-the-explainers-point/" hx-get="/c/blog/2026-10-18-where-the-explainers-point" hx-push-url="/blog/2026-10-18-where-the-explainers-point/">Where the explainers point</a></td>
-<td>99–100</td>
-<td>100</td>
-<td>100</td>
-<td>100</td>
-</tr>
-<tr class="odd">
 <td>This post</td>
 <td>100</td>
 <td>100</td>

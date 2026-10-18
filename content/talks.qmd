@@ -3,7 +3,7 @@ title: "Talks"
 description: "Conference talks, meetups and workshops by Janith Wanniarachchi on explainable AI, R and data visualisation"
 ---
 
-I love sharing what I learn, whether that's a conference talk, a meetup workshop or a tutorial for colleagues. Recent talks are about my PhD work on explainable AI. Earlier ones are workshops on R, Shiny, TensorFlow and data visualisation for Sri Lankan student and developer communities.
+I love sharing what I learn, whether that's a conference talk, a meetup workshop or a tutorial for colleagues. Recent talks are about explainable AI. Earlier ones are workshops on R, Shiny, TensorFlow and data visualisation for Sri Lankan student and developer communities.
 
 ::: {.talk-list}
 - [2026]{.year} [Visual Explanations of XAI Explainers](#user-2026) [useR! 2026]{.venue}
@@ -25,12 +25,11 @@ I love sharing what I learn, whether that's a conference talk, a meetup workshop
 <details class="talk" id="user-2026">
 <summary><h2>useR! 2026: Visual Explanations of XAI Explainers</h2></summary>
 
-LIME, SHAP, counterfactuals and Anchors often give conflicting explanations for the same prediction, because each looks at a different facet of the model. Using a wombat loan-eligibility example, this talk splits these methods into three shared parts: a perturbation mechanism, an optimisation objective and a structured output. It then shows geometric representations that place each explanation back in the data space. It also introduces two R packages from my PhD: [kumquat](https://janithwanni.github.io/kumquat/), for inspecting LIME's internals, and [kultarr](https://janithwanni.github.io/kultarr/), an Anchors implementation in pure R.
+LIME, SHAP, counterfactuals and Anchors often give conflicting explanations for the same prediction, because each looks at a different facet of the model. Using a wombat loan-eligibility example, this talk splits these methods into three shared parts: a perturbation mechanism, an optimisation objective and a structured output. It then shows geometric representations that place each explanation back in the data space. It also introduces two of my R packages: [kumquat](https://janithwanni.github.io/kumquat/), for inspecting LIME's internals, and [kultarr](https://janithwanni.github.io/kultarr/), an Anchors implementation in pure R.
 
 <div class = "talk-links">
 
 [Slides & code](https://github.com/janithwanni/user-2026)
-[Blog post](blog/2026-10-17-visual-explanations-of-explainers/visual-explanations-of-explainers.qmd)
 
 </div>
 

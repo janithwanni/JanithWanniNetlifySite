@@ -19,8 +19,7 @@ format:
 **PhD candidate, Monash University: explainable AI and data visualisation**\
 [janithcwanni@gmail.com](mailto:janithcwanni@gmail.com) ·
 [github.com/janithwanni](https://github.com/janithwanni) ·
-[linkedin.com/in/janith-wanniarachchi](https://www.linkedin.com/in/janith-wanniarachchi) ·
-[phd.janithwanni.com](https://phd.janithwanni.com)
+[linkedin.com/in/janith-wanniarachchi](https://www.linkedin.com/in/janith-wanniarachchi)
 :::
 
 ::: {.content-visible when-format="html"}
@@ -41,7 +40,7 @@ I'm looking for roles building interactive data visualisation and web tools.
 [2023 – now]{.when}
 
 **PhD, Econometrics and Business Statistics**, Monash University, Australia\
-Thesis: *Explaining AI through visual explanations and efficient interpretable models.* Supervisors: Dianne Cook, Patricia Menendez, Thiyanga Talagala, Kate Saunders. Australian Government Research Training Program (RTP) Scholarship.
+Australian Government Research Training Program (RTP) Scholarship.
 :::
 
 ::: {.cv-item}
@@ -55,26 +54,6 @@ Minors in Computer Science and Mathematics. Statistics GPA 3.88; overall GPA 3.8
 [2013]{.when}
 
 **Diploma in Web Engineering**, ESOFT Metro Campus
-:::
-
-## Research projects
-
-::: {.cv-item}
-[Chapter 2]{.when}
-
-**Visual explanations of XAI explainers**: geometric representations of LIME, SHAP, counterfactuals and Anchors in the data space.
-:::
-
-::: {.cv-item}
-[Chapter 3]{.when}
-
-**Random seeds and the complexity–parsimony trade-off**: the seed sensitivity of simple neural networks, with a Shiny teaching tool.
-:::
-
-::: {.cv-item}
-[Chapters 4–6]{.when}
-
-**kultarr, kumquat and sillysplines**: transparent R implementations of Anchors and LIME, and an interactive generator for synthetic data.
 :::
 
 ## Publications & presentations

@@ -14,9 +14,9 @@ Here's how the pieces fit together, and why I chose each one.
 ```
 content/            Quarto sources: pages, blog posts, poems
 scripts/            build-content.mjs, prerender.mjs
-src/                main.js, style.css, scrolly.js
+src/                main.js, style.css
 functions/c/        Cloudflare Pages Functions for the live sections
-public/             fragments, CV PDF, images, data for interactive posts
+public/             fragments, CV PDF, images
 ```
 
 There's one HTML shell, one stylesheet and one small script.
@@ -66,19 +66,12 @@ Three parts of the homepage change on their own:
 Each function caches its response at the edge for a few minutes, so the upstream services see at most a handful of requests no matter how many people visit.
 If one of them is down, its section simply stays empty.
 
-## Interactive posts
-
-Some posts need more than HTML.
-[Where the explainers point](../2026-10-18-where-the-explainers-point/where-the-explainers-point.qmd) is a scrollytelling version of a thesis chapter, drawn with D3.
-Its code and data load only on that page: the script is split out at build time and imported when the page has a figure to draw, and the data (exported from the paper's R results) is 13 kB compressed.
-The model's prediction surface is drawn on a canvas, and everything else is SVG in data coordinates, so zooming in redraws a single transform.
-
 ## Small choices that add up
 
 - **No trackers, no cookies, no web fonts.** The fonts are the serifs already on your device (Charter, Iowan Old Style, Palatino), so text appears instantly and nothing is downloaded.
 - **The paper grain** is a few hundred bytes of inline SVG noise, not an image.
-- **Dark mode** follows your system setting. Every colour is a CSS variable with a dark counterpart, including the class colours in the interactive figures.
-- **Motion is optional.** Page transitions, the postcards' tilt and the scrollytelling zooms all switch off when your system asks for reduced motion.
+- **Dark mode** follows your system setting. Every colour is a CSS variable with a dark counterpart.
+- **Motion is optional.** Page transitions and the postcards' tilt both switch off when your system asks for reduced motion.
 - **Accessibility** is part of the design: a skip link, real headings and lists, labelled navigation, visible focus rings, and text alternatives for the colour shelf, which names each colour ("deep blue 34%") for screen readers.
 - **Print** gets its own stylesheet, mostly for the CV.
 
@@ -91,7 +84,6 @@ I check the production build with Lighthouse (version 12) using its mobile prese
 | Home | 100 | 100 | 96\* | 100 |
 | Research | 100 | 100 | 100 | 100 |
 | CV | 100 | 100 | 100 | 100 |
-| [Where the explainers point](../2026-10-18-where-the-explainers-point/where-the-explainers-point.qmd) | 99–100 | 100 | 100 | 100 |
 | This post | 100 | 100 | 100 | 100 |
 
 On the simulated phone, the largest element paints in 1.1 to 1.3 seconds, and nothing shifts as the page loads.

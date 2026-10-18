@@ -1,54 +1,16 @@
 ---
 title: "Research"
-description: "Explainable AI, data visualisation and interpretable models: PhD research by Janith Wanniarachchi at Monash University"
+description: "Explainable AI, data visualisation and interpretable models: research and R packages by Janith Wanniarachchi"
 ---
 
 ::: {.lede}
-I am a PhD candidate in the [Department of Econometrics & Business Statistics](https://www.monash.edu/business/ebs) at Monash University, supervised by
-[Dianne Cook](https://dicook.org), Patricia Menendez, Thiyanga Talagala and Kate Saunders.
-My research asks how we can *see* what explainable AI methods are telling us, and whether simpler, interpretable models can stand in for complex ones.
-:::
-
-## PhD thesis
-
-**Explaining AI through visual explanations and efficient interpretable models**
-
-Local explainers such as LIME, SHAP, Anchors and counterfactuals each describe a different facet of a model, and they often disagree.
-The thesis places their explanations back in the data space, where they can be explored with high-dimensional visualisation such as tours.
-It rebuilds two explainers in R so that every intermediate step can be inspected, and it shows that small, well-chosen models can rival larger ones.
-
-::: {.talk-links}
-[Read the thesis](https://phd.janithwanni.com)
-[Source code](https://github.com/janithwanni/phd-thesis)
+I am a PhD candidate in the [Department of Econometrics & Business Statistics](https://www.monash.edu/business/ebs) at Monash University.
+I work on explainable AI, data visualisation and interpretable models, and I build open-source R packages along the way.
 :::
 
 ## Projects
 
 ::: {.cards}
-
-::: {.card}
-### Visual explanations of the explainers
-
-Draws SHAP, LIME, counterfactuals and Anchors geometrically in the data space so they can be compared side by side. In the same model they often name different features as most important.
-
-[With D. Cook, K. Saunders, P. Menendez & T. Talagala]{.card-meta}
-
-[Chapter](https://phd.janithwanni.com/03-chap3-geom.html) ·
-[Interactive essay](blog/2026-10-18-where-the-explainers-point/where-the-explainers-point.qmd) ·
-[Blog post](blog/2026-10-17-visual-explanations-of-explainers/visual-explanations-of-explainers.qmd) ·
-[useR! 2026 talk](https://github.com/janithwanni/user-2026)
-:::
-
-::: {.card}
-### Random seeds, stability & parsimony
-
-Single-layer neural networks show that simple models can match complex ones but are harder to find: their accuracy swings with the random seed. The project comes with a Shiny teaching tool.
-
-[Neural networks · Shiny · teaching]{.card-meta}
-
-[Chapter](https://phd.janithwanni.com/04-chap4-seed.html) ·
-[Blog post](blog/2026-10-17-random-seeds-and-simple-models/random-seeds-and-simple-models.qmd)
-:::
 
 ::: {.card}
 ### kultarr: Anchors, revisited
@@ -57,9 +19,7 @@ A pure-R implementation of Anchors that you can debug and visualise. It uses S7 
 
 [R package · in development]{.card-meta}
 
-[Chapter](https://phd.janithwanni.com/05-chap5-anchors.html) ·
-[Docs](https://janithwanni.github.io/kultarr/) ·
-[Blog post](blog/2026-10-17-rebuilding-lime-and-anchors-in-r/rebuilding-lime-and-anchors-in-r.qmd)
+[Docs](https://janithwanni.github.io/kultarr/)
 :::
 
 ::: {.card}
@@ -69,7 +29,6 @@ A transparent take on LIME for tabular data. It returns the perturbations, predi
 
 [R package · CRAN]{.card-meta}
 
-[Chapter](https://phd.janithwanni.com/06-chap6-kumquat.html) ·
 [Docs](https://janithwanni.github.io/kumquat/) ·
 [CRAN](https://cran.r-project.org/package=kumquat)
 :::
@@ -81,7 +40,6 @@ An interactive widget for sketching a linear-spline decision boundary and downlo
 
 [R package · htmlwidget]{.card-meta}
 
-[Chapter](https://phd.janithwanni.com/07-chap7-sillysplines.html) ·
 [Docs](https://janithwanni.github.io/sillysplines/)
 :::
 
