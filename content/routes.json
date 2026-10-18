@@ -48,10 +48,22 @@
     "description": "One of my experiences in telling a story with data and the challenges associated with the journey"
   },
   {
+    "route": "/blog/2025-05-12-side-projects-in-visualisation/",
+    "fragment": "/c/blog/2025-05-12-side-projects-in-visualisation.html",
+    "title": "Side projects in visualisation and data stories · Janith Wanniarachchi",
+    "description": "Interactive charts in D3 and Svelte, and two scrollytelling pieces made with the Closeread Quarto extension: a look at Bumble’s finances and a reading of Hozier’s Icarian."
+  },
+  {
     "route": "/blog/2026-10-18-how-this-site-is-built/",
     "fragment": "/c/blog/2026-10-18-how-this-site-is-built.html",
     "title": "How this site is built · Janith Wanniarachchi",
     "description": "Quarto for writing, htmx for navigation, a few edge functions for the live bits, and no trackers: the plumbing behind this website."
+  },
+  {
+    "route": "/blog/2026-10-19-side-projects-in-visualisation/",
+    "fragment": "/c/blog/2026-10-19-side-projects-in-visualisation.html",
+    "title": "Side projects in visualisation and data stories · Janith Wanniarachchi",
+    "description": "Interactive charts in D3 and Svelte, and two scrollytelling pieces made with the Closeread Quarto extension: a look at Bumble’s finances and a reading of Hozier’s Icarian."
   },
   {
     "route": "/creative/",
