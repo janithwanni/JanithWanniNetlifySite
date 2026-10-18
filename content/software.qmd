@@ -102,5 +102,6 @@ Detects data leakage between series in forecasting competitions. I sped up its c
 ## Apps & tools
 
 - **[Bird watcher](https://janithwanni.shinyapps.io/abuja-bird-watcher/)**: a Shiny and leaflet app for exploring bird-watching sites in Nigeria with GBIF data, built for the Abuja useR group.
+- **[Clamp maker](https://clamp-maker.netlify.app/)**: a Svelte app that runs R in the browser with webR to generate and download synthetic two-class datasets. It led to sillysplines. ([GitHub](https://github.com/janithwanni/clamp-maker))
 - **Netball data entry**: a real-time Shiny app backed by Azure SQL for the Sri Lankan national netball team (Sports Analytics Unit, University of Sri Jayewardenepura).
 - **Shiny dashboards for life-sciences clients** at [Appsilon](https://www.appsilon.com), plus engineering support for their R packages.

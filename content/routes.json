@@ -54,6 +54,12 @@
     "description": "Interactive charts in D3 and Svelte, and two scrollytelling pieces made with the Closeread Quarto extension: a look at Bumble’s finances and a reading of Hozier’s Icarian."
   },
   {
+    "route": "/blog/2025-12-10-clamp-maker-r-in-the-browser/",
+    "fragment": "/c/blog/2025-12-10-clamp-maker-r-in-the-browser.html",
+    "title": "Clamp maker: running R in the browser with webR · Janith Wanniarachchi",
+    "description": "How a small Svelte app generated synthetic classification data by running an R script in the browser with webR, and why it turned into the sillysplines package."
+  },
+  {
     "route": "/blog/2026-10-18-how-this-site-is-built/",
     "fragment": "/c/blog/2026-10-18-how-this-site-is-built.html",
     "title": "How this site is built · Janith Wanniarachchi",

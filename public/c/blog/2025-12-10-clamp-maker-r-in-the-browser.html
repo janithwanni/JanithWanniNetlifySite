@@ -1,0 +1,99 @@
+<title>Clamp maker: running R in the browser with webR · Janith Wanniarachchi</title>
+<article class="post"><header class="page-head"><a class="back" href="/blog/" hx-get="/c/blog" hx-push-url="/blog/">← Blog</a><h1>Clamp maker: running R in the browser with webR</h1><p class="meta"><time datetime="2025-12-10">10 Dec 2025</time> · 7 min read</p></header><p>I often need small two-dimensional datasets with a decision boundary I chose: two classes, a boundary of a known shape, and a few things I can change, like how much the classes overlap or how many labels are wrong. With data like that, I can see what a model or an explainer does when I know what the right answer is.</p>
+<p>I had an R script that made this kind of data. In October 2024 I wanted to use it without opening RStudio, and I wanted to see the data change while I moved a slider. So I built <a href="https://clamp-maker.netlify.app/">clamp maker</a> (<a href="https://github.com/janithwanni/clamp-maker">GitHub</a>), a Svelte app that runs that same R script in the browser with <a href="https://docs.r-wasm.org/webr/latest/">webR</a>. There’s no server. A year later, that app is the reason <a href="https://janithwanni.github.io/sillysplines/">sillysplines</a> exists.</p>
+<h2 id="what-it-does">What it does</h2>
+<p>The page has a column of sliders and a scatterplot. The sliders are:</p>
+<ul>
+<li><strong>Rotation</strong>: rotates the whole dataset around its centre, from 0 to 360 degrees.</li>
+<li><strong>Overlap</strong>: pushes class A up and class B down so they run into each other.</li>
+<li><strong>Contamination</strong>: the proportion of labels in each class that get flipped.</li>
+<li><strong>Number of points</strong>: how many points to sample before cropping.</li>
+<li><strong>Train test split</strong>: the proportion of points that go into the training set.</li>
+<li><strong>Brush between</strong>: how many of the points close to the boundary to keep.</li>
+<li><strong>Seed</strong>: so you can get the same dataset again.</li>
+</ul>
+<p>Move a slider and the data is generated again and redrawn. Three buttons download the full population, the training set or the test set as CSV.</p>
+<h2 id="the-r-side">The R side</h2>
+<p>All the data generation happens in one R script. It samples points uniformly on a square and labels them by which side of a sine wave they fall on:</p>
+<pre class="r"><code>generate_data &lt;- function(rotation, overlap, contamination, num_points,
+                          train_split, brush, seed) {
+  set.seed(seed)
+  x &lt;- runif(num_points, -3, 3)
+  y &lt;- runif(num_points, -3, 3)
+  sin_x &lt;- sin(3*pi*x)/2
+  cl &lt;- ifelse(y &lt; sin_x, "A", "B")
+  data &lt;- tibble(x = x, y = y, class = cl) |&gt;
+    brush_border(sin_x, brush) |&gt;
+    overlap_data(overlap) |&gt;
+    contaminate_data(contamination) |&gt;
+    rotate_data(rotation)
+  data &lt;- data |&gt; filter(x &gt; -1, x &lt; 1, y &gt; -1, y &lt; 1)
+  training_indices &lt;- sample(nrow(data), size = round(nrow(data) * train_split))
+  list(pop = data, train = data[training_indices, ], test = data[-training_indices, ])
+}</code></pre>
+<p>Each slider maps to one small function in the pipeline. <code>brush_border()</code> subsamples the points near the wave, <code>overlap_data()</code> shifts each class up or down, <code>contaminate_data()</code> flips a random set of labels, and <code>rotate_data()</code> multiplies the centred coordinates by a rotation matrix. The last step crops to the middle of the square, <code>[-1, 1]</code> on both axes, so the edges of the sampling area never show up after a rotation. Inside that window the sine wave has a sawtooth-like zigzag, and that’s where the “clamp” in the name comes from: the two classes bite into each other like the jaws of a clamp.</p>
+<p>I didn’t rewrite any of this in JavaScript. The app downloads the script from GitHub and runs it.</p>
+<h2 id="the-webr-side">The webR side</h2>
+<p>webR is R compiled to WebAssembly. The R interpreter runs inside a web worker in the page, and from JavaScript you send it code and get R objects back. Clamp maker starts it up in four steps:</p>
+<pre class="js"><code>const webR = new WebR();
+webR.init()
+  .then(() =&gt; webR.evalR(`download.file('${SOURCE_FILE}', 'script.R')`))
+  .then(() =&gt; webR.installPackages(['tidyverse', 'here']))
+  .then(() =&gt; webR.evalR("source('script.R');"))
+  .then(() =&gt; { window.webR = webR; return webR; });</code></pre>
+<ol type="1">
+<li><code>init()</code> downloads and starts the R runtime.</li>
+<li><code>download.file()</code> runs <em>inside</em> R and saves the script to webR’s virtual file system.</li>
+<li><code>installPackages()</code> gets WebAssembly builds of the packages from the webR package repository.</li>
+<li><code>source()</code> defines <code>generate_data()</code> and its helpers in the R session.</li>
+</ol>
+<p>Once that’s done, generating a dataset is one <code>evalR()</code> call. The slider values go straight into the R code as a string:</p>
+<pre class="js"><code>webR.evalR(`generate_data(
+  rotation = ${rotation}, overlap = ${overlap},
+  contamination = ${contamination}, num_points = ${num_points},
+  train_split = ${train_split}, brush = ${brush}, seed = ${seed}
+)`)</code></pre>
+<p>What comes back is a proxy to an R list, not a JavaScript object. <code>pluck()</code> pulls out the <code>pop</code>, <code>train</code> and <code>test</code> elements, and <code>toD3()</code> turns each data frame into an array of row objects, <code>[{x, y, class}, ...]</code>, which is the shape D3 and LayerCake expect. The three arrays go into a Svelte store so the download buttons can find them later, and the population array is returned for the plot.</p>
+<h2 id="the-svelte-side">The Svelte side</h2>
+<p>Svelte’s <code>{#await}</code> blocks handle the loading states with very little code:</p>
+<pre class="svelte"><code>{#await load_webR()}
+  webR is loading
+{:then webr_value}
+  {#await generate_data(webr_value, group)}
+    Generating data
+  {:then data}
+    &lt;LayerCake {data} x="x" y="y"&gt;
+      &lt;Svg&gt;
+        &lt;Scatter fillKey="class" {fillScale} r="2" /&gt;
+        &lt;AxisX /&gt;
+        &lt;AxisY /&gt;
+      &lt;/Svg&gt;
+    &lt;/LayerCake&gt;
+  {/await}
+{/await}</code></pre>
+<p><code>group</code> is an object that holds every slider value. The sliders are bound to it, so when one moves, Svelte sees that <code>group</code> changed, runs <code>generate_data()</code> again and redraws the plot. <code>load_webR()</code> doesn’t depend on anything reactive, so it only runs once.</p>
+<p>The scatterplot is built with <a href="https://layercake.graphics/">LayerCake</a>, which sets up the scales and leaves the SVG to you. The two classes use ggplot2’s default red and teal so the plots match what I’d get in R. Downloading a CSV happens entirely in the browser: turn the array into comma-separated text, wrap it in a <code>Blob</code>, and click a temporary <code>&lt;a download&gt;</code> link.</p>
+<h2 id="the-headers">The headers</h2>
+<p>Most of the commits in the repo are me fighting with this part. webR works best when the page is <em>cross-origin isolated</em>, because that lets the worker use <code>SharedArrayBuffer</code> to talk to the main thread. A page is isolated when it’s served with two headers:</p>
+<pre class="toml"><code>[[headers]]
+  for = "/*"
+  [headers.values]
+    cross-origin-opener-policy = "same-origin"
+    cross-origin-embedder-policy = "require-corp"</code></pre>
+<p>That block goes in <code>netlify.toml</code> for the deployed site. The Vite dev server needs the same headers too, so <code>vite.config.js</code> has a small plugin that adds them to every response. Commit messages like “add coi now maybe” and “add cors maybe” tell you how that went.</p>
+<h2 id="what-it-taught-me">What it taught me</h2>
+<p>Clamp maker worked, and I used it. It also showed me where the idea fell short.</p>
+<p><strong>Startup was slow.</strong> Installing the tidyverse into webR every time the page loads means many megabytes of packages before anything appears on the screen, all for a few <code>filter()</code> and <code>mutate()</code> calls. (<code>here</code> gets installed too, and the script never uses it.) Then every slider change runs the full pipeline on 50,000 points again.</p>
+<p><strong>JavaScript’s falsy values bit me.</strong> The defaults in <code>generate_data()</code> are written as <code>params.overlap || 0.1</code>. In JavaScript <code>0</code> is falsy, so moving the overlap or contamination slider all the way to zero quietly gives you 0.1 or 0.3. <code>??</code> would have been the right operator.</p>
+<p><strong>The boundary was always a sine wave.</strong> This was the real problem. I could rotate it, blur it and add label noise, but I couldn’t change its <em>shape</em>. Every time I wanted a different boundary (a step, a corner, a curve that bends only once) I had to go back and edit the R script. What I actually wanted was to draw the boundary myself.</p>
+<h2 id="how-it-became-sillysplines">How it became sillysplines</h2>
+<p><a href="https://github.com/janithwanni/sillysplines">sillysplines</a> is clamp maker turned inside out.</p>
+<p>Clamp maker put R inside a web page. sillysplines puts a web page inside R. It’s an htmlwidget, so you call <code>sillysplines()</code> in your R session and a small Svelte canvas opens. You click to add points to a piecewise linear boundary and drag them around until it’s the shape you want. <strong>Download boundary</strong> saves the points as a JSON file.</p>
+<p>The data generation then happens in normal R, where it’s fast and reproducible:</p>
+<pre class="r"><code>library(sillysplines)
+sillysplines()
+
+create_data(coord_filepath = "boundary.json", n_samples = 1000)</code></pre>
+<p><code>create_data()</code> samples points uniformly over the area the boundary covers. It interpolates the boundary with <code>approxfun()</code> and labels each point “Above” or “Below” it. It doesn’t need the tidyverse. The package imports only <code>htmltools</code>, <code>htmlwidgets</code>, <code>jsonlite</code> and <code>withr</code>, so nothing heavy gets loaded just to draw a line.</p>
+<p>Some of clamp maker’s ideas came along too, starting with a seed so you can get the same dataset again. I’d like to bring back the rest, like noise and gaps at the boundary. The difference is that the boundary is whatever you draw.</p>
+<p>I still like clamp maker. It was the first time I ran R in a browser with no server behind it, and it’s a good example of what webR makes possible. But the most useful thing it did was show me what I needed to build next.</p></article>
