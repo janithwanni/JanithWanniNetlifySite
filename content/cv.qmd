@@ -204,7 +204,7 @@ Curated and cleaned the 2021 DSjobtracker data for CRAN.
 ::: {.cv-item}
 [2019 – 2026]{.when}
 
-useR! 2026 · IASC-ARS 2023 · useR! 2022 · Abuja useR Group (2022) · EDEX Expo (2022) · R-Ladies Colombo (2021) · Fundamentals of Data Visualisation and Tableau workshops (2021) · GDG ML Bootcamp (2019) · TensorFlow All Around (2019).
+useR! 2026 · NUMBATs Hacky Hour (2023, 2024) · IASC-ARS 2023 · useR! 2022 · Abuja useR Group (2022) · EDEX Expo (2022) · R-Ladies Colombo (2021) · Fundamentals of Data Visualisation and Tableau workshops (2021) · GDG ML Bootcamp (2019) · TensorFlow All Around (2019).
 Full list at [janithwanni.com/talks](https://janithwanni.com/talks/).
 :::
 

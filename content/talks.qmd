@@ -7,7 +7,9 @@ I love sharing what I learn, whether that's a conference talk, a meetup workshop
 
 ::: {.talk-list}
 - [2026]{.year} [Visual Explanations of XAI Explainers](#user-2026) [useR! 2026]{.venue}
+- [2024]{.year} [Fun with ObservableJS in Quarto](#hacky-hour-ojs-2024) [NUMBATs Hacky Hour]{.venue}
 - [2023]{.year} [Seeing the Smoke Before the Fire](#iasc-ars-2023) [IASC-ARS, Sydney · award]{.venue}
+- [2023]{.year} [webR: R without the hassle (almost)](#hacky-hour-webr-2023) [NUMBATs Hacky Hour]{.venue}
 - [2022]{.year} [Interactive maps in Shiny with leaflet](#abuja-user-group-september-2022-meetup) [Abuja useR Group]{.venue}
 - [2022]{.year} [scatteR: generating instance space with scagnostics](#user-2022) [useR! 2022]{.venue}
 - [2022]{.year} [Explainability of ML interpretability methods](#octave-thesis-presentation) [Octave Symposium · top 10]{.venue}
@@ -35,6 +37,20 @@ LIME, SHAP, counterfactuals and Anchors often give conflicting explanations for 
 
 </details>
 
+<details class="talk" id="hacky-hour-ojs-2024">
+<summary><h2>NUMBATs Hacky Hour 2024: Fun with ObservableJS</h2></summary>
+
+A short walkthrough for R users on using ObservableJS (OJS) inside Quarto, given at the Hacky Hour of the [NUMBATs](https://numbat.space) group at Monash on 7 March 2024. Starting from the palmer penguins data, it shows how to pass data from R to OJS with `ojs_define()`, build a faceted scatterplot with Observable Plot and compare it to ggplot2, and then add interactivity with Observable Inputs. It all runs in the browser, so there's no Shiny server needed.
+
+<div class = "talk-links">
+
+[Document](https://janithwanni.quarto.pub/fun-with-ojs/)
+[GitHub](https://github.com/janithwanni/fun-with-ojs)
+
+</div>
+
+</details>
+
 <details class="talk" id="iasc-ars-2023">
 <summary><h2>IASC-ARS 2023: Seeing the Smoke Before the Fire</h2></summary>
 
@@ -44,6 +60,20 @@ This talk was given at the 12th conference of the Asian Regional Section of the 
 
 [Slides](https://janithwanni.quarto.pub/seeing-the-smoke-before-the-fire/)
 [GitHub](https://github.com/janithwanni/iascars-2023-sydney)
+
+</div>
+
+</details>
+
+<details class="talk" id="hacky-hour-webr-2023">
+<summary><h2>NUMBATs Hacky Hour 2023: webR</h2></summary>
+
+An introduction to webR, which runs R entirely in a web browser, given at the Hacky Hour of the [NUMBATs](https://numbat.space) group at Monash on 6 September 2023. The talk follows John, a student who turns up to a tutorial with only a tablet. It covers managing files, installing packages, wrangling data and making plots (including sf maps) in the webR REPL. It then explains how webR differs from Shiny.
+
+<div class = "talk-links">
+
+[Slides](https://webr-hacky-hour.netlify.app/)
+[GitHub](https://github.com/janithwanni/webr-hacky-hour)
 
 </div>
 
