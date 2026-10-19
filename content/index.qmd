@@ -27,7 +27,7 @@ and, enriching life by writing poems for others.
 ```{=html}
 <section class="garden" aria-label="A small garden grown from the colours of my photographs" data-palette="/c/palette">
 <svg class="garden-bed" aria-hidden="true"></svg>
-<p class="garden-note">Grown from the colours of a photograph I took. <button type="button" class="garden-plant">Plant a seed</button></p>
+<p class="garden-note">Grown from the colours of photographs I have taken. <button type="button" class="garden-plant">Plant a seed</button></p>
 </section>
 ```
 

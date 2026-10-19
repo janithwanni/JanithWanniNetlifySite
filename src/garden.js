@@ -1,10 +1,10 @@
 // The homepage garden: imaginary plants grown by seeded, recursive branching in SVG and
-// coloured from the palette of one of my photographs (/c/palette, one per day). Colour
+// coloured from the palettes of my photographs (/c/palette), a random one per plant. Colour
 // follows growth: the newest shoots and first leaves take the palest colour, older
 // branches the most saturated, flowers the brightest, and overlapping leaves are
 // multiplied together so foliage darkens where it crowds. Click to plant a seed.
 //
-// Everything lives in the DOM (the palette in data-stages, the plants as <g>s), and the
+// Everything lives in the DOM (the palettes in data-stages, the plants as <g>s), and the
 // listeners are delegated, so htmx's history snapshot restores a working garden.
 
 const NS = 'http://www.w3.org/2000/svg';
@@ -62,7 +62,8 @@ function stages(hexes) {
   };
 }
 
-async function choosePalette(url) {
+// Every usable photo palette, each assigned to growth stages.
+async function loadPalettes(url) {
   try {
     const res = await fetch(url, { headers: { Accept: 'application/json' } });
     if (res.status !== 200) throw new Error(`palette ${res.status}`);
@@ -70,10 +71,9 @@ async function choosePalette(url) {
     // Skip near-greyscale photographs; a garden needs some colour.
     const usable = (palettes ?? []).filter((p) => p.length >= 3 && p.some((c) => oklch(c.hex).C > 0.06));
     if (!usable.length) throw new Error('no palettes');
-    const p = usable[today() % usable.length];
-    return stages(p.sort((a, b) => b.share - a.share).slice(0, 7).map((c) => c.hex));
+    return usable.map((p) => stages(p.sort((a, b) => b.share - a.share).slice(0, 7).map((c) => c.hex)));
   } catch {
-    return stages(FALLBACK);
+    return [stages(FALLBACK)];
   }
 }
 
@@ -166,7 +166,7 @@ function bed(svg) {
   node('path', { class: 'ground', d: `M0 ${GROUND + 1}Q${W / 4} ${GROUND - 3} ${W / 2} ${GROUND + 1}T${W} ${GROUND + 1}` }, svg);
 }
 
-const coloursOf = (box) => JSON.parse(box.dataset.stages);
+const pick = (list, rand = Math.random) => list[Math.floor(rand() * list.length)];
 
 export async function growGarden(root) {
   const box = root.querySelector('.garden');
@@ -175,8 +175,8 @@ export async function growGarden(root) {
   box.setAttribute('data-loaded', '');
   const svg = box.querySelector('.garden-bed');
   bed(svg);
-  const colours = await choosePalette(box.dataset.palette);
-  box.dataset.stages = JSON.stringify(colours);
+  const palettes = await loadPalettes(box.dataset.palette);
+  box.dataset.stages = JSON.stringify(palettes);
 
   // Plant the day's first few seeds once the garden scrolls into view.
   new IntersectionObserver((entries, io) => {
@@ -186,7 +186,7 @@ export async function growGarden(root) {
     const n = 3 + Math.floor(rand() * 3);
     for (let i = 0; i < n; i++) {
       const x = W * (i + 0.5) / n + (rand() - 0.5) * (W / n) * 0.5;
-      plant(svg, x, today() * 31 + i, colours, i * 350);
+      plant(svg, x, today() * 31 + i, pick(palettes, rand), i * 350);
     }
   }, { threshold: 0.3 }).observe(box);
 }
@@ -200,5 +200,5 @@ document.addEventListener('click', (e) => {
   if (e.target.closest('.garden-plant')) x = 40 + Math.random() * (W - 80);
   else if (e.target.closest('.garden-bed')) x = new DOMPoint(e.clientX, e.clientY).matrixTransform(svg.getScreenCTM().inverse()).x;
   else return;
-  plant(svg, x, (Math.random() * 2 ** 32) >>> 0, coloursOf(box));
+  plant(svg, x, (Math.random() * 2 ** 32) >>> 0, pick(JSON.parse(box.dataset.stages)));
 });

@@ -857,7 +857,7 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 .garden-plant:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
 .garden-plant:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 @media (prefers-reduced-motion: no-preference) {
-  .garden-bed .stem { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 0.42s ease-out var(--d, 0ms) forwards; }
+  .garden-bed .stem { stroke-dasharray: 1 2; stroke-dashoffset: 1; animation: draw 0.42s ease-out var(--d, 0ms) forwards; }
   .garden-bed .leaf, .garden-bed .bud { animation: unfurl 0.6s cubic-bezier(0.3, 1.4, 0.5, 1) var(--d, 0ms) both; }
 }
 @keyframes draw { to { stroke-dashoffset: 0; } }
