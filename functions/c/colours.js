@@ -3,14 +3,12 @@
 // Opening a spine shows the photo; until then no image is downloaded. Responses are
 // kept in the edge cache, so getcolors is hit at most once per TTL per data centre.
 
-const SOURCE = 'https://hear.janithwanni.com/.netlify/functions/getcolors?limit=12';
+import { photos } from '../_lib/photos.js';
+
 // New photos show up within TTL (edge) or a minute (browser).
 const TTL = 300;
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-
-// Colours go straight into style="", so only plain hex is let through.
-const isHex = (h) => typeof h === 'string' && /^#(?:[0-9a-f]{3}){1,2}$/i.test(h);
 
 const dateFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Australia/Melbourne' });
 const shortFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', timeZone: 'Australia/Melbourne' });
@@ -27,14 +25,6 @@ function colourName(hex) {
   const hue = (max === r ? (g - b) / d + 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4) * 60 % 360;
   const names = [[15, 'red'], [45, 'orange'], [70, 'yellow'], [160, 'green'], [200, 'teal'], [255, 'blue'], [290, 'violet'], [335, 'pink'], [360, 'red']];
   return tone + names.find(([end]) => hue < end)[1];
-}
-
-async function photos() {
-  const res = await fetch(SOURCE, { headers: { Accept: 'application/json' } });
-  if (!res.ok) throw new Error(`getcolors ${res.status}`);
-  return ((await res.json()).images ?? [])
-    .map((p) => ({ ...p, palette: (p.palette ?? []).filter((c) => isHex(c.hex) && c.share > 0) }))
-    .filter((p) => p.palette.length);
 }
 
 function spine(p) {

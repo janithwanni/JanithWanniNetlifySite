@@ -1,11 +1,14 @@
 import htmx from 'htmx.org';
 import './style.css';
+import { growGarden } from './garden.js';
 
 const main = document.getElementById('main');
 const fragmentFor = (pathname) => `/c${pathname.replace(/\/$/, '') || '/'}`;
 
 function markCurrentSection() {
   const section = location.pathname.split('/')[1];
+  // Each section has its own accent colour (the --ch-* tokens in style.css).
+  document.documentElement.dataset.section = section || 'home';
   for (const a of document.querySelectorAll('.site-head nav a')) {
     if (a.dataset.section === section) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
@@ -56,7 +59,7 @@ function postcards(thoughts) {
         el('p', {}, message),
         el('p', { className: 'postcard-sign' }, `${weekdayFmt.format(date)}, `, timeEl(date))),
       el('div', { className: 'postcard-side', ariaHidden: 'true' },
-        el('span', { className: 'stamp' }, el('span', {}, '❦')),
+        el('span', { className: 'stamp' }, el('span', {}, '≽(•⩊ •マ≼')),
         el('span', { className: 'postmark' }, el('span', {}, `${day} ${month}`, el('br'), year)),
         el('span', { className: 'address' }, 'To the wanderer', el('br'), 'wherever you are'),
         el('span', { className: 'postcard-no' }, `No. ${thoughts.length - i}`)));
@@ -88,13 +91,48 @@ async function loadThoughts() {
   }
 }
 
+// Each recently played track takes a colour from its album cover: the most saturated
+// mid-tone pixel of the thumbnail. Covers come through /c/cover, same-origin, so the
+// canvas can read them.
+function tintCovers(root) {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 8;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  for (const img of root.querySelectorAll('.listening img')) {
+    const tint = () => {
+      try {
+        ctx.drawImage(img, 0, 0, 8, 8);
+        const px = ctx.getImageData(0, 0, 8, 8).data;
+        let best = null, bestScore = -1;
+        for (let i = 0; i < px.length; i += 4) {
+          const [r, g, b] = [px[i], px[i + 1], px[i + 2]];
+          const max = Math.max(r, g, b), min = Math.min(r, g, b), l = (max + min) / 510;
+          const sat = max === min ? 0 : (max - min) / (255 - Math.abs(max + min - 255));
+          const score = sat * (1 - Math.abs(l - 0.5) * 1.6);
+          if (score > bestScore) { bestScore = score; best = `rgb(${r} ${g} ${b})`; }
+        }
+        if (best) img.closest('li').style.setProperty('--cover', best);
+      } catch (err) {
+        console.error('cover colour:', err);
+      }
+    };
+    if (img.complete && img.naturalWidth) tint();
+    else img.addEventListener('load', tint, { once: true });
+  }
+}
+
+document.body.addEventListener('htmx:afterSwap', (e) => {
+  if (e.detail.target.matches?.('.listening-row')) tintCovers(e.detail.target);
+});
+
 document.body.addEventListener('htmx:afterSettle', (e) => {
   if (e.detail.target !== main) return;
   markCurrentSection();
   loadThoughts();
+  growGarden(main);
   main.focus({ preventScroll: true });
 });
-document.body.addEventListener('htmx:historyRestore', () => { markCurrentSection(); loadThoughts(); });
+document.body.addEventListener('htmx:historyRestore', () => { markCurrentSection(); loadThoughts(); growGarden(main); });
 
 // In-page links to a collapsed <details> (the talks list) open it before jumping there.
 document.addEventListener('click', (e) => {
@@ -111,5 +149,5 @@ document.body.addEventListener('htmx:responseError', (e) => {
 
 // Production pages are prerendered; the dev server only serves the empty shell.
 if (!main.firstElementChild) htmx.ajax('GET', fragmentFor(location.pathname), { target: main, swap: 'innerHTML' });
-else loadThoughts();
+else { loadThoughts(); growGarden(main); }
 markCurrentSection();

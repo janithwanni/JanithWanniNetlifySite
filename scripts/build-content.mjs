@@ -156,12 +156,12 @@ const chapter = (num, title, note, right) =>
 const contents = `<nav class="contents" aria-labelledby="contents-head">
 <h2 id="contents-head" class="rule-head">Contents</h2>
 <ol>
-<li>${link('/creative/', chapter('I', 'Creative Corner', 'Poems, letters &amp; short stories', `${bySection('creative').length} pieces`))}</li>
-<li>${link('/blog/', chapter('II', 'Blog', 'Explainable AI, statistics &amp; R', `${bySection('blog').length} essays`))}</li>
-<li>${link('/research/', chapter('III', 'Research', 'Explainable AI &amp; visualisation', `${count(byPage('/research/').html, 'h3')} works`))}</li>
-<li>${link('/software/', chapter('IV', 'Software', 'R packages &amp; tools', `${count(byPage('/software/').html, 'h3')} packages`))}</li>
-<li>${link('/talks/', chapter('V', 'Talks', 'Conferences, meetups &amp; workshops', `${count(byPage('/talks/').html, 'h2')} talks`))}</li>
-<li>${link('/cv/', chapter('VI', 'Curriculum Vitae', 'The longer story', 'HTML · PDF'))}</li>
+<li data-ch="creative">${link('/creative/', chapter('I', 'Creative Corner', 'Poems, letters &amp; short stories', `${bySection('creative').length} pieces`))}</li>
+<li data-ch="blog">${link('/blog/', chapter('II', 'Blog', 'Explainable AI, statistics &amp; R', `${bySection('blog').length} essays`))}</li>
+<li data-ch="research">${link('/research/', chapter('III', 'Research', 'Explainable AI &amp; visualisation', `${count(byPage('/research/').html, 'h3')} works`))}</li>
+<li data-ch="software">${link('/software/', chapter('IV', 'Software', 'R packages &amp; tools', `${count(byPage('/software/').html, 'h3')} packages`))}</li>
+<li data-ch="talks">${link('/talks/', chapter('V', 'Talks', 'Conferences, meetups &amp; workshops', `${count(byPage('/talks/').html, 'h2')} talks`))}</li>
+<li data-ch="cv">${link('/cv/', chapter('VI', 'Curriculum Vitae', 'The longer story', 'HTML · PDF'))}</li>
 </ol>
 </nav>`;
 
@@ -170,7 +170,7 @@ const excerpt = latest.html.match(/<p>((?:(?!<\/p>)[\s\S]){40,}?)<\/p>/)?.[1] ??
 const lately = [...older, ...bySection('blog')]
   .sort((a, b) => b.date.localeCompare(a.date))
   .slice(0, 4)
-  .map((p) => `<li><time datetime="${p.date}">${fmtMonth(p.date)}</time>${link(p.route, p.title)}` +
+  .map((p) => `<li data-ch="${p.section}"><time datetime="${p.date}">${fmtMonth(p.date)}</time>${link(p.route, p.title)}` +
     `<span class="kind">${p.section === 'blog' ? 'essay' : 'verse'}</span></li>`);
 const notebook = `<section class="notebook" aria-labelledby="notebook-head">
 <h2 id="notebook-head" class="rule-head">From the notebook</h2>

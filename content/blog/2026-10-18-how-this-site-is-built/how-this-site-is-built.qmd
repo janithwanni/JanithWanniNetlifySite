@@ -5,7 +5,7 @@ date: '2026-10-18'
 description: "Quarto for writing, htmx for navigation, a few edge functions for the live bits, and no trackers: the plumbing behind this website."
 ---
 
-This site is meant to feel like an old book: system serif fonts, a paper-grain background, a table of contents on the title page and a fleuron at the end of every post.
+This site is meant to feel like an old book: system serif fonts, lavender-white pages, a table of contents on the title page and a fleuron at the end of every post.
 Underneath it's a small, fast web app.
 Here's how the pieces fit together, and why I chose each one.
 
@@ -69,7 +69,7 @@ If one of them is down, its section simply stays empty.
 ## Small choices that add up
 
 - **No trackers, no cookies, no web fonts.** The fonts are the serifs already on your device (Charter, Iowan Old Style, Palatino), so text appears instantly and nothing is downloaded.
-- **The paper grain** is a few hundred bytes of inline SVG noise, not an image.
+- **The garden** on the homepage is drawn in your browser: seeded, recursive branching in SVG, coloured from the palettes of my photographs. Click it to plant a seed.
 - **Dark mode** follows your system setting. Every colour is a CSS variable with a dark counterpart.
 - **Motion is optional.** Page transitions and the postcards' tilt both switch off when your system asks for reduced motion.
 - **Accessibility** is part of the design: a skip link, real headings and lists, labelled navigation, visible focus rings, and text alternatives for the colour shelf, which names each colour ("deep blue 34%") for screen readers.

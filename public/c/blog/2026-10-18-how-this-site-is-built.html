@@ -1,5 +1,5 @@
 <title>How this site is built · Janith Wanniarachchi</title>
-<article class="post"><header class="page-head"><a class="back" href="/blog/" hx-get="/c/blog" hx-push-url="/blog/">← Blog</a><h1>How this site is built</h1><p class="meta"><time datetime="2026-10-18">18 Oct 2026</time> · 5 min read</p></header><p>This site is meant to feel like an old book: system serif fonts, a paper-grain background, a table of contents on the title page and a fleuron at the end of every post. Underneath it’s a small, fast web app. Here’s how the pieces fit together, and why I chose each one.</p>
+<article class="post"><header class="page-head"><a class="back" href="/blog/" hx-get="/c/blog" hx-push-url="/blog/">← Blog</a><h1>How this site is built</h1><p class="meta"><time datetime="2026-10-18">18 Oct 2026</time> · 5 min read</p></header><p>This site is meant to feel like an old book: system serif fonts, lavender-white pages, a table of contents on the title page and a fleuron at the end of every post. Underneath it’s a small, fast web app. Here’s how the pieces fit together, and why I chose each one.</p>
 <h2 id="the-shape-of-it">The shape of it</h2>
 <pre><code>content/            Quarto sources: pages, blog posts, poems
 scripts/            build-content.mjs, prerender.mjs
@@ -34,7 +34,7 @@ public/             fragments, CV PDF, images</code></pre>
 <h2 id="small-choices-that-add-up">Small choices that add up</h2>
 <ul>
 <li><strong>No trackers, no cookies, no web fonts.</strong> The fonts are the serifs already on your device (Charter, Iowan Old Style, Palatino), so text appears instantly and nothing is downloaded.</li>
-<li><strong>The paper grain</strong> is a few hundred bytes of inline SVG noise, not an image.</li>
+<li><strong>The garden</strong> on the homepage is drawn in your browser: seeded, recursive branching in SVG, coloured from the palettes of my photographs. Click it to plant a seed.</li>
 <li><strong>Dark mode</strong> follows your system setting. Every colour is a CSS variable with a dark counterpart.</li>
 <li><strong>Motion is optional.</strong> Page transitions and the postcards’ tilt both switch off when your system asks for reduced motion.</li>
 <li><strong>Accessibility</strong> is part of the design: a skip link, real headings and lists, labelled navigation, visible focus rings, and text alternatives for the colour shelf, which names each colour (“deep blue 34%”) for screen readers.</li>

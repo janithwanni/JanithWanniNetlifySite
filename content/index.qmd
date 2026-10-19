@@ -5,23 +5,31 @@ pagetitle: Janith Wanniarachchi
 <!-- The homepage. #contents and #notebook are filled in by scripts/build-content.mjs -->
 
 ::: {.masthead}
-[Statistician · Developer · Poet]{.overline}
 
 ```{=html}
 <h1 class="name">Janith Wanniarachchi</h1>
 ```
 
-[❦]{.fleuron aria-hidden="true"}
+[≽(•⩊ •マ≼]{.fleuron aria-hidden="true"}
 
 PhD candidate in Econometrics & Business Statistics at Monash University,
 studying data visualisation, explainable AI and extreme climate events, 
-and, in the margins, writing poems.
+and, enriching life by writing poems for others.
 :::
 
 ::: {.now-next}
 [Now]{.nn} Finishing my PhD at Monash.\
-[Next]{.nn} Looking for roles in **data visualisation and web development**: interactive tools that help people see what their data and models are doing. [Say hello](mailto:janithcwanni@gmail.com).
+[Next]{.nn} Looking for roles building tools for **data visualisation and web development** 
+[Reach out](mailto:janithcwanni@gmail.com).
 :::
+
+<!-- Grown by src/garden.js from the palettes at /c/palette (or its own, if that is unavailable). -->
+```{=html}
+<section class="garden" aria-label="A small garden grown from the colours of my photographs" data-palette="/c/palette">
+<svg class="garden-bed" aria-hidden="true"></svg>
+<p class="garden-note">Grown from the colours of a photograph I took. <button type="button" class="garden-plant">Plant a seed</button></p>
+</section>
+```
 
 ::: {.epigraph}
 [To the visitor]{.label}
@@ -71,7 +79,7 @@ Or read up on my history in [my CV](cv.qmd)
 ```
 
 ::: {.colophon}
-[⁂]{aria-hidden="true"}
+[𓇢𓆸]{aria-hidden="true"}
 
 Set in the typefaces already on your device.\
 No trackers, no cookies, only words.\

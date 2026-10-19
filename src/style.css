@@ -1,38 +1,65 @@
-/* An old book, set in the typefaces already on the reader's device. */
+/* A quiet book on lavender-white paper, set in the typefaces already on the reader's device. */
 :root {
   --serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
   --display: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, Palatino, Georgia, serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
 
-  --bg: #f4eee2;
-  --fg: #2b2622;
-  --muted: #7c6a58;
-  --line: #d6c8b0;
-  --code-bg: #ebe3d3;
+  --bg: #fcfbff;
+  --fg: #1f1d24;
+  --muted: #6b6478;
+  --line: #e3dff0;
+  --code-bg: #f3f1f9;
   --accent: #5e2a96;
   --accent-soft: #c8a2f2;
-  --card: #fbf6ea;
-  --card-edge: #e3d6bd;
+  --card: #ffffff;
+  --card-edge: #e3dff0;
   --stamp: #e9dcf7;
   --postmark: #5e2a96;
   --measure: 40rem;
+
+  /* One hue per chapter: the table of contents, and each section's accent. */
+  --ch-creative: #b0305f;
+  --ch-blog: #5e2a96;
+  --ch-research: #0f7a70;
+  --ch-software: #2b5bb0;
+  --ch-talks: #9a5a00;
+  --ch-cv: #5d5590;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #1b1916;
-    --fg: #ebe3d5;
-    --muted: #a9977f;
-    --line: #3d362d;
-    --code-bg: #25221d;
+    --bg: #16151b;
+    --fg: #e9e6f0;
+    --muted: #a29bb3;
+    --line: #34303f;
+    --code-bg: #211f28;
     --accent: #c8a2f2;
     --accent-soft: #6556a6;
-    --card: #24211c;
-    --card-edge: #3d362d;
+    --card: #1d1b24;
+    --card-edge: #34303f;
     --stamp: #352c45;
     --postmark: #c8a2f2;
+    --ch-creative: #f08fb4;
+    --ch-blog: #c8a2f2;
+    --ch-research: #5fd0c2;
+    --ch-software: #8fb2f5;
+    --ch-talks: #f0b45a;
+    --ch-cv: #b3abe0;
   }
 }
+
+/* Set by src/main.js from the URL; the homepage keeps the violet. */
+:root[data-section='creative'] { --accent: var(--ch-creative); }
+:root[data-section='research'] { --accent: var(--ch-research); }
+:root[data-section='software'] { --accent: var(--ch-software); }
+:root[data-section='talks'] { --accent: var(--ch-talks); }
+:root[data-section='cv'] { --accent: var(--ch-cv); }
+[data-ch='creative'] { --hue: var(--ch-creative); }
+[data-ch='blog'] { --hue: var(--ch-blog); }
+[data-ch='research'] { --hue: var(--ch-research); }
+[data-ch='software'] { --hue: var(--ch-software); }
+[data-ch='talks'] { --hue: var(--ch-talks); }
+[data-ch='cv'] { --hue: var(--ch-cv); }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -44,14 +71,18 @@ body {
   font: 1.125rem/1.65 var(--serif);
   text-rendering: optimizeLegibility;
   background-color: var(--bg);
-  /* paper grain: a few hundred bytes of inline SVG noise */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .3 0 0 0 0 .2 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-a { color: var(--accent); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
-a:hover { text-decoration-thickness: 2px; }
+a {
+  color: var(--accent);
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+a:hover { text-decoration-thickness: 2px; text-decoration-color: currentColor; }
 
-::selection { background: var(--accent-soft); color: #1b1916; }
+::selection { background: var(--accent-soft); color: #16151b; }
 
 .skip { position: absolute; left: -999px; }
 .skip:focus { left: 1rem; top: 1rem; background: var(--bg); padding: 0.5rem; }
@@ -131,7 +162,7 @@ blockquote {
 }
 
 hr { border: 0; margin: 2.5rem 0; text-align: center; overflow: visible; }
-hr::after { content: '⁂'; color: var(--accent); font-size: 1.3rem; }
+hr::after { content: '𓇢𓆸'; color: var(--accent); font-size: 1.3rem; }
 
 code { font-family: var(--mono); font-size: 0.85em; }
 pre {
@@ -166,7 +197,7 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 
 /* A fleuron closes every post */
 .post::after {
-  content: '❦';
+  content: '≽(•⩊ •マ≼';
   display: block;
   margin-top: 3rem;
   text-align: center;
@@ -332,24 +363,30 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
   display: flex;
   align-items: baseline;
   gap: 0.75rem;
-  padding-block: 0.6rem;
+  margin-inline: -0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 4px;
   color: var(--fg);
   text-decoration: none;
+  transition: background-color 0.2s;
 }
-.contents .num { flex: 0 0 2.2rem; font-family: var(--display); color: var(--accent); }
+.contents .num { flex: 0 0 2.2rem; font-family: var(--display); color: var(--hue, var(--accent)); }
 .contents .chapter { font: 1.3rem/1.3 var(--display); transition: color 0.2s; }
 .contents .chapter em { display: block; font: italic 0.95rem/1.4 var(--serif); color: var(--muted); }
 .contents .leader { flex: 1 1 1rem; border-bottom: 1px dotted var(--muted); transform: translateY(-0.3em); }
 .contents .count { color: var(--muted); letter-spacing: 0.06em; white-space: nowrap; }
-.contents a:hover .chapter, .contents a:focus-visible .chapter { color: var(--accent); }
+.contents a:hover, .contents a:focus-visible { background: color-mix(in srgb, var(--hue, var(--accent)) 8%, transparent); }
+.contents a:hover .chapter, .contents a:focus-visible .chapter { color: var(--hue, var(--accent)); }
+.contents a:hover .leader { border-bottom-color: var(--hue, var(--accent)); }
 
 .notebook { margin-bottom: 4rem; }
 .excerpt {
   max-width: 28rem;
   margin: 0 auto 1rem;
   padding: 2rem 1.5rem 1.5rem;
-  border: 1px solid var(--line);
-  outline: 1px solid var(--line);
+  background: color-mix(in srgb, var(--stamp) 45%, var(--card));
+  border: 1px solid color-mix(in srgb, var(--accent-soft) 55%, var(--line));
+  outline: 1px solid color-mix(in srgb, var(--accent-soft) 55%, var(--line));
   outline-offset: 5px;
 }
 .excerpt blockquote { margin: 0 0 1.25rem; padding: 0; border: 0; color: var(--fg); font-size: 1.15rem; }
@@ -371,6 +408,15 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 .lately time, .lately .kind { color: var(--muted); letter-spacing: 0.06em; }
 .lately a { color: var(--fg); text-decoration: none; }
 .lately a:hover { color: var(--accent); text-decoration: underline; }
+/* Essays and verses in "Lately" wear their chapter's colour. */
+.lately li[data-ch] {
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--hue);
+  background: color-mix(in srgb, var(--hue) 6%, transparent);
+}
+.lately li[data-ch] + li[data-ch] { margin-top: 2px; }
+.lately li[data-ch] .kind { color: var(--hue); }
+.lately li[data-ch] a:hover { color: var(--hue); }
 
 .thoughts-row:not(:empty) { margin-bottom: 4rem; }
 .thoughts li { grid-template-columns: 6.5rem minmax(0, 1fr); }
@@ -378,6 +424,9 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 
 .listening-row:not(:empty) { margin-bottom: 4rem; }
 .listening li { grid-template-columns: 2rem minmax(0, 1fr) auto; align-items: center; }
+/* --cover is sampled from the album art by src/main.js. */
+.listening li { padding-left: 0.5rem; border-left: 3px solid var(--cover, transparent); transition: background-color 0.4s, border-color 0.4s; }
+.listening li[style*='--cover'] { background: linear-gradient(90deg, color-mix(in srgb, var(--cover) 18%, transparent), transparent 70%); }
 .listening img, .listening .cover-none { display: block; width: 2rem; height: 2rem; background: var(--line); }
 .listening .track { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
 .listening a, .listening .kind { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -505,7 +554,7 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
   padding: 1.5rem 1.25rem 1.5rem 1.75rem;
   background: var(--card);
   border: 1px solid var(--card-edge);
-  box-shadow: 0 1px 0 var(--card-edge), 0 10px 22px -16px rgb(43 38 34 / 0.45);
+  box-shadow: 0 1px 0 var(--card-edge), 0 10px 22px -16px rgb(31 29 36 / 0.35);
   rotate: -0.6deg;
   transition: rotate 0.3s, translate 0.3s;
 }
@@ -706,7 +755,7 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
   padding: 1.1rem 1.25rem;
   background: var(--card);
   border: 1px solid var(--card-edge);
-  box-shadow: 0 10px 22px -16px rgb(43 38 34 / 0.45);
+  box-shadow: 0 10px 22px -16px rgb(31 29 36 / 0.35);
   font-size: 1rem;
 }
 .step:first-child { margin-top: 30vh; }
@@ -778,6 +827,61 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 
 .colophon { color: var(--muted); font-size: 0.9rem; font-style: italic; }
 .colophon span { display: block; font-style: normal; font-size: 1.4rem; color: var(--accent); }
+
+/* The garden: plants grown by src/garden.js -------------------------------- */
+.garden { margin: -1.5rem auto 4rem; }
+.garden-bed { display: block; width: 100%; height: 13rem; cursor: pointer; overflow: hidden; }
+@media (max-width: 34rem) { .garden-bed { height: 10rem; } }
+.garden-bed .ground { fill: none; stroke: var(--line); stroke-width: 1.5; }
+.garden-bed .stem { fill: none; stroke-linecap: round; }
+/* Overlapping leaves deepen where they crowd, as paint would. */
+.garden-bed .leaf { opacity: 0.8; mix-blend-mode: multiply; transform-box: view-box; transform-origin: 0 0; }
+.garden-bed .bud { transform-box: fill-box; transform-origin: center; }
+.garden-bed .plant { transition: opacity 1.1s; }
+.garden-bed .wilt { opacity: 0; }
+@media (prefers-color-scheme: dark) { .garden-bed .leaf { mix-blend-mode: screen; opacity: 0.85; } }
+.garden-note { margin: 0.5rem 0 0; color: var(--muted); font-size: 0.9rem; font-style: italic; }
+.garden-plant {
+  margin-left: 0.4em;
+  padding: 0.1em 0.7em;
+  border: 1px solid var(--accent);
+  border-radius: 1em;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-style: normal;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.garden-plant:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.garden-plant:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .garden-bed .stem { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 0.42s ease-out var(--d, 0ms) forwards; }
+  .garden-bed .leaf, .garden-bed .bud { animation: unfurl 0.6s cubic-bezier(0.3, 1.4, 0.5, 1) var(--d, 0ms) both; }
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes unfurl { from { transform: scale(0); } }
+
+/* A hand-drawn underline that draws itself under navigation links on hover. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .site-head nav a, .site-foot a, .more a, .colophon a { position: relative; }
+  .site-head nav a::after, .site-foot a::after, .more a::after, .colophon a::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -0.35em;
+    height: 0.4em;
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M1 5C14 2 22 6.5 36 4.2S58 2 71 4.6 96 6 119 3' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.35s ease-out;
+    pointer-events: none;
+  }
+  .site-head nav a:hover::after, .site-foot a:hover::after, .more a:hover::after, .colophon a:hover::after,
+  .site-head nav a:focus-visible::after, .site-foot a:focus-visible::after { clip-path: inset(0 0 0 0); }
+  .more a:hover, .colophon a:hover { text-decoration-color: transparent; }
+  .site-head nav a[aria-current]:hover { text-decoration-color: transparent; }
+}
 
 /* Motion -------------------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
