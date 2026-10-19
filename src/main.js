@@ -59,7 +59,7 @@ function postcards(thoughts) {
         el('p', {}, message),
         el('p', { className: 'postcard-sign' }, `${weekdayFmt.format(date)}, `, timeEl(date))),
       el('div', { className: 'postcard-side', ariaHidden: 'true' },
-        el('span', { className: 'stamp' }, el('span', {}, '≽(•⩊ •マ≼')),
+        el('span', { className: 'stamp' }, el('span', {}, 'ฅ')),
         el('span', { className: 'postmark' }, el('span', {}, `${day} ${month}`, el('br'), year)),
         el('span', { className: 'address' }, 'To the wanderer', el('br'), 'wherever you are'),
         el('span', { className: 'postcard-no' }, `No. ${thoughts.length - i}`)));
