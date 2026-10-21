@@ -26,6 +26,8 @@ function render({ title, description, section, body, route = '/' }) {
       .replace(/(<meta name="description" content=")[^"]*/, `$1${attr(description)}`)
       .replace(/(<meta property="og:description" content=")[^"]*/, `$1${attr(description)}`);
   }
+  // Only the homepage is set in my handwriting (the name and the epigraph).
+  if (route === '/') html = html.replace('</head>', '  <link rel="preload" href="/fonts/janith-hand.woff2" as="font" type="font/woff2" crossorigin>\n</head>');
   if (section) html = html.replace(`data-section="${section}"`, `data-section="${section}" aria-current="page"`);
   return html;
 }

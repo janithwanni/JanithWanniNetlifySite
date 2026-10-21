@@ -1,7 +1,16 @@
 /* A quiet book on lavender-white paper, set in the typefaces already on the reader's device. */
+
+/* My handwriting, traced from scripts/handwriting/sheet.png: A-Z, a-z and . , - ' only. */
+@font-face {
+  font-family: 'Janith Hand';
+  src: url('/fonts/janith-hand.woff2') format('woff2');
+  font-display: swap;
+}
+
 :root {
   --serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
   --display: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, Palatino, Georgia, serif;
+  --hand: 'Janith Hand', var(--display);
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
 
   --bg: #fcfbff;
@@ -338,8 +347,8 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 .masthead p { margin: 0; }
 .home .name {
   margin: 0.15em 0 0.1em;
-  font: clamp(2.5rem, 1.3rem + 6vw, 4.1rem)/1.05 var(--display);
-  letter-spacing: 0.01em;
+  /* The name is ~10.2em wide in this hand: keep it on one line across the column. */
+  font: clamp(1.6rem, (100vw - 2rem) / 10.6, 3.75rem)/1.2 var(--hand);
 }
 .fleuron { display: block; margin-block: 0.4rem 0.9rem; color: var(--accent); font-size: 1.6rem; line-height: 1; }
 .masthead p:last-child { max-width: 36ch; margin-inline: auto; font-style: italic; color: var(--muted); }
@@ -349,6 +358,9 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 .nn { margin-right: 0.4em; color: var(--accent); font-variant-caps: all-small-caps; letter-spacing: 0.12em; }
 
 .epigraph { width: fit-content; max-width: 100%; margin: 0 auto 4.5rem; text-align: left; }
+.epigraph > p:not(:first-child) { font: 1.3rem/1.8 var(--hand); font-synthesis: none; }
+.epigraph > p i, .epigraph > p em { font-style: normal; }
+.epigraph > p em { color: var(--accent); }
 .label { display: block; margin-bottom: 1.25rem; color: var(--muted); letter-spacing: 0.25em; text-align: center; }
 .epigraph > p:nth-child(2)::first-letter {
   float: left;
