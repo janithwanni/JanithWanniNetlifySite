@@ -518,11 +518,13 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
   gap: 0.6rem;
   margin: 0;
 }
+/* Fixed height, width from the photo, so nothing is cropped and the reserved space holds. */
 .plate img {
   display: block;
-  width: min(100% - 12px, 20rem);
+  width: auto;
   height: 14rem;
-  object-fit: cover;
+  max-width: min(100% - 12px, 20rem);
+  object-fit: contain;
   background: var(--line);
   outline: 1px solid var(--line);
   outline-offset: 4px;

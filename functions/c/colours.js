@@ -32,8 +32,10 @@ function spine(p) {
   const caption = esc(p.caption || 'untitled');
   const spoken = p.palette.map((c) => `${colourName(c.hex)} ${Math.round(c.share * 100)}%`).join(', ');
   const bands = p.palette.map((c) => `<span style="flex:${+c.share} 0 0;background:${c.hex}" title="${c.hex}"></span>`).join('');
-  const img = /^https:\/\//.test(p.imageUrl ?? '')
-    ? `<img src="${esc(p.imageUrl)}" alt="${caption}" width="320" height="224" loading="lazy" decoding="async">`
+  // The 480px-tall copy is plenty for a 14rem plate, even on a 2x screen.
+  const src = p.thumbUrl ?? p.imageUrl ?? '';
+  const img = /^https:\/\//.test(src)
+    ? `<img src="${esc(src)}" alt="${caption}" width="320" height="224" loading="lazy" decoding="async">`
     : '';
   return `<details class="spine" name="spine"><summary>` +
     `<span class="bands" aria-hidden="true">${bands}</span>` +
