@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "content": "quarto render content && node scripts/build-content.mjs",
+    "sky": "node scripts/build-sky.mjs",
     "dev": "vite",
     "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview",

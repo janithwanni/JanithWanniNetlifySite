@@ -1,9 +1,9 @@
 <title>How this site is built · Janith Wanniarachchi</title>
-<article class="post"><header class="page-head"><a class="back" href="/blog/" hx-get="/c/blog" hx-push-url="/blog/">← Blog</a><h1>How this site is built</h1><p class="meta"><time datetime="2026-10-18">18 Oct 2026</time> · 5 min read</p></header><p>This site is meant to feel like an old book: system serif fonts, lavender-white pages, a table of contents on the title page and a fleuron at the end of every post. Underneath it’s a small, fast web app. Here’s how the pieces fit together, and why I chose each one.</p>
+<article class="post"><header class="page-head"><a class="back" href="/blog/" hx-get="/c/blog" hx-push-url="/blog/">← Blog</a><h1>How this site is built</h1><p class="meta"><time datetime="2026-10-18">18 Oct 2026</time> · 8 min read</p></header><p>This site is meant to feel like an old book: system serif fonts, lavender-white pages, a table of contents on the title page and a fleuron at the end of every post. Underneath it’s a small, fast web app. Here’s how the pieces fit together, and why I chose each one.</p>
 <h2 id="the-shape-of-it">The shape of it</h2>
 <pre><code>content/            Quarto sources: pages, blog posts, poems
-scripts/            build-content.mjs, prerender.mjs
-src/                main.js, style.css
+scripts/            build-content.mjs, prerender.mjs, build-sky.mjs
+src/                main.js, style.css, garden.js, sky/
 functions/c/        Cloudflare Pages Functions for the live sections
 public/             fragments, CV PDF, images</code></pre>
 <p>There’s one HTML shell, one stylesheet and one small script. Every page is a <em>fragment</em> of HTML that gets swapped into the shell’s <code>&lt;main&gt;</code>.</p>
@@ -21,7 +21,7 @@ public/             fragments, CV PDF, images</code></pre>
 </ul>
 <p>Then Vite builds the shell, and <code>scripts/prerender.mjs</code> writes a complete <code>index.html</code> for every route, with the right title, description and social-preview tags. The first visit to any page is a single HTML request that works even without JavaScript.</p>
 <h2 id="navigating-htmx">Navigating: htmx</h2>
-<p>After that first load, <a href="https://htmx.org">htmx</a> takes over. Each navigation link carries an <code>hx-get</code> pointing at its fragment, so a click fetches only the new content (often a few kilobytes) and swaps it into <code>&lt;main&gt;</code>, updating the URL and history. There’s no client-side router and no framework, and the whole script, htmx included, is about 20 kB compressed. If a fragment ever fails to load, the link falls back to a normal page load.</p>
+<p>After that first load, <a href="https://htmx.org">htmx</a> takes over. Each navigation link carries an <code>hx-get</code> pointing at its fragment, so a click fetches only the new content (often a few kilobytes) and swaps it into <code>&lt;main&gt;</code>, updating the URL and history. There’s no client-side router and no framework, and the script every page loads, htmx included, is about 22 kB compressed. If a fragment ever fails to load, the link falls back to a normal page load.</p>
 <p>htmx’s <code>eval</code> features are turned off, so no code can run from attributes.</p>
 <h2 id="the-live-bits-edge-functions">The live bits: edge functions</h2>
 <p>Three parts of the homepage change on their own:</p>
@@ -31,17 +31,31 @@ public/             fragments, CV PDF, images</code></pre>
 <li><strong>Recently played</strong> comes from Spotify. Only the edge function talks to Spotify: it holds the credentials, and even the album covers are proxied, so your browser never contacts Spotify.</li>
 </ul>
 <p>Each function caches its response at the edge for a few minutes, so the upstream services see at most a handful of requests no matter how many people visit. If one of them is down, its section simply stays empty.</p>
+<h2 id="the-night-sky">The night sky</h2>
+<p>Above the garden is the sky I see from Melbourne at 9 pm tonight: the stars, constellation figures, the Milky Way, the Magellanic Clouds, the planets and the Moon in its current phase. It’s a panorama of the whole horizon that opens facing south, towards the Southern Cross, and you can drag it all the way round.</p>
+<p>Nothing about it comes from a server. Your browser works out the time of 9 pm in Melbourne (daylight saving included, wherever you are reading from) and does the astronomy itself, in about 180 lines:</p>
+<ul>
+<li>the stars are turned from their catalogue positions into compass direction and height above the horizon, using Melbourne’s latitude and the time of night;</li>
+<li>the planets come from the orbital elements NASA’s Jet Propulsion Laboratory publishes for this purpose;</li>
+<li>the Moon comes from a short series of corrections to its orbit, with an adjustment because we see it from the Earth’s surface, not its centre. Its phase and the way its lit side faces both come from where the Sun is.</li>
+</ul>
+<p>I checked the results against JPL’s own ephemeris service. Everything lands within about a sixth of a degree, much finer than the drawing can show.</p>
+<p>The star catalogue comes from Olaf Frohn’s <a href="https://github.com/ofrohn/d3-celestial">d3-celestial</a> (from the Hipparcos and Yale Bright Star catalogues). A build script trims it to the 1,481 stars down to magnitude 5 that ever rise over Melbourne, plus the constellation lines and a thinned outline of the Milky Way. Together with the code that draws it, that’s 34 kB compressed. Only the homepage asks for it, so the other pages never download the sky.</p>
+<p>On summer evenings, 9 pm is barely after sunset. Then the sky shows only the brightest stars, the Milky Way and figures fade, and there’s a glow where the Sun went down. Above the drawing, a sentence says the same thing in words (“a waxing gibbous Moon high in the north, Saturn in the north-east…”), for anyone who can’t see the picture.</p>
+<p>Hover over a constellation and its figure appears behind the lines: the scorpion, the centaur, the crane. These are Johan Meuris’s drawings from the free planetarium program <a href="https://stellarium.org">Stellarium</a>, shared under the <a href="https://artlibre.org/licence/lal/en/">Free Art License</a>. Stellarium pins each drawing to three stars, so the page can stretch it to fit the constellation exactly where it sits in tonight’s sky. I converted the 81 drawings that ever rise over Melbourne into small WebP images, about 5 kB each and 425 kB in all. A figure is downloaded the first time you hover over its constellation, and never before.</p>
+<p>I measured the alternatives before choosing that. Loading the figures already in view along with the page took the homepage from 68 kB to 177 kB, and loading all of them took it to 378 kB. Lighthouse scored all three versions 100, because the images arrive after the page has painted. On a phone plan, though, that’s more than five times the data for pictures most visitors never look at, so they wait for your hover.</p>
+<p>Drawing the sky taught me one lesson in performance. My first version faded in each of its roughly 1,300 stars with its own animation, and setting them up blocked the browser for about 200 ms on a slow phone. Fading the stars in by brightness, as seven groups, brought that down to nothing measurable. Drawing the panorama in small steps (the part in view first, then the copies to either side that let it wrap around) keeps every task short.</p>
 <h2 id="small-choices-that-add-up">Small choices that add up</h2>
 <ul>
 <li><strong>No trackers, no cookies, no web fonts.</strong> The fonts are the serifs already on your device (Charter, Iowan Old Style, Palatino), so text appears instantly and nothing is downloaded.</li>
-<li><strong>The garden</strong> on the homepage is drawn in your browser: seeded, recursive branching in SVG, coloured from the palettes of my photographs. Click it to plant a seed.</li>
+<li><strong>The garden</strong> under the night sky is drawn in your browser: seeded, recursive branching in SVG, coloured from the palettes of my photographs. Click it to plant a seed.</li>
 <li><strong>Dark mode</strong> follows your system setting. Every colour is a CSS variable with a dark counterpart.</li>
-<li><strong>Motion is optional.</strong> Page transitions and the postcards’ tilt both switch off when your system asks for reduced motion.</li>
-<li><strong>Accessibility</strong> is part of the design: a skip link, real headings and lists, labelled navigation, visible focus rings, and text alternatives for the colour shelf, which names each colour (“deep blue 34%”) for screen readers.</li>
+<li><strong>Motion is optional.</strong> Page transitions, the postcards’ tilt and the twinkling stars all switch off when your system asks for reduced motion.</li>
+<li><strong>Accessibility</strong> is part of the design: a skip link, real headings and lists, labelled navigation, visible focus rings, and text alternatives. The colour shelf names each colour (“deep blue 34%”) for screen readers, and the night sky can be turned with the arrow keys, naming whatever is in front of you.</li>
 <li><strong>Print</strong> gets its own stylesheet, mostly for the CV.</li>
 </ul>
 <h2 id="how-it-scores">How it scores</h2>
-<p>I check the production build with Lighthouse (version 12) using its mobile preset, which simulates a mid-range phone on a slow 4G connection.</p>
+<p>I check the production build with Lighthouse (version 12) using its mobile preset, which simulates a mid-range phone on a slow 4G connection. These are the scores with the night sky in place.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">

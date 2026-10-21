@@ -13,8 +13,8 @@ Here's how the pieces fit together, and why I chose each one.
 
 ```
 content/            Quarto sources: pages, blog posts, poems
-scripts/            build-content.mjs, prerender.mjs
-src/                main.js, style.css
+scripts/            build-content.mjs, prerender.mjs, build-sky.mjs
+src/                main.js, style.css, garden.js, sky/
 functions/c/        Cloudflare Pages Functions for the live sections
 public/             fragments, CV PDF, images
 ```
@@ -50,7 +50,7 @@ The first visit to any page is a single HTML request that works even without Jav
 
 After that first load, [htmx](https://htmx.org) takes over.
 Each navigation link carries an `hx-get` pointing at its fragment, so a click fetches only the new content (often a few kilobytes) and swaps it into `<main>`, updating the URL and history.
-There's no client-side router and no framework, and the whole script, htmx included, is about 20 kB compressed.
+There's no client-side router and no framework, and the script every page loads, htmx included, is about 22 kB compressed.
 If a fragment ever fails to load, the link falls back to a normal page load.
 
 htmx's `eval` features are turned off, so no code can run from attributes.
@@ -66,18 +66,57 @@ Three parts of the homepage change on their own:
 Each function caches its response at the edge for a few minutes, so the upstream services see at most a handful of requests no matter how many people visit.
 If one of them is down, its section simply stays empty.
 
+## The night sky
+
+Above the garden is the sky I see from Melbourne at 9 pm tonight: the stars, constellation figures, the Milky Way, the Magellanic Clouds, the planets and the Moon in its current phase.
+It's a panorama of the whole horizon that opens facing south, towards the Southern Cross, and you can drag it all the way round.
+
+Nothing about it comes from a server.
+Your browser works out the time of 9 pm in Melbourne (daylight saving included, wherever you are reading from) and does the astronomy itself, in about 180 lines:
+
+- the stars are turned from their catalogue positions into compass direction and height above the horizon, using Melbourne's latitude and the time of night;
+- the planets come from the orbital elements NASA's Jet Propulsion Laboratory publishes for this purpose;
+- the Moon comes from a short series of corrections to its orbit, with an adjustment because we see it from the Earth's surface, not its centre. Its phase and the way its lit side faces both come from where the Sun is.
+
+I checked the results against JPL's own ephemeris service. Everything lands within about a sixth of a degree, much finer than the drawing can show.
+
+The star catalogue comes from Olaf Frohn's [d3-celestial](https://github.com/ofrohn/d3-celestial) (from the Hipparcos and Yale Bright Star catalogues).
+A build script trims it to the 1,481 stars down to magnitude 5 that ever rise over Melbourne, plus the constellation lines and a thinned outline of the Milky Way.
+Together with the code that draws it, that's 34 kB compressed. Only the homepage asks for it, so the other pages never download the sky.
+
+On summer evenings, 9 pm is barely after sunset.
+Then the sky shows only the brightest stars, the Milky Way and figures fade, and there's a glow where the Sun went down.
+Above the drawing, a sentence says the same thing in words ("a waxing gibbous Moon high in the north, Saturn in the north-east…"), for anyone who can't see the picture.
+
+Hover over a constellation and its figure appears behind the lines: the scorpion, the centaur, the crane.
+These are Johan Meuris's drawings from the free planetarium program [Stellarium](https://stellarium.org), shared under the [Free Art License](https://artlibre.org/licence/lal/en/).
+Stellarium pins each drawing to three stars, so the page can stretch it to fit the constellation exactly where it sits in tonight's sky.
+I converted the 81 drawings that ever rise over Melbourne into small WebP images, about 5 kB each and 425 kB in all.
+A figure is downloaded the first time you hover over its constellation, and never before.
+
+I measured the alternatives before choosing that.
+Loading the figures already in view along with the page took the homepage from 68 kB to 177 kB, and loading all of them took it to 378 kB.
+Lighthouse scored all three versions 100, because the images arrive after the page has painted.
+On a phone plan, though, that's more than five times the data for pictures most visitors never look at, so they wait for your hover.
+
+Drawing the sky taught me one lesson in performance.
+My first version faded in each of its roughly 1,300 stars with its own animation, and setting them up blocked the browser for about 200 ms on a slow phone.
+Fading the stars in by brightness, as seven groups, brought that down to nothing measurable.
+Drawing the panorama in small steps (the part in view first, then the copies to either side that let it wrap around) keeps every task short.
+
 ## Small choices that add up
 
 - **No trackers, no cookies, no web fonts.** The fonts are the serifs already on your device (Charter, Iowan Old Style, Palatino), so text appears instantly and nothing is downloaded.
-- **The garden** on the homepage is drawn in your browser: seeded, recursive branching in SVG, coloured from the palettes of my photographs. Click it to plant a seed.
+- **The garden** under the night sky is drawn in your browser: seeded, recursive branching in SVG, coloured from the palettes of my photographs. Click it to plant a seed.
 - **Dark mode** follows your system setting. Every colour is a CSS variable with a dark counterpart.
-- **Motion is optional.** Page transitions and the postcards' tilt both switch off when your system asks for reduced motion.
-- **Accessibility** is part of the design: a skip link, real headings and lists, labelled navigation, visible focus rings, and text alternatives for the colour shelf, which names each colour ("deep blue 34%") for screen readers.
+- **Motion is optional.** Page transitions, the postcards' tilt and the twinkling stars all switch off when your system asks for reduced motion.
+- **Accessibility** is part of the design: a skip link, real headings and lists, labelled navigation, visible focus rings, and text alternatives. The colour shelf names each colour ("deep blue 34%") for screen readers, and the night sky can be turned with the arrow keys, naming whatever is in front of you.
 - **Print** gets its own stylesheet, mostly for the CV.
 
 ## How it scores
 
 I check the production build with Lighthouse (version 12) using its mobile preset, which simulates a mid-range phone on a slow 4G connection.
+These are the scores with the night sky in place.
 
 | Page | Performance | Accessibility | Best practices | SEO |
 |---|---|---|---|---|

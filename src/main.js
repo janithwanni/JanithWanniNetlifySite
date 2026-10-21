@@ -3,6 +3,9 @@ import './style.css';
 import { growGarden } from './garden.js';
 
 const main = document.getElementById('main');
+
+// The night sky (its code and star catalogue) is only fetched when a page has one.
+const drawSky = (root) => root?.querySelector('.sky') && import('./sky/sky.js').then((sky) => sky.drawSky(root));
 const fragmentFor = (pathname) => `/c${pathname.replace(/\/$/, '') || '/'}`;
 
 function markCurrentSection() {
@@ -122,17 +125,19 @@ function tintCovers(root) {
 }
 
 document.body.addEventListener('htmx:afterSwap', (e) => {
-  if (e.detail.target.matches?.('.listening-row')) tintCovers(e.detail.target);
+  if (e.detail.target?.matches?.('.listening-row')) tintCovers(e.detail.target);
 });
 
 document.body.addEventListener('htmx:afterSettle', (e) => {
   if (e.detail.target !== main) return;
   markCurrentSection();
   loadThoughts();
+  drawSky(main);
   growGarden(main);
   main.focus({ preventScroll: true });
 });
-document.body.addEventListener('htmx:historyRestore', () => { markCurrentSection(); loadThoughts(); growGarden(main); });
+// htmx restores the whole <body>, so the sky looks up the new #main to re-centre its view.
+document.body.addEventListener('htmx:historyRestore', () => { markCurrentSection(); loadThoughts(); drawSky(document.getElementById('main')); growGarden(main); });
 
 // In-page links to a collapsed <details> (the talks list) open it before jumping there.
 document.addEventListener('click', (e) => {
@@ -149,5 +154,5 @@ document.body.addEventListener('htmx:responseError', (e) => {
 
 // Production pages are prerendered; the dev server only serves the empty shell.
 if (!main.firstElementChild) htmx.ajax('GET', fragmentFor(location.pathname), { target: main, swap: 'innerHTML' });
-else { loadThoughts(); growGarden(main); }
+else { loadThoughts(); drawSky(main); growGarden(main); }
 markCurrentSection();

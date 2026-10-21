@@ -828,8 +828,110 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 .colophon { color: var(--muted); font-size: 0.9rem; font-style: italic; }
 .colophon span { display: block; font-style: normal; font-size: 1.4rem; color: var(--accent); }
 
+/* The sky: Melbourne at 9 pm, drawn by src/sky/sky.js ----------------------- */
+/* Ink on paper by day, like a printed star chart; starlight by night. */
+.sky {
+  --sky-top: transparent;
+  --sky-low: color-mix(in srgb, var(--stamp) 55%, transparent);
+  --sky-star: #2a2340;
+  --sky-blue: #2b3f80;
+  --sky-warm: #6e3d1c;
+  --sky-line: color-mix(in srgb, var(--accent-soft) 70%, var(--line));
+  --sky-mw: #9a78d0;
+  --sky-planet: #9a5a00;
+  --sky-moon: #e3b84f;
+  --sky-moon-dark: var(--line);
+  --sky-dusk: #f0b48a;
+  margin: -1.5rem auto 0;
+}
+@media (prefers-color-scheme: dark) {
+  .sky {
+    --sky-top: #0e0d13;
+    --sky-low: #1f1b2b;
+    --sky-star: #f4f1ff;
+    --sky-blue: #bccfff;
+    --sky-warm: #ffd3a8;
+    --sky-line: #4b4462;
+    --sky-mw: #b3a6e0;
+    --sky-planet: #f0b45a;
+    --sky-moon: #f6efdc;
+    --sky-moon-dark: #2c2838;
+    --sky-dusk: #7a4060;
+  }
+}
+.sky-note { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.9rem; font-style: italic; }
+.sky-hint { font-style: normal; font-variant-caps: all-small-caps; letter-spacing: 0.08em; }
+.sky-frame { position: relative; }
+.sky-window {
+  height: 20rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
+  background: linear-gradient(var(--sky-top), var(--sky-low));
+  border-bottom: 1.5px solid var(--line);
+}
+.sky-window::-webkit-scrollbar { display: none; }
+.sky-window.dragging { cursor: grabbing; }
+.sky-window:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 34rem) { .sky-window { height: 15rem; } }
+.sky-dome { display: block; height: 100%; width: auto; max-width: none; }
+.sky-label {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+}
+.sky-dome .dusk { fill: url(#sky-dusk); }
+.sky-dome .dusk-0 { stop-color: var(--sky-dusk); stop-opacity: 0.8; }
+.sky-dome .dusk-1 { stop-color: var(--sky-dusk); stop-opacity: 0; }
+.sky-dome { --dark: 1; }
+.sky-dome .mw { fill: var(--sky-mw); opacity: calc(0.09 * var(--dark)); }
+.sky-dome .cloud { fill: var(--sky-mw); opacity: calc(0.22 * var(--dark)); filter: blur(3px); }
+.sky-dome .con { fill: none; stroke: var(--sky-line); stroke-width: 0.8; stroke-linecap: round; stroke-linejoin: round; opacity: calc(0.2 + 0.8 * var(--dark)); transition: stroke 0.25s, opacity 0.25s; }
+.sky-dome .con.on { stroke: var(--accent); stroke-width: 1.2; opacity: 1; }
+/* Constellation artwork: white with brightness as opacity, inked black by day. */
+.sky-dome .fig { opacity: 0; filter: brightness(0); pointer-events: none; transition: opacity 0.6s; }
+.sky-dome .fig.on { opacity: 0.32; }
+.sky-dome .star { fill: var(--sky-star); }
+.sky-dome .t0 { fill: var(--sky-blue); }
+.sky-dome .t3 { fill: var(--sky-warm); }
+.sky-dome .planet { fill: var(--sky-planet); }
+.sky-dome .tag, .sky-dome .point {
+  fill: var(--muted);
+  font: 9px var(--serif);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
+}
+.sky-dome .tag { fill: var(--sky-planet); }
+.sky-dome .point { font-size: 11px; text-anchor: middle; }
+.sky-dome .point.minor { font-size: 9px; opacity: 0.7; }
+.sky-dome .moon-lit { fill: var(--sky-moon); }
+.sky-dome .moon-dark { fill: var(--sky-moon-dark); }
+@media (prefers-color-scheme: dark) {
+  .sky-dome .mw { opacity: calc(0.07 * var(--dark)); }
+  .sky-dome .fig { filter: none; }
+  .sky-dome .fig.on { opacity: 0.3; }
+  /* A glow on the brightest only; filters on every star would be slow. */
+  .sky-dome .b, .sky-dome .planet { filter: drop-shadow(0 0 1.5px currentColor); color: var(--sky-star); }
+  .sky-dome .moon { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--sky-moon) 50%, transparent)); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sky.lit .stars { animation: rise 0.9s ease-out var(--d, 0ms) both; }
+  .sky.lit .star.tw { animation: twinkle var(--tw, 4s) ease-in-out 1.5s infinite alternate; }
+}
+@keyframes rise { from { opacity: 0; } }
+@keyframes twinkle { to { opacity: 0.55; } }
+
 /* The garden: plants grown by src/garden.js -------------------------------- */
-.garden { margin: -1.5rem auto 4rem; }
+.garden { margin: 0 auto 4rem; }
 .garden-bed { display: block; width: 100%; height: 13rem; cursor: pointer; overflow: hidden; }
 @media (max-width: 34rem) { .garden-bed { height: 10rem; } }
 .garden-bed .ground { fill: none; stroke: var(--line); stroke-width: 1.5; }
