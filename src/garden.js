@@ -16,7 +16,7 @@ const MAX_PLANTS = 12;
 const FALLBACK = ['#e3d4f6', '#c8a2f2', '#9a78d0', '#5e2a96', '#2f8f83', '#d0648c'];
 
 // A small, fast seeded PRNG.
-function mulberry32(a) {
+export function mulberry32(a) {
   return () => {
     a |= 0; a = (a + 0x6d2b79f5) | 0;
     let t = Math.imul(a ^ (a >>> 15), 1 | a);
@@ -26,7 +26,7 @@ function mulberry32(a) {
 }
 
 // Today's date as a number, so the garden (and its photograph) changes once a day.
-const today = () => { const d = new Date(); return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate(); };
+export const today = () => { const d = new Date(); return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate(); };
 
 // Hex to OKLCH lightness and chroma, for ordering colours by how they look.
 function oklch(hex) {

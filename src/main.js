@@ -6,7 +6,20 @@ const main = document.getElementById('main');
 
 // The night sky (its code and star catalogue) is only fetched when a page has one.
 const drawSky = (root) => root?.querySelector('.sky') && import('./sky/sky.js').then((sky) => sky.drawSky(root));
-const fragmentFor = (pathname) => `/c${pathname.replace(/\/$/, '') || '/'}`;
+
+// The watercolour flowers (src/flowers.js) are fetched only once they are nearly in view.
+const watched = new WeakSet();
+function paintFlowers(root) {
+  const box = root?.querySelector('.flowers:not([data-painted])');
+  if (!box || watched.has(box)) return;
+  watched.add(box);
+  new IntersectionObserver((entries, io) => {
+    if (!entries.some((e) => e.isIntersecting)) return;
+    io.disconnect();
+    import('./flowers.js').then((m) => m.paintFlowers(box));
+  }, { rootMargin: '400px 0px' }).observe(box);
+}
+const fragmentFor =(pathname) => `/c${pathname.replace(/\/$/, '') || '/'}`;
 
 function markCurrentSection() {
   const section = location.pathname.split('/')[1];
@@ -134,10 +147,11 @@ document.body.addEventListener('htmx:afterSettle', (e) => {
   loadThoughts();
   drawSky(main);
   growGarden(main);
+  paintFlowers(main);
   main.focus({ preventScroll: true });
 });
 // htmx restores the whole <body>, so the sky looks up the new #main to re-centre its view.
-document.body.addEventListener('htmx:historyRestore', () => { markCurrentSection(); loadThoughts(); drawSky(document.getElementById('main')); growGarden(main); });
+document.body.addEventListener('htmx:historyRestore', () => { markCurrentSection(); loadThoughts(); drawSky(document.getElementById('main')); growGarden(main); paintFlowers(document.getElementById('main')); });
 
 // In-page links to a collapsed <details> (the talks list) open it before jumping there.
 document.addEventListener('click', (e) => {
@@ -154,5 +168,5 @@ document.body.addEventListener('htmx:responseError', (e) => {
 
 // Production pages are prerendered; the dev server only serves the empty shell.
 if (!main.firstElementChild) htmx.ajax('GET', fragmentFor(location.pathname), { target: main, swap: 'innerHTML' });
-else { loadThoughts(); drawSky(main); growGarden(main); }
+else { loadThoughts(); drawSky(main); growGarden(main); paintFlowers(main); }
 markCurrentSection();
