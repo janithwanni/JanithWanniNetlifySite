@@ -60,12 +60,6 @@
     "description": "How a small Svelte app generated synthetic classification data by running an R script in the browser with webR, and why it turned into the sillysplines package."
   },
   {
-    "route": "/blog/2026-10-18-how-this-site-is-built/",
-    "fragment": "/c/blog/2026-10-18-how-this-site-is-built.html",
-    "title": "How this site is built · Janith Wanniarachchi",
-    "description": "Quarto for writing, htmx for navigation, a few edge functions for the live bits, and no trackers: the plumbing behind this website."
-  },
-  {
     "route": "/creative/",
     "fragment": "/c/creative.html",
     "title": "Creative Corner · Janith Wanniarachchi",

@@ -118,5 +118,5 @@ Or read up on my history in [my CV](cv.qmd)
 
 Set in the typefaces already on your device, and in my own handwriting.\
 No trackers, no cookies, only words.\
-[How this site is built](blog/2026-10-18-how-this-site-is-built/how-this-site-is-built.qmd)
+<!-- [How this site is built](blog/2026-10-18-how-this-site-is-built/how-this-site-is-built.qmd) -->
 :::

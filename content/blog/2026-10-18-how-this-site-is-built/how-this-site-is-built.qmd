@@ -3,6 +3,7 @@ title: "How this site is built"
 author: Janith Wanniarachchi
 date: '2026-10-18'
 description: "Quarto for writing, htmx for navigation, a few edge functions for the live bits, and no trackers: the plumbing behind this website."
+draft: true
 ---
 
 This site is meant to feel like an old book: system serif fonts, lavender-white pages, a table of contents on the title page and a fleuron at the end of every post.
