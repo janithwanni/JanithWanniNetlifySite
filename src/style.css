@@ -444,6 +444,26 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 .listening a, .listening .kind { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .listening time { white-space: nowrap; font-size: 0.9rem; }
 
+/* Switch: lifetime playtime, each row a bar as long as its share of the most-played game,
+   tinted from its cover by src/main.js. */
+.switch-row:not(:empty) { margin-bottom: 4rem; }
+.playtime-total { margin: 0 0 1rem; color: var(--muted); text-align: center; }
+.playtime-total strong { color: var(--fg); font-weight: normal; }
+.playtime li {
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  padding-inline: 0.5rem;
+  border-left: 3px solid var(--cover, var(--accent-soft));
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--cover, var(--accent-soft)) 22%, transparent) var(--share),
+    transparent var(--share));
+  transition: background-color 0.4s, border-color 0.4s;
+}
+.playtime li + li { margin-top: 2px; }
+.playtime img, .playtime .cover-none { display: block; width: 2.5rem; height: 2.5rem; border-radius: 4px; object-fit: cover; background: var(--line); }
+.playtime .track { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.playtime .hours { color: var(--muted); font-variant-numeric: tabular-nums; letter-spacing: 0.06em; white-space: nowrap; }
+
 /* Colours: a shelf of spines, each striped with a photograph's palette. Opening one
    pulls it out and shows the photograph as a plate beneath the shelf. */
 .colours-row:not(:empty) { margin-bottom: 4rem; }

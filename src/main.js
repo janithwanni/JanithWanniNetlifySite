@@ -107,14 +107,14 @@ async function loadThoughts() {
   }
 }
 
-// Each recently played track takes a colour from its album cover: the most saturated
-// mid-tone pixel of the thumbnail. Covers come through /c/cover, same-origin, so the
-// canvas can read them.
+// Each recently played track (and each Switch game) takes a colour from its cover: the
+// most saturated mid-tone pixel of the thumbnail. Album covers come through /c/cover and
+// game covers from /img/switch, both same-origin, so the canvas can read them.
 function tintCovers(root) {
   const canvas = document.createElement('canvas');
   canvas.width = canvas.height = 8;
   const ctx = canvas.getContext('2d', { willReadFrequently: true });
-  for (const img of root.querySelectorAll('.listening img')) {
+  for (const img of root.querySelectorAll('.listening img, .playtime img')) {
     const tint = () => {
       try {
         ctx.drawImage(img, 0, 0, 8, 8);
@@ -138,7 +138,7 @@ function tintCovers(root) {
 }
 
 document.body.addEventListener('htmx:afterSwap', (e) => {
-  if (e.detail.target?.matches?.('.listening-row')) tintCovers(e.detail.target);
+  if (e.detail.target?.matches?.('.listening-row, .switch-row')) tintCovers(e.detail.target);
 });
 
 document.body.addEventListener('htmx:afterSettle', (e) => {

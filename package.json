@@ -3,8 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "content": "quarto render content && node scripts/build-content.mjs",
+    "content": "quarto render content && node scripts/build-content.mjs && node scripts/build-switch.mjs",
     "sky": "node scripts/build-sky.mjs",
+    "switch": "node --env-file-if-exists=.dev.vars scripts/build-switch.mjs --fetch",
+    "nintendo-auth": "node scripts/nintendo-auth.mjs",
     "dev": "vite",
     "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview",

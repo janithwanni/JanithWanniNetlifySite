@@ -25,6 +25,11 @@ npm run dev       # preview at localhost:5173
 Commit the regenerated `public/c` and `content/routes.json`. Netlify only runs
 `npm run build`, so it doesn't need Quarto or R.
 
+The homepage's Switch playtime comes from Nintendo's (unofficial) play-history API. Run
+`npm run nintendo-auth` once and put the token in `.dev.vars`; then `npm run switch`
+refreshes `content/switch.json`, the covers in `public/img/switch/` and `public/c/switch.html`.
+Commit all three.
+
 R posts are frozen. Re-run their code with `quarto render content --cache-refresh` after
 restoring the renv library (`content/renv.lock`). A full project render uses the freeze;
 rendering a single file always re-executes it.
