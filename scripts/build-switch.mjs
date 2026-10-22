@@ -19,6 +19,7 @@ const SRC = new URL('../content/switch.json', import.meta.url);
 const OUT = new URL('../public/c/switch.html', import.meta.url);
 const COVERS = new URL('../public/img/switch/', import.meta.url);
 const COVER_PX = 160; // shown at 40px; 4x for sharp high-density screens
+const SHOWN = 10;     // the total counts every game; the list only the most played
 
 const CLIENT_ID = '5c38e31cd085304b';
 const UA = 'com.nintendo.znej/1.13.0 (Android/7.1.2)';
@@ -108,9 +109,9 @@ if (shelf.length) {
     ? ` as of <time datetime="${esc(updated)}">${new Date(updated).toLocaleDateString('en-AU', { month: 'long', year: 'numeric', timeZone: 'UTC' })}</time>`
     : '';
   html = `<h3 class="small-head">On the Switch</h3>
-<p class="playtime-total"><strong>${num.format(total)} hours</strong> across ${shelf.length} ${shelf.length === 1 ? 'game' : 'games'}${asOf}.</p>
+<p class="playtime-total"><strong>${num.format(total)} hours</strong> across ${shelf.length} ${shelf.length === 1 ? 'game' : 'games'}${asOf}${shelf.length > SHOWN ? `; the ${SHOWN} most played:` : '.'}</p>
 <ul class="lately playtime">
-${shelf.map((g) => `<li style="--share: ${((g.minutes / most) * 100).toFixed(1)}%">${cover(g)}` +
+${shelf.slice(0, SHOWN).map((g) => `<li style="--share: ${((g.minutes / most) * 100).toFixed(1)}%">${cover(g)}` +
   `<span class="track">${esc(g.title)}</span><span class="hours">${played(g.minutes)}</span></li>`).join('\n')}
 </ul>
 `;
