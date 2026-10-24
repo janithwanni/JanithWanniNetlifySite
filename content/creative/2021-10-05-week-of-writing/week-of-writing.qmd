@@ -1,5 +1,6 @@
 ---
 title: "7 days of writing"
+muse: calliope
 description: |
   An attempt at writing short stories based on a random prompt within 30 minutes everyday for 7 days
 author:

@@ -24,6 +24,22 @@ const SECTIONS = {
   creative: { title: 'Creative Corner', heading: 'Creative Writing' },
 };
 
+// Each creative piece names the Muse it was written under (`muse:` in its front matter).
+// Her glyph is something she carries: Calliope's stylus, Clio's scroll, Melpomene's
+// dagger, Polyhymnia's finger to her lips, Terpsichore's dance, Thalia's ivy crown.
+// (U+FE0E keeps the nib from turning into an emoji.)
+const MUSES = {
+  calliope: { name: 'Calliope', domain: 'epic and long tales', glyph: '✒\uFE0E' },
+  clio: { name: 'Clio', domain: 'history and memory', glyph: '𓏛' },
+  erato: { name: 'Erato', domain: 'love poetry', glyph: '♡' },
+  euterpe: { name: 'Euterpe', domain: 'song and lyric', glyph: '𝄞' },
+  melpomene: { name: 'Melpomene', domain: 'tragedy', glyph: '†' },
+  polyhymnia: { name: 'Polyhymnia', domain: 'hymns and quiet thought', glyph: '𓀁' },
+  terpsichore: { name: 'Terpsichore', domain: 'dance', glyph: '𓀤' },
+  thalia: { name: 'Thalia', domain: 'comedy and play', glyph: '❧' },
+  urania: { name: 'Urania', domain: 'the stars', glyph: '✶' },
+};
+
 const walk = (dir) =>
   fs.readdirSync(dir, { withFileTypes: true }).flatMap((d) => {
     const p = path.join(dir, d.name);
@@ -33,8 +49,8 @@ const walk = (dir) =>
 const meta = (html, name) => html.match(new RegExp(`<meta name="${name}" content="([^"]*)"`))?.[1] ?? '';
 const fragmentFile = (route) => `/c${route.replace(/\/$/, '') || '/index'}.html`;
 const fragmentUrl = (route) => `/c${route.replace(/\/$/, '') || '/'}`;
-const link = (route, text, cls = '') =>
-  `<a${cls ? ` class="${cls}"` : ''} href="${route}" hx-get="${fragmentUrl(route)}" hx-push-url="${route}">${text}</a>`;
+const link = (route, text, cls = '', title = '') =>
+  `<a${cls ? ` class="${cls}"` : ''}${title ? ` title="${title}"` : ''} href="${route}" hx-get="${fragmentUrl(route)}" hx-push-url="${route}">${text}</a>`;
 const fmtDate = (iso) =>
   new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 
@@ -67,6 +83,14 @@ const pages = walk(OUT)
   })
   .filter((p) => !p.draft);
 
+// Quarto drops custom front matter keys, so read the Muse from the source.
+for (const page of pages) {
+  const source = path.join(SRC, page.rel.replace(/\.html$/, '.qmd'));
+  const id = fs.existsSync(source) ? fs.readFileSync(source, 'utf8').match(/^muse:\s*(\w+)/m)?.[1].toLowerCase() : null;
+  if (id && !MUSES[id]) console.warn(`  unknown muse in ${page.rel}: ${id}`);
+  page.muse = MUSES[id] ? id : null;
+}
+
 const routeByRel = new Map(pages.map((p) => [p.rel, p.route]));
 
 // Rewrite relative src/href so fragments work from any URL ----------------------
@@ -92,6 +116,12 @@ function rewriteUrls(page) {
   });
 }
 
+const museRoute = (id) => `/creative/muse/${id}/`;
+const glyph = (id) => `<span class="glyph" aria-hidden="true">${MUSES[id].glyph}</span>`;
+const museMark = (id) => id ? ` · ${link(museRoute(id), `${glyph(id)} ${MUSES[id].name}`, 'muse', `Muse of ${MUSES[id].domain}`)}` : '';
+// Closes a poem with its Muse's glyph, in place of the usual fleuron.
+const museFleuron = (id) => id ? `<p class="muse-fleuron" aria-hidden="true" title="Written under ${MUSES[id].name}">${MUSES[id].glyph}</p>` : '';
+
 const readingTime = (html) =>
   Math.max(1, Math.round(html.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length / 200));
 
@@ -100,7 +130,7 @@ function header(page) {
   const back = link(`/${page.section}/`, `← ${SECTIONS[page.section].title}`, 'back');
   const date = page.date ? `<time datetime="${page.date}">${fmtDate(page.date)}</time> · ` : '';
   return `<header class="page-head">${back}<h1>${page.title}</h1>` +
-    `<p class="meta">${date}${page.minutes} min read</p></header>`;
+    `<p class="meta">${date}${page.minutes} min read${museMark(page.muse)}</p></header>`;
 }
 
 // Write fragments --------------------------------------------------------------
@@ -124,23 +154,47 @@ for (const page of pages) {
   page.html = body;
   if (page.route === '/') continue; // written below, once the listings are known
   writeFragment(page.route, page.title, page.description,
-    `<article class="${page.section ? 'post' : 'page'}">${header(page)}${body.trim()}</article>`);
+    `<article class="${page.section ? 'post' : 'page'}">${header(page)}${body.trim()}${museFleuron(page.muse)}</article>`);
 }
 
-for (const [section, { title, heading }] of Object.entries(SECTIONS)) {
-  const items = pages
-    .filter((p) => p.section === section)
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .map((p) => `<li>
+const listItem = (p) => `<li>
   ${link(p.route, p.title)}
   ${p.description ? `<p>${p.description}</p>` : ''}
-  <p class="meta">${p.date ? `<time datetime="${p.date}">${fmtDate(p.date)}</time> · ` : ''}${p.minutes} min read</p>
-</li>`);
+  <p class="meta">${p.date ? `<time datetime="${p.date}">${fmtDate(p.date)}</time> · ` : ''}${p.minutes} min read${museMark(p.muse)}</p>
+</li>`;
+
+const byDate = (a, b) => b.date.localeCompare(a.date);
+const creative = pages.filter((p) => p.section === 'creative');
+// The nine Muses, at the foot of the Creative Corner; those with nothing yet stay unlinked.
+const museRow = `<nav class="muses" aria-labelledby="muses-head">
+<h2 class="small-head" id="muses-head">The nine Muses</h2>
+<ul>
+${Object.entries(MUSES).map(([id, { name, domain }]) => {
+    const n = creative.filter((p) => p.muse === id).length;
+    return `<li>${n ? link(museRoute(id), `${glyph(id)} ${name}`, '', `Muse of ${domain}`) + ` <span class="count">${n}</span>` : `<span class="quiet" title="Muse of ${domain}">${glyph(id)} ${name}</span>`}</li>`;
+  }).join('\n')}
+</ul>
+</nav>`;
+
+for (const [section, { title, heading }] of Object.entries(SECTIONS)) {
+  const items = pages.filter((p) => p.section === section).sort(byDate).map(listItem);
   writeFragment(`/${section}/`, title, `${heading} by ${SITE}`,
     `<article class="page"><header class="page-head"><h1>${heading}</h1></header>
 <ul class="listing">
 ${items.join('\n')}
-</ul></article>`);
+</ul>${section === 'creative' ? `\n${museRow}` : ''}</article>`);
+}
+
+for (const [id, { name, domain }] of Object.entries(MUSES)) {
+  const items = creative.filter((p) => p.muse === id).sort(byDate).map(listItem);
+  if (!items.length) continue;
+  writeFragment(museRoute(id), `${name} · Creative Corner`, `Poems and stories written under ${name}, Muse of ${domain}.`,
+    `<article class="page"><header class="page-head">${link('/creative/', '← Creative Corner', 'back')}<p class="fleuron" aria-hidden="true">${MUSES[id].glyph}</p><h1>${name}</h1>
+<p class="muse-intro">Pieces written under ${name}, Muse of ${domain}.</p></header>
+<ul class="listing">
+${items.join('\n')}
+</ul>
+${museRow}</article>`);
 }
 
 // Homepage: a table of contents and the latest poem fill content/index.qmd's placeholders.

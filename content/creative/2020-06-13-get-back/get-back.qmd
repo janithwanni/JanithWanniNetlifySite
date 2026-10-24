@@ -1,5 +1,6 @@
 ---
 title: "Get Back"
+muse: euterpe
 description: |
   Love the demon within you
 author:

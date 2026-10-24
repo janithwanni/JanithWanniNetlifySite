@@ -258,6 +258,60 @@
     "description": "Tis the season to be lovey-dovey"
   },
   {
+    "route": "/creative/muse/calliope/",
+    "fragment": "/c/creative/muse/calliope.html",
+    "title": "Calliope · Creative Corner · Janith Wanniarachchi",
+    "description": "Poems and stories written under Calliope, Muse of epic and long tales."
+  },
+  {
+    "route": "/creative/muse/clio/",
+    "fragment": "/c/creative/muse/clio.html",
+    "title": "Clio · Creative Corner · Janith Wanniarachchi",
+    "description": "Poems and stories written under Clio, Muse of history and memory."
+  },
+  {
+    "route": "/creative/muse/erato/",
+    "fragment": "/c/creative/muse/erato.html",
+    "title": "Erato · Creative Corner · Janith Wanniarachchi",
+    "description": "Poems and stories written under Erato, Muse of love poetry."
+  },
+  {
+    "route": "/creative/muse/euterpe/",
+    "fragment": "/c/creative/muse/euterpe.html",
+    "title": "Euterpe · Creative Corner · Janith Wanniarachchi",
+    "description": "Poems and stories written under Euterpe, Muse of song and lyric."
+  },
+  {
+    "route": "/creative/muse/melpomene/",
+    "fragment": "/c/creative/muse/melpomene.html",
+    "title": "Melpomene · Creative Corner · Janith Wanniarachchi",
+    "description": "Poems and stories written under Melpomene, Muse of tragedy."
+  },
+  {
+    "route": "/creative/muse/polyhymnia/",
+    "fragment": "/c/creative/muse/polyhymnia.html",
+    "title": "Polyhymnia · Creative Corner · Janith Wanniarachchi",
+    "description": "Poems and stories written under Polyhymnia, Muse of hymns and quiet thought."
+  },
+  {
+    "route": "/creative/muse/terpsichore/",
+    "fragment": "/c/creative/muse/terpsichore.html",
+    "title": "Terpsichore · Creative Corner · Janith Wanniarachchi",
+    "description": "Poems and stories written under Terpsichore, Muse of dance."
+  },
+  {
+    "route": "/creative/muse/thalia/",
+    "fragment": "/c/creative/muse/thalia.html",
+    "title": "Thalia · Creative Corner · Janith Wanniarachchi",
+    "description": "Poems and stories written under Thalia, Muse of comedy and play."
+  },
+  {
+    "route": "/creative/muse/urania/",
+    "fragment": "/c/creative/muse/urania.html",
+    "title": "Urania · Creative Corner · Janith Wanniarachchi",
+    "description": "Poems and stories written under Urania, Muse of the stars."
+  },
+  {
     "route": "/cv/",
     "fragment": "/c/cv.html",
     "title": "Curriculum Vitae · Janith Wanniarachchi",

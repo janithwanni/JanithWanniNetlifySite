@@ -1,5 +1,6 @@
 ---
 title: "Is knowing half the battle?"
+muse: polyhymnia
 description: |
   A poem on whether knowing is half the battle
 author:

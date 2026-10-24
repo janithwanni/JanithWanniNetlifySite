@@ -1,5 +1,6 @@
 ---
 title: "Balance"
+muse: melpomene
 description: |
   Balance in effort
 author:

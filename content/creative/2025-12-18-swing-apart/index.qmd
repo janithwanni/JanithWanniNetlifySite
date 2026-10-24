@@ -1,5 +1,6 @@
 ---
 title: "Loving you is like being on a swing"
+muse: erato
 description: |
   A poem written to express my feelings towards her 
 author:

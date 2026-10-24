@@ -1,5 +1,6 @@
 ---
 title: "Solitude"
+muse: polyhymnia
 description: |
   A place of peace
 author:

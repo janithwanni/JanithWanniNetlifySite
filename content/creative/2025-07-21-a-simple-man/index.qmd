@@ -1,5 +1,6 @@
 ---
 title: "I wish for a lot"
+muse: polyhymnia
 description: |
   A wishlist of sorts 
 author:

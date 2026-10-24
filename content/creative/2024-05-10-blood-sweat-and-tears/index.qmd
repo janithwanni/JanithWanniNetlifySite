@@ -1,5 +1,6 @@
 ---
 title: "Blood, Sweat and Tears"
+muse: melpomene
 description: |
   A short poem of a mad artist that I met
 author:

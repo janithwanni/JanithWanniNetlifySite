@@ -1,5 +1,6 @@
 ---
 title: "Poison"
+muse: melpomene
 description: |
   Control only what you can
 author:

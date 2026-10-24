@@ -1,5 +1,6 @@
 ---
 title: "Dreams"
+muse: melpomene
 description: |
   An escape
 author:

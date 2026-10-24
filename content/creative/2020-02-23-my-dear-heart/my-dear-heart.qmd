@@ -1,5 +1,6 @@
 ---
 title: "My dear fragile heart"
+muse: erato
 description: |
   A sweet lament
 author:

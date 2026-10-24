@@ -1,5 +1,6 @@
 ---
 title: "The masked clown"
+muse: melpomene
 description: |
   The mask with a smile
 author:

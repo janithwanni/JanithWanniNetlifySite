@@ -1,5 +1,6 @@
 ---
 title: "Love thy demon"
+muse: melpomene
 description: |
   Love the demon within you
 author:

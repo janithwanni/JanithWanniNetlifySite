@@ -1,5 +1,6 @@
 ---
 title: "Memoirs of a magpie"
+muse: clio
 description: |
   A short book containing my thoughts that never finished 
 author:

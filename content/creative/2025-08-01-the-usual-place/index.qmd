@@ -1,5 +1,6 @@
 ---
 title: "The usual place?"
+muse: erato
 description: |
   A poem written to reignite the passion that was once lost 
 author:

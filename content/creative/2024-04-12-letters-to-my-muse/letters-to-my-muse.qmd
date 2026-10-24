@@ -1,5 +1,6 @@
 ---
 title: "Letters to my muse"
+muse: erato
 description: |
   Short letters written to a fictional muse who's no longer in my life
 author:

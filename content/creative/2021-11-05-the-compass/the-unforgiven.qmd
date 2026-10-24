@@ -1,5 +1,6 @@
 ---
 title: "The compass"
+muse: calliope
 description: |
   A short story I wrote in hopes of practicing voice acting a story
 author:

@@ -1,5 +1,6 @@
 ---
 title: "Dear Erato"
+muse: erato
 description: |
   Tis the season to be lovey-dovey 
 author:

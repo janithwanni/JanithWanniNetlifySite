@@ -1,5 +1,6 @@
 ---
 title: "Pedestals are overrated"
+muse: erato
 description: |
   This was a corny poem that I wrote in a train while bored 
 author:

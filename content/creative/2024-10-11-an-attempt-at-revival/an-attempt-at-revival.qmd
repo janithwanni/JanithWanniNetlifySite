@@ -1,5 +1,6 @@
 ---
 title: "An attempt at revival"
+muse: polyhymnia
 description: |
   Short poems to revive the lose poet within 
 author:

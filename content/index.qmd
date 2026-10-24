@@ -31,6 +31,7 @@ and, enriching life by writing poems for others.
 <div class="sky-window" tabindex="0" role="region" aria-label="Star chart; scroll to look around"><svg class="sky-dome" aria-hidden="true"></svg></div>
 <p class="sky-label" aria-hidden="true"></p>
 </div>
+<p class="sky-myth" aria-live="polite"></p>
 </section>
 ```
 

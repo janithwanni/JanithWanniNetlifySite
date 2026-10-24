@@ -24,6 +24,57 @@ const ALIAS = { Cru: 'the Southern Cross', Ori: 'Orion (the Saucepan)', Sgr: 'Sa
 const FAMOUS = ['Cru', 'Ori', 'Sco', 'Sgr', 'Cen', 'Leo', 'CMa', 'Tau', 'Gem', 'Peg', 'Aql', 'Cyg', 'Lyr', 'Gru', 'Car', 'Vir'];
 const CLOUDS = [['Large Magellanic Cloud', 80.89, -69.76, 4.2], ['Small Magellanic Cloud', 13.19, -72.83, 2.4]];
 
+// The Greek stories behind the figures, told under the sky when one is hovered.
+const MYTHS = {
+  Ori: 'Orion, the hunter who boasted he could kill every beast on Earth, until Gaia sent a scorpion.',
+  Sco: 'The scorpion that killed Orion. Zeus set them on opposite sides of the sky, so they never meet.',
+  Per: 'Perseus, holding the head of Medusa, on his way home to save Andromeda.',
+  And: 'Andromeda, chained to a rock as an offering to the sea monster, waiting for Perseus.',
+  Cet: 'Cetus, the sea monster Poseidon sent for Andromeda, turned to stone by Medusa’s gaze.',
+  Cas: 'Queen Cassiopeia, who said her daughter was lovelier than the Nereids, and was punished for it.',
+  Cep: 'King Cepheus, who chained his own daughter Andromeda to the rocks to save his kingdom.',
+  Peg: 'Pegasus, the winged horse, who sprang from Medusa’s neck when Perseus cut off her head.',
+  Cen: 'Chiron, the wisest of the centaurs, teacher of Achilles, Jason and Asclepius.',
+  Sgr: 'An archer centaur, his arrow aimed at the heart of the Scorpion, in case it chases Orion again.',
+  Lyr: 'The lyre of Orpheus, whose music almost brought Eurydice back from the underworld.',
+  Cyg: 'Zeus as a swan, come to court Leda of Sparta.',
+  Aql: 'The eagle that carried Zeus’s thunderbolts, and carried Ganymede up to Olympus.',
+  Aqr: 'Ganymede, the Trojan boy who became cupbearer to the gods.',
+  Leo: 'The Nemean lion, whose hide no weapon could pierce. Heracles strangled it: his first labour.',
+  Hya: 'The Lernaean Hydra: cut off one head and two grow back. Heracles’ second labour.',
+  Cnc: 'The crab Hera sent to nip at Heracles’ heels while he fought the Hydra. He stepped on it.',
+  Her: 'Heracles, kneeling, upside down from Melbourne, resting after his twelve labours.',
+  Gem: 'Castor and Pollux, twins with one mortal life between them, who chose to share it.',
+  Tau: 'Zeus as a white bull, carrying Europa across the sea to Crete.',
+  Ari: 'The ram with the golden fleece, which Jason and the Argonauts sailed to the end of the world for.',
+  CrB: 'The crown Dionysus gave Ariadne, after Theseus left her on Naxos.',
+  Crv: 'Apollo’s crow, sent to fetch water, who dawdled and lied, and was set in the sky without a drink.',
+  Crt: 'Apollo’s cup, set forever just out of the crow’s reach.',
+  Car: 'The keel of the Argo, the ship that carried Jason and the Argonauts.',
+  Pup: 'The stern of the Argo, Jason’s ship.',
+  Vel: 'The sails of the Argo, Jason’s ship.',
+  CMa: 'Laelaps, the hound who always caught his quarry, chasing a fox that could never be caught.',
+  Oph: 'Asclepius, the healer, who learnt to raise the dead. Zeus struck him down for it.',
+  Ser: 'The serpent Asclepius holds, which taught him the herb that brings back the dead.',
+  UMa: 'Callisto, turned into a bear by a jealous Hera, and set in the sky by Zeus.',
+  Boo: 'Arcas, son of Callisto, who nearly hunted his own mother before Zeus lifted them both away.',
+  Vir: 'Persephone, perhaps, or Astraea, the last of the gods to leave the Earth.',
+  Lib: 'The scales of Astraea, goddess of justice.',
+  Cap: 'Pan, who leapt into the Nile to flee Typhon and turned half into a fish.',
+  Del: 'The dolphin who found the sea nymph Amphitrite for Poseidon.',
+  Sge: 'The arrow Heracles shot at the eagle tormenting Prometheus.',
+  Eri: 'The river Eridanus, where Phaethon fell after losing control of the Sun’s chariot.',
+  Aur: 'The charioteer, holding the she-goat Amalthea, who nursed the infant Zeus.',
+  Lep: 'The hare at Orion’s feet, which he never quite catches.',
+  PsA: 'The great fish, said to have saved Aphrodite when she fell into a lake.',
+  CrA: 'A crown, said to be the one Dionysus left for his mother Semele.',
+};
+// Pairs worth a word in the note when the sky lines up for them.
+const PAIRS = [
+  ['Ori', 'Sco', 'Orion is up, and the Scorpion that killed him is safely below the horizon.'],
+  ['Sco', 'Ori', 'The Scorpion is up, and Orion is hiding below the horizon from it.'],
+];
+
 // One sky per page load: the night is the same whichever homepage element draws it.
 // `current` is the resolved model, for the hover and scroll handlers.
 let night, current = null;
@@ -198,7 +249,9 @@ function note(m) {
   for (const c of up.slice(0, sights.length > 2 ? 1 : 2)) sights.push(`${c.name} ${where(...c.centre)}`);
   const list = sights.length > 1 ? `${sights.slice(0, -1).join(', ')} and ${sights.at(-1)}` : sights[0] ?? 'clear skies, I hope';
   const twilight = m.sky.sun.alt > -12 ? ' The last of the twilight hides the fainter stars.' : '';
-  return `The sky over Melbourne at 9 pm on ${day}: ${list}.${twilight}`;
+  const alt = (id) => m.figures.find((c) => c.id === id)?.centre?.[1] ?? -90;
+  const pair = PAIRS.find(([up, down]) => alt(up) > 8 && alt(down) < 0);
+  return `The sky over Melbourne at 9 pm on ${day}: ${list}.${twilight}${pair ? ` ${pair[2]}` : ''}`;
 }
 
 // --- Hover labels ------------------------------------------------------------------------
@@ -228,6 +281,8 @@ function label(box, m, hit) {
     showArt(box, m, hit.con);
   }
   tag.textContent = hit ? hit.label.replace(/^the /, 'The ') : '';
+  const myth = box.querySelector('.sky-myth');
+  if (myth) myth.textContent = MYTHS[hit?.con] ?? '';
 }
 
 // A constellation's figure is only fetched the first time someone hovers it (about 5 kB
@@ -266,6 +321,8 @@ export async function drawSky(root) {
   // data-loaded survives htmx's history snapshot; the scroll position doesn't.
   if (box.hasAttribute('data-loaded')) {
     box.querySelector('.sky-label').textContent = '';
+    const myth = box.querySelector('.sky-myth');
+    if (myth) myth.textContent = '';
     for (const g of box.querySelectorAll('.con.on')) g.classList.remove('on');
     requestAnimationFrame(() => face(win, +(win.dataset.az ?? 180)));
     tonight();

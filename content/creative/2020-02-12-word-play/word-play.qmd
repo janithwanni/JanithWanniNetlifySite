@@ -1,5 +1,6 @@
 ---
 title: "Fun with Letters"
+muse: thalia
 description: |
   A collection of poems based on letters
 author:

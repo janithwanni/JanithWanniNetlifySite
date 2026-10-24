@@ -1,5 +1,6 @@
 ---
 title: "Guiding lights"
+muse: urania
 description: |
   A poem on the giving light to others
 author:

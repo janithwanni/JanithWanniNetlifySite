@@ -1,5 +1,6 @@
 ---
 title: "Enough"
+muse: polyhymnia
 description: |
   A tribute to all those who care
 author:

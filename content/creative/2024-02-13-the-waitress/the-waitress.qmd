@@ -1,5 +1,6 @@
 ---
 title: "The waitress"
+muse: terpsichore
 description: |
   A poem written while in a coffee shop watching the waitress serve tables
 author:

@@ -1,5 +1,6 @@
 ---
 title: "A tale of two lovers"
+muse: terpsichore
 description: |
   A tale of two lovers entwined in a dance of their own minds
 author:

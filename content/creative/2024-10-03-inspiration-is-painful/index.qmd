@@ -1,5 +1,6 @@
 ---
 title: "Inspiration can be painful"
+muse: melpomene
 description: |
   Short poems mourning a spark of inspiration that has been lost 
 author:

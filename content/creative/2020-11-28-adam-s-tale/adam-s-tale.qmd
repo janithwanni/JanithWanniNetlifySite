@@ -1,5 +1,6 @@
 ---
 title: "Adam's Tale"
+muse: calliope
 description: |
   A short story written Live on Twitch
 author:

@@ -1,5 +1,6 @@
 ---
 title: "Those who weave the prettiest dreams"
+muse: calliope
 description: |
   A short story dedicated those who weave the prettiest dreams
 author:

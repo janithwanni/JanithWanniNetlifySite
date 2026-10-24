@@ -234,6 +234,22 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 .listing p { margin: 0.25rem 0 0; }
 .listing p:not(.meta) { font-style: italic; color: var(--muted); }
 .listing .meta { order: -1; margin: 0 0 0.15rem; font-size: 0.95rem; }
+/* The Muse a piece was written under, and the row of all nine below the listing */
+.meta .muse { color: inherit; text-decoration: none; transition: color 0.2s; }
+.meta .muse:hover { color: var(--accent); }
+.muse-intro { margin: 0; color: var(--muted); font-style: italic; }
+.muses { margin-top: 3rem; text-align: center; }
+.muses ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.25rem; margin: 0; padding: 0; list-style: none; }
+.muses a { text-decoration: none; }
+.muses .count { color: var(--muted); font-size: 0.85em; }
+.muses .quiet { color: var(--muted); opacity: 0.6; }
+.muses li { white-space: nowrap; }
+/* Each Muse's glyph, in the accent colour wherever she is named */
+.glyph { display: inline-block; min-width: 1em; color: var(--accent); text-align: center; font-style: normal; }
+.muses .quiet .glyph { color: inherit; }
+/* A poem ends with its Muse's glyph instead of the usual fleuron */
+.post:has(.muse-fleuron)::after { content: none; }
+.muse-fleuron { margin: 3rem 0 0; color: var(--accent); font-size: 2rem; line-height: 1; text-align: center; }
 
 /* Talks -------------------------------------------------------------------- */
 .talks-img {
@@ -894,6 +910,7 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
   }
 }
 .sky-note { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.9rem; font-style: italic; }
+.sky-myth { min-height: 2.7em; margin: 0.5rem 0 0; color: var(--muted); font-size: 0.9rem; font-style: italic; line-height: 1.35; }
 .sky-hint { font-style: normal; font-variant-caps: all-small-caps; letter-spacing: 0.08em; }
 .sky-frame { position: relative; }
 .sky-window {
