@@ -10,7 +10,7 @@ pagetitle: Janith Wanniarachchi
 <h1 class="name">Janith Wanniarachchi</h1>
 ```
 
-[≽(•⩊ •マ≼]{.fleuron aria-hidden="true"}
+[≽(•⩊ •マ≼]{.fleuron .cat aria-hidden="true"}
 
 PhD candidate in Econometrics & Business Statistics at Monash University,
 studying data visualisation, explainable AI and extreme climate events, 

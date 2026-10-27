@@ -318,6 +318,12 @@
     "description": "CV of Janith Wanniarachchi: PhD candidate at Monash University in explainable AI and data visualisation"
   },
   {
+    "route": "/museum/",
+    "fragment": "/c/museum.html",
+    "title": "The Museum · Janith Wanniarachchi",
+    "description": "An exhibition of photographs taken by Janith Wanniarachchi"
+  },
+  {
     "route": "/research/",
     "fragment": "/c/research.html",
     "title": "Research · Janith Wanniarachchi",

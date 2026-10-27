@@ -1,0 +1,16 @@
+---
+title: "The Museum"
+description: "An exhibition of photographs taken by Janith Wanniarachchi"
+---
+
+::: {.museum-intro}
+Small things I stopped to look at, framed and hung in rooms by colour.\
+Walk along the walls, and step closer to any frame to look.
+:::
+
+<!-- Filled by functions/c/exhibition.js; src/museum.js opens the closer look. -->
+```{=html}
+<section class="museum" aria-label="The exhibition" hx-get="/c/exhibition" hx-trigger="load" hx-target="this" hx-swap="innerHTML">
+<p class="museum-status">The doors are opening…</p>
+</section>
+```

@@ -58,7 +58,7 @@
 }
 
 /* Set by src/main.js from the URL; the homepage keeps the violet. */
-:root[data-section='creative'] { --accent: var(--ch-creative); }
+:root[data-section='creative'], :root[data-section='thoughts'], :root[data-section='museum'] { --accent: var(--ch-creative); }
 :root[data-section='research'] { --accent: var(--ch-research); }
 :root[data-section='software'] { --accent: var(--ch-software); }
 :root[data-section='talks'] { --accent: var(--ch-talks); }
@@ -367,13 +367,31 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
   font: clamp(1.6rem, (100vw - 2rem) / 10.6, 3.75rem)/1.2 var(--hand);
 }
 .fleuron { display: block; margin-block: 0.4rem 0.9rem; color: var(--accent); font-size: 1.6rem; line-height: 1; }
+/* The cat in the masthead changes its mood now and then: a blink, a startle, a smile. */
+.cat { font-size: 0; }
+.cat::before { content: '≽(•⩊ •マ≼'; font-size: 1.6rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .cat::before { animation: cat-moods 18s infinite; }
+}
+.cat:hover::before { content: '≽(˵◝ ⩊  ◜˵ マ≼'; animation: none; }
+@keyframes cat-moods {
+  0%, 18% { content: '≽(•⩊ •マ≼'; }
+  18.5%, 20% { content: '≽(-˕ - ≼マ'; }
+  20.5%, 44% { content: '≽(•⩊ •マ≼'; }
+  44.5%, 58% { content: '≽(◉˕ ◉ ≼マ'; }
+  58.5%, 70% { content: '≽(•⩊ •マ≼'; }
+  70.5%, 72% { content: '≽(-˕ - ≼マ'; }
+  72.5%, 74% { content: '≽(•⩊ •マ≼'; }
+  74.5%, 92% { content: '≽(˵◝ ⩊  ◜˵ マ≼'; }
+  92.5%, 100% { content: '≽(•⩊ •マ≼'; }
+}
 .masthead p:last-child { max-width: 36ch; margin-inline: auto; font-style: italic; color: var(--muted); }
 
 .now-next { max-width: 32rem; margin: -1.75rem auto 3.5rem; font-size: 1.05rem; }
 .now-next p { margin: 0; }
 .nn { margin-right: 0.4em; color: var(--accent); font-variant-caps: all-small-caps; letter-spacing: 0.12em; }
 
-.epigraph { width: fit-content; max-width: 100%; margin: 0 auto 4.5rem; text-align: left; }
+.epigraph { width: fit-content; max-width: 100%; margin: 0 auto 4.5rem; text-align: left; letter-space: 0.001em}
 .epigraph > p:not(:first-child) { font: 1.3rem/1.8 var(--hand); font-synthesis: none; }
 .epigraph > p i, .epigraph > p em { font-style: normal; }
 .epigraph > p em { color: var(--accent); }
@@ -381,7 +399,7 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
 .epigraph > p:nth-child(2)::first-letter {
   float: left;
   padding: 0.06em 0.1em 0 0;
-  font: normal 3.7em/0.8 var(--display);
+  font: normal 3.7em/0.8 var(--hand);
   color: var(--accent);
 }
 
@@ -1061,6 +1079,270 @@ math[display='block'] { overflow-x: auto; margin-block: 1em; }
   .site-head nav a:focus-visible::after, .site-foot a:focus-visible::after { clip-path: inset(0 0 0 0); }
   .more a:hover, .colophon a:hover { text-decoration-color: transparent; }
   .site-head nav a[aria-current]:hover { text-decoration-color: transparent; }
+}
+
+/* The Creative Corner's other wings, above its listing ----------------------- */
+.wings ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  margin: 0 0 2.5rem;
+  padding: 0;
+  list-style: none;
+}
+.wings a {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  height: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--line);
+  outline: 1px solid transparent;
+  outline-offset: 2px;
+  background: var(--card);
+  color: var(--fg);
+  text-decoration: none;
+  transition: border-color 0.2s, outline-color 0.2s;
+}
+.wings a:hover, .wings a:focus-visible { border-color: var(--accent); outline-color: var(--line); }
+.wing-glyph { color: var(--accent); font-size: 1.6rem; line-height: 1; }
+.wing-title { display: flex; flex-direction: column; font: 1.1rem/1.25 var(--display); }
+.wing-title em { margin-top: 0.2rem; color: var(--muted); font: italic 0.9rem/1.35 var(--serif); }
+
+/* The Museum: photographs framed and hung in rooms by colour ----------------- */
+.museum-intro { margin-bottom: 2.5rem; color: var(--muted); font-style: italic; text-align: center; }
+.museum-status, .museum-exit { color: var(--muted); font-style: italic; text-align: center; }
+
+.museum {
+  --wall: #f5f2ec;
+  --wood: #3b2a20;
+  --mat: #fbfaf6;
+  --light: rgb(255 240 200 / 0.6);
+}
+@media (prefers-color-scheme: dark) {
+  .museum { --wall: #211f27; --wood: #0e0b0a; --mat: #e9e5dc; --light: rgb(255 232 180 / 0.16); }
+}
+/* House lights down: a dark wall, and each frame in its own pool of light. */
+.museum[data-lights-low] { --wall: #121015; --light: rgb(255 232 180 / 0.34); }
+
+/* The ticket: admission stub, floor plan and the light switch */
+.ticket {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  max-width: 34rem;
+  margin: 0 auto 3.5rem;
+  background: var(--card);
+  border: 1px solid var(--card-edge);
+  box-shadow: 0 1px 0 var(--card-edge), 0 10px 22px -16px rgb(31 29 36 / 0.35);
+  rotate: -0.6deg;
+}
+.ticket-stub {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  padding: 0.9rem 0.55rem;
+  border-left: 2px dashed var(--card-edge);
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  color: var(--accent);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.2em;
+}
+.ticket-no { color: var(--muted); }
+.ticket-body { padding: 1rem 1.25rem 1.1rem; }
+.ticket-body .small-head { margin: 0 0 0.5rem; color: var(--muted); font-size: 1rem; letter-spacing: 0.08em; }
+.floor-plan { margin: 0 0 0.9rem; padding: 0; list-style: none; columns: 2 9rem; column-gap: 1.5rem; }
+.floor-plan li { break-inside: avoid; white-space: nowrap; }
+.floor-plan a { text-decoration: none; }
+.floor-plan .room-no { display: inline-block; min-width: 2em; color: var(--muted); font-variant-caps: all-small-caps; letter-spacing: 0.08em; }
+.floor-plan .count { color: var(--muted); font-size: 0.9rem; }
+
+.house-lights, .viewing-nav button {
+  padding: 0.1em 0.8em;
+  border: 1px solid var(--accent);
+  border-radius: 1em;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.house-lights:hover, .viewing-nav button:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.house-lights[aria-pressed='true'] { background: var(--accent); color: var(--bg); }
+.house-lights:focus-visible, .viewing-nav button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.room { margin-bottom: 3.5rem; scroll-margin-top: 1rem; }
+.room-head { display: flex; flex-direction: column; align-items: center; margin: 0 0 1.25rem; font-size: 1.5rem; }
+.room-head .room-no { color: var(--accent); font: 1rem var(--serif); font-variant-caps: all-small-caps; letter-spacing: 0.25em; }
+.room-head em { color: var(--muted); font: italic 1rem var(--serif); }
+/* A swatch of each room's colour on the floor plan */
+.floor-plan li::before {
+  content: '';
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-right: 0.45rem;
+  border-radius: 50%;
+  background: var(--room);
+}
+
+/* A wall, wider than the text column where there is room, walked by scrolling sideways. */
+.wall {
+  isolation: isolate;
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(2.25rem, 7vw, 4.5rem);
+  margin: 0 max(-12rem, 50% - 50vw + 1rem);
+  padding: 3rem clamp(1.5rem, 8vw, 5rem) 2.25rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  list-style: none;
+  background:
+    linear-gradient(color-mix(in srgb, var(--wood) 30%, var(--wall)) 0 0) 0 1rem / 100% 2px no-repeat, /* picture rail */
+    linear-gradient(transparent calc(100% - 0.5rem), color-mix(in srgb, var(--wood) 25%, var(--wall)) 0), /* skirting */
+    color-mix(in srgb, var(--room, var(--wall)) 7%, var(--wall));
+  border-block: 1px solid var(--line);
+  scrollbar-color: color-mix(in srgb, var(--wood) 30%, var(--wall)) transparent;
+  transition: background-color 0.6s;
+}
+.wall:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.exhibit {
+  --size: 1;
+  position: relative;
+  flex: none;
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  scroll-snap-align: center;
+}
+.exhibit:nth-child(3n + 2) { --size: 1.15; }
+.exhibit:nth-child(4n) { --size: 0.86; }
+/* The wire it hangs from, up to the picture rail */
+.exhibit::before {
+  content: '';
+  position: absolute;
+  top: -2rem;
+  left: 25%;
+  width: 50%;
+  height: 2rem;
+  background:
+    linear-gradient(to bottom right, transparent calc(50% - 0.6px), var(--muted) 50%, transparent calc(50% + 0.6px)) left / 50% 100% no-repeat,
+    linear-gradient(to top right, transparent calc(50% - 0.6px), var(--muted) 50%, transparent calc(50% + 0.6px)) right / 50% 100% no-repeat;
+  opacity: 0.6;
+}
+/* The spotlight, brighter as you step up to a frame */
+.exhibit::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -3rem -2.5rem auto;
+  height: calc(100% + 2rem);
+  background: radial-gradient(ellipse 65% 75% at 50% 0, var(--light), transparent 72%);
+  opacity: 0.55;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.exhibit:hover::after, .exhibit:focus-within::after { opacity: 1; }
+
+.frame {
+  display: block;
+  padding: clamp(0.8rem, 2.4vw, 1.3rem);
+  border: 0.55rem solid var(--wood);
+  background: color-mix(in srgb, var(--tint) 14%, var(--mat)); /* the mat, in the photo's own colour */
+  box-shadow:
+    inset 0 0 0 1px rgb(0 0 0 / 0.2),
+    inset 0 2px 6px rgb(0 0 0 / 0.22),
+    0 2px 3px rgb(0 0 0 / 0.2),
+    0 16px 26px -12px rgb(0 0 0 / 0.45);
+  cursor: zoom-in;
+}
+.frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.frame img {
+  display: block;
+  width: auto;
+  height: calc(var(--size) * clamp(9.5rem, 36vw, 13rem));
+  max-width: none;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.12);
+}
+.museum[data-lights-low] .exhibit:not(:hover, :focus-within) .frame { filter: brightness(0.8); }
+
+.placard {
+  display: grid;
+  justify-items: start;
+  gap: 0.05rem;
+  min-width: 10rem;
+  max-width: 14rem;
+  margin: 0;
+  padding: 0.5rem 0.8rem 0.6rem;
+  background: var(--card);
+  border: 1px solid var(--card-edge);
+  box-shadow: 0 3px 6px -4px rgb(0 0 0 / 0.3);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+.placard-no, .placard-meta { color: var(--muted); font-variant-caps: all-small-caps; letter-spacing: 0.08em; }
+.placard cite { font: italic 1.05rem/1.3 var(--display); }
+.pigments { display: flex; gap: 3px; margin-top: 0.35rem; }
+.pigments span { width: 0.7rem; height: 0.7rem; border-radius: 50%; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15); }
+
+/* A closer look (src/museum.js) */
+.viewing {
+  width: min(100% - 1.5rem, 62rem);
+  max-height: calc(100dvh - 1.5rem);
+  padding: 0;
+  border: 1px solid var(--card-edge);
+  background: var(--bg);
+  color: var(--fg);
+  box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.5);
+}
+.viewing::backdrop { background: rgb(12 10 16 / 0.82); backdrop-filter: blur(3px); }
+.viewing-inner { position: relative; display: grid; gap: 1rem; padding: clamp(1rem, 3vw, 2rem); }
+.viewing-close {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.5rem;
+  z-index: 1;
+  padding: 0 0.4rem;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.viewing-close:hover { color: var(--accent); }
+.viewing-figure { display: grid; grid-template-columns: minmax(0, 1fr) 14rem; gap: 1.5rem; align-items: end; margin: 0; }
+.viewing-figure img {
+  justify-self: center;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(72dvh, 44rem);
+  outline: 1px solid var(--line);
+  outline-offset: 4px;
+}
+.viewing figcaption { display: grid; gap: 0.15rem; color: var(--fg); font-size: 0.95rem; font-style: normal; }
+.viewing h2 { margin: 0; font-size: 1.5rem; }
+.viewing-palette { display: flex; height: 2.25rem; margin-top: 0.9rem; border: 1px solid var(--card-edge); }
+.viewing .hexes { color: var(--muted); font: 0.8rem/1.6 var(--mono); }
+.viewing-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--line); }
+.viewing-count { color: var(--muted); font-variant-caps: all-small-caps; letter-spacing: 0.1em; }
+@media (max-width: 40rem) {
+  .viewing-figure { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .viewing-figure img { max-height: 55dvh; }
+  .viewing-palette { height: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .frame { transition: translate 0.3s, box-shadow 0.3s, filter 0.4s; }
+  .viewing[open] { animation: rise 0.3s ease-out; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .frame:hover { translate: 0 -3px; }
 }
 
 /* Motion -------------------------------------------------------------------- */

@@ -6,6 +6,8 @@ const main = document.getElementById('main');
 
 // The night sky (its code and star catalogue) is only fetched when a page has one.
 const drawSky = (root) => root?.querySelector('.sky') && import('./sky/sky.js').then((sky) => sky.drawSky(root));
+// Likewise the museum's closer look (src/museum.js), only on /museum/.
+const openMuseum = (root) => root?.querySelector('.museum') && import('./museum.js');
 
 // The watercolour flowers (src/flowers.js) are fetched only once they are nearly in view.
 const watched = new WeakSet();
@@ -146,12 +148,13 @@ document.body.addEventListener('htmx:afterSettle', (e) => {
   markCurrentSection();
   loadThoughts();
   drawSky(main);
+  openMuseum(main);
   growGarden(main);
   paintFlowers(main);
   main.focus({ preventScroll: true });
 });
 // htmx restores the whole <body>, so the sky looks up the new #main to re-centre its view.
-document.body.addEventListener('htmx:historyRestore', () => { markCurrentSection(); loadThoughts(); drawSky(document.getElementById('main')); growGarden(main); paintFlowers(document.getElementById('main')); });
+document.body.addEventListener('htmx:historyRestore', () => { markCurrentSection(); loadThoughts(); drawSky(document.getElementById('main')); openMuseum(document.getElementById('main')); growGarden(main); paintFlowers(document.getElementById('main')); });
 
 // In-page links to a collapsed <details> (the talks list) open it before jumping there.
 document.addEventListener('click', (e) => {
@@ -168,5 +171,5 @@ document.body.addEventListener('htmx:responseError', (e) => {
 
 // Production pages are prerendered; the dev server only serves the empty shell.
 if (!main.firstElementChild) htmx.ajax('GET', fragmentFor(location.pathname), { target: main, swap: 'innerHTML' });
-else { loadThoughts(); drawSky(main); growGarden(main); paintFlowers(main); }
+else { loadThoughts(); drawSky(main); openMuseum(main); growGarden(main); paintFlowers(main); }
 markCurrentSection();

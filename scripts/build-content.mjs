@@ -176,10 +176,21 @@ ${Object.entries(MUSES).map(([id, { name, domain }]) => {
 </ul>
 </nav>`;
 
+// The other wings of the Creative Corner, at the head of its listing.
+const wing = (glyph, title, note) =>
+  `<span class="wing-glyph" aria-hidden="true">${glyph}</span><span class="wing-title">${title}<em>${note}</em></span>`;
+const wings = `<nav class="wings" aria-label="Elsewhere in the Creative Corner">
+<ul>
+<li>${link('/thoughts/', wing('✉\uFE0E', 'Thoughts &amp; Musings', 'Postcards of passing thoughts'))}</li>
+<li>${link('/museum/', wing('𓉐', 'The Museum', 'An exhibition of my photographs'))}</li>
+<li><a href="https://memoir.janithwanni.com/">${wing('𓅪', 'Memoirs of a magpie', 'A book that is still being written ↗')}</a></li>
+</ul>
+</nav>`;
+
 for (const [section, { title, heading }] of Object.entries(SECTIONS)) {
   const items = pages.filter((p) => p.section === section).sort(byDate).map(listItem);
   writeFragment(`/${section}/`, title, `${heading} by ${SITE}`,
-    `<article class="page"><header class="page-head"><h1>${heading}</h1></header>
+    `<article class="page"><header class="page-head"><h1>${heading}</h1></header>${section === 'creative' ? `\n${wings}` : ''}
 <ul class="listing">
 ${items.join('\n')}
 </ul>${section === 'creative' ? `\n${museRow}` : ''}</article>`);
